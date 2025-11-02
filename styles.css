@@ -1,0 +1,77 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tipografía base */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  background-color: #bddee0;
+  color: #333;
+}
+
+header {
+  display: flex;
+  justify-content: space-around; 
+  padding: 1rem;
+  background-color: #757c88;
+}
+header h1 {
+  margin-left: -10rem;
+}
+
+.nav-enlaces {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  margin: 1rem;
+  margin-right: -6rem;
+}
+
+.nav-enlaces a {
+  color: rgb(34, 8, 128);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+/* Seccion 1 */
+.propuesta-valor {
+  background-color:antiquewhite;
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-end;
+  border: #333 solid;
+  padding: 1rem;
+  width: 35%;
+  margin: 2rem;
+  margin-left: 62%;
+  text-align: center;
+  letter-spacing: 2px;
+  line-height: 200%;
+  font-size: larger;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
