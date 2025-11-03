@@ -9,7 +9,7 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   line-height: 1.6;
-  background-color: #dfe7e6;
+  background-color: #5389d9;
   color: #333;
 }
 
@@ -17,10 +17,11 @@ header {
   display: flex;
   justify-content: space-around; 
   padding: 1rem;
-  background-color: #757c88;
+  background-color: #000000;
 }
 header h1 {
   margin-left: -10rem;
+  color: white  ;
 }
 
 .nav-enlaces {
@@ -32,29 +33,39 @@ header h1 {
 }
 
 .nav-enlaces a {
-  color: rgb(34, 8, 128);
+  color: rgb(198, 198, 198);
   text-decoration: none;
   font-weight: bold;
 }
 
 
 /* Seccion 1 */
+
 .propuesta-valor {
-  background-color:antiquewhite;
+  background-color:rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
-  justify-content:flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
   border: #333 solid;
   padding: 1rem;
-  width: 35%;
   margin: 2rem;
-  margin-left: 62%;
   text-align: center;
   letter-spacing: 2px;
   line-height: 200%;
   font-size: larger;
 }
 
+.mapa {
+width: 60%;
+border: #333 solid;
+}
+
+.seccion1 {
+width: 35%;
+flex: 1 1 300pxx
+border: #333 solid;
+}
 
 img {
   max-width: 100%;
