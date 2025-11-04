@@ -1,201 +1,145 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AgroConnect - Mapa Animado</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "Lucida Sans", sans-serif;
-      background: #e9f5ff;
-      color: #222;
-      padding: 2rem;
-    }
-
-    /* === SECCIÓN PRINCIPAL === */
-    .propuesta-valor {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 2rem;
-      flex-wrap: wrap;
-      background: #fff;
-      border: 1px solid #333;
-      border-radius: 1rem;
-      padding: 2rem;
-    }
-
-    /* === MAPA === */
-    .mapa {
-      position: relative;
-      width: 60%;
-      max-width: 800px;
-      min-width: 300px;
-    }
-    .mapa img {
-      width: 100%;
-      display: block;
-      border-radius: 1rem;
-    }
-
-    .iconos {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    .iconos img {
-      position: absolute;
-      width: 2rem;
-      height: 2rem;
-      object-fit: contain;
-      transform-origin: center;
-    }
-
-    /* === BARCOS === */
-    .barco1 { animation: ruta1 18s linear infinite; }
-    .barco2 { animation: ruta2 22s linear infinite 3s; }
-    .barco3 { animation: ruta3 20s linear infinite 6s; }
-    .barco4 { animation: ruta4 24s linear infinite 9s; }
-
-    /* === RUTAS CON top/left === */
-    @keyframes ruta1 {
-      0%   { top: 70%; left: 35%; transform: rotate(0deg); }     /* Brasil */
-      25%  { top: 40%; left: 60%; transform: rotate(10deg); }    /* España */
-      50%  { top: 65%; left: 40%; transform: rotate(-8deg); }    /* Colombia */
-      75%  { top: 60%; left: 15%; transform: rotate(5deg); }     /* África */
-      100% { top: 70%; left: 35%; transform: rotate(0deg); }     /* Regresa */
-    }
-
-    @keyframes ruta2 {
-      0%   { top: 65%; left: 20%; transform: rotate(0deg); }
-      25%  { top: 45%; left: 55%; transform: rotate(10deg); }
-      50%  { top: 30%; left: 70%; transform: rotate(-8deg); }
-      75%  { top: 60%; left: 40%; transform: rotate(5deg); }
-      100% { top: 65%; left: 20%; transform: rotate(0deg); }
-    }
-
-    @keyframes ruta3 {
-      0%   { top: 70%; left: 10%; transform: rotate(0deg); }
-      30%  { top: 50%; left: 50%; transform: rotate(5deg); }
-      60%  { top: 40%; left: 75%; transform: rotate(-10deg); }
-      100% { top: 70%; left: 10%; transform: rotate(0deg); }
-    }
-
-    @keyframes ruta4 {
-      0%   { top: 60%; left: 25%; transform: rotate(0deg); }
-      25%  { top: 50%; left: 65%; transform: rotate(10deg); }
-      50%  { top: 35%; left: 75%; transform: rotate(-8deg); }
-      75%  { top: 65%; left: 35%; transform: rotate(6deg); }
-      100% { top: 60%; left: 25%; transform: rotate(0deg); }
-    }
-
-    /* === GRANOS === */
-    .grano {
-      position: absolute;
-      width: 2rem;
-      height: 2rem;
-      opacity: 0;
-      transform: scale(0);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .grano.active {
-      opacity: 1;
-      transform: scale(1.3);
-    }
-
-    /* Posiciones fijas en el mapa */
-    .grano.brasil { top: 70%; left: 35%; }
-    .grano.espana { top: 40%; left: 65%; }
-    .grano.colombia { top: 65%; left: 40%; }
-
-    /* === SECCIÓN DE TEXTO === */
-    .seccion1 {
-      width: 35%;
-      min-width: 280px;
-      font-family: 'Lucida Sans', sans-serif;
-      text-align: center;
-      line-height: 1.8;
-      border: 1px solid #333;
-      padding: 2rem;
-      border-radius: 1rem;
-      background: #fafafa;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li { margin-bottom: 0.5rem; }
-
-    @media (max-width: 800px) {
-      .propuesta-valor { flex-direction: column; align-items: center; }
-      .mapa, .seccion1 { width: 100%; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroConnect Global</title>
+  <link rel="stylesheet" href="styles2.css">
 </head>
 <body>
-  <h1 style="margin-bottom:1rem;">AgroConnect</h1>
+  <header class="hero">
+    <h1>AgroConnect</h1>
+    <nav class="nav-enlaces">
+      <a href="#productos" class="cta-button">Explorar productos</a>
+      <a href="#registro" class="cta-button">Registrar productor</a>
+      <a href="#contacto" class="cta-button">Contacto</a>
+    </nav>
+  </header>
 
+  <!-- ================= MAPA ANIMADO ================= -->
   <section class="propuesta-valor">
-    <!-- MAPA -->
     <div class="mapa">
-      <img src="mapaMundi.png" alt="Mapa mundi">
+      <img src="mapaMundi.png" alt="Mapa del mundo">
       <div class="iconos">
+        <!-- Barcos -->
         <img class="barco barco1" src="iconos/barco1.png" alt="barco1">
         <img class="barco barco2" src="iconos/barco2.png" alt="barco2">
         <img class="barco barco3" src="iconos/barco3.png" alt="barco3">
         <img class="barco barco4" src="iconos/barco4.png" alt="barco4">
-
-        <img class="grano brasil" src="iconos/cacao.png" alt="Cacao">
-        <img class="grano espana" src="iconos/aceite-de-oliva.png" alt="Aceite">
-        <img class="grano colombia" src="iconos/maiz.png" alt="Maíz">
+        <!-- Granos -->
+        <img class="grano grano-europa" src="iconos/aceite-de-oliva.png" alt="aceite">
+        <img class="grano grano-usa" src="iconos/maiz.png" alt="maiz">
+        <img class="grano grano-asia" src="iconos/cacao.png" alt="cacao">
+        <img class="grano grano-brasil" src="iconos/frijoles.png" alt="frijoles">
       </div>
     </div>
 
-    <!-- INFORMACIÓN -->
     <div class="seccion1">
-      <p><strong>Conectamos tu trabajo con el mundo</strong></p>
+      <h2>Conectamos tu trabajo con el mundo</h2>
       <p>Desde agricultores locales hasta compradores globales: AgroConnect es el puente que transforma la producción en oportunidades.</p>
       <h2>¿Qué es AgroConnect?</h2>
-      <p>AgroConnect es una plataforma digital que une a productores agrícolas con compradores, distribuidores y consumidores.</p>
-      <ul>
-        <li>🌱 Visibilidad global para productores locales</li>
-        <li>📦 Acceso directo a productos frescos y sostenibles</li>
-        <li>🔗 Transparencia, trazabilidad y confianza en cada transacción</li>
+      <p>Es una plataforma que conecta productores agrícolas con compradores y distribuidores internacionales, facilitando la visibilidad y la trazabilidad.</p>
+      <ul class="beneficios">
+        <li>🌎 Visibilidad global para productores locales</li>
+        <li>🚢 Comercio justo y trazabilidad completa</li>
+        <li>🌾 Acceso directo a mercados internacionales</li>
       </ul>
     </div>
   </section>
 
+  <!-- ================= CÓMO FUNCIONA ================= -->
+  <section class="como-funciona">
+    <h2>¿Cómo funciona <span>AgroConnect</span>?</h2>
+    <div class="pasos">
+      <div class="paso">
+        <div class="icono">🌱</div>
+        <h3>1. Publica tu producto</h3>
+        <p>El agricultor sube su producto y detalla su origen, calidad y cantidad disponible.</p>
+      </div>
+      <div class="paso">
+        <div class="icono">🔍</div>
+        <h3>2. Conexión directa</h3>
+        <p>El comprador contacta al productor sin intermediarios.</p>
+      </div>
+      <div class="paso">
+        <div class="icono">💬</div>
+        <h3>3. Negociación y acuerdo</h3>
+        <p>Ambas partes establecen condiciones, precios y tiempos de entrega de forma transparente.</p>
+      </div>
+      <div class="paso">
+        <div class="icono">🚚</div>
+        <h3>4. Seguimiento y logística</h3>
+        <p>AgroConnect facilita el envío y monitorea el proceso hasta la entrega final.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACCIÓN ================= -->
+  <section class="interaccion">
+    <div class="interaccion-contenido">
+      <h2>Interacción entre <span>vendedor</span> y <span>comprador</span></h2>
+      <p class="descripcion">
+        Crea tu cuenta, participa en negociaciones y gestiona tus envíos desde un solo lugar.
+      </p>
+      <div class="acciones">
+        <a href="#registro" class="btn btn-principal">Crear cuenta</a>
+        <a href="#login" class="btn btn-secundario">Iniciar sesión</a>
+        <a href="#contacto" class="btn btn-terciario">Contactar soporte</a>
+      </div>
+      <p class="nota">Una vez registrado, podrás comunicarte mediante mensajes directos, recibir notificaciones y acceder a tus transacciones seguras.</p>
+    </div>
+    <div class="interaccion-ilustracion">
+      <img src="iconos/conexion-agroconnect.png" alt="Interacción vendedor comprador">
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIOS ================= -->
+  <section class="testimonios">
+    <h2>Historias reales</h2>
+    <blockquote>“Gracias a AgroConnect, mis frutas llegan a restaurantes en Bilbao sin intermediarios.” <cite>– Marta, productora en León</cite></blockquote>
+    <blockquote>“Encontré proveedores confiables y sostenibles para mi tienda ecológica.” <cite>– Javier, comprador en Madrid</cite></blockquote>
+  </section>
+
+  <!-- ================= CTA FINAL ================= -->
+  <section class="cta-doble">
+    <h2>Únete a la red AgroConnect</h2>
+    <div class="botones-cta">
+      <a href="#registro-productores" class="cta-button">Publica tus productos</a>
+      <a href="#explorar" class="cta-button">Descubre productores locales</a>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-contenido">
+      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
+      <nav class="footer-nav">
+        <a href="#contacto">📞 Contacto</a>
+        <a href="#privacidad">🔒 Privacidad</a>
+        <a href="#redes">🌐 Síguenos</a>
+      </nav>
+    </div>
+  </footer>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
       const granos = {
-        brasil: document.querySelector('.grano.brasil'),
-        espana: document.querySelector('.grano.espana'),
-        colombia: document.querySelector('.grano.colombia')
+        europa: document.querySelector(".grano-europa"),
+        usa: document.querySelector(".grano-usa"),
+        asia: document.querySelector(".grano-asia"),
+        brasil: document.querySelector(".grano-brasil")
       };
 
-      const tiempos = {
-        brasil: { start: 2000, end: 4000 },
-        espana: { start: 7000, end: 9000 },
-        colombia: { start: 12000, end: 14000 }
-      };
-
-      const cicloMs = 18000; // igual que duración de barco1
-
-      function mostrarGranos() {
-        for (const name in granos) {
-          const el = granos[name];
-          const t = tiempos[name];
-          setTimeout(() => el.classList.add('active'), t.start);
-          setTimeout(() => el.classList.remove('active'), t.end);
-        }
+      function activarGrano(grano) {
+        if (!grano) return;
+        grano.classList.add("active");
+        setTimeout(() => grano.classList.remove("active"), 2000);
       }
 
-      mostrarGranos();
-      setInterval(mostrarGranos, cicloMs);
+      setInterval(() => activarGrano(granos.europa), 8000);
+      setInterval(() => activarGrano(granos.usa), 12000);
+      setInterval(() => activarGrano(granos.asia), 15000);
+      setInterval(() => activarGrano(granos.brasil), 18000);
     });
   </script>
 </body>

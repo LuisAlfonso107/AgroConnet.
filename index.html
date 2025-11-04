@@ -154,16 +154,18 @@
   </main>
 
   <script>
+  document.addEventListener('DOMContentLoaded', () => {
   const granos = {
-    brasil: document.querySelector('.grano.br asil'),
+    brasil: document.querySelector('.grano.brasil'),
     espana: document.querySelector('.grano.espana'),
     colombia: document.querySelector('.grano.colombia')
   };
 
-  // Simula la aparición de los granos en sincronía con el barco 1
   function cicloGranos() {
-    setTimeout(() => granos.br asil.classList.add('active'), 2000);
-    setTimeout(() => granos.br asil.classList.remove('active'), 4000);
+    if (!granos.brasil || !granos.espana || !granos.colombia) return;
+
+    setTimeout(() => granos.brasil.classList.add('active'), 2000);
+    setTimeout(() => granos.brasil.classList.remove('active'), 4000);
 
     setTimeout(() => granos.espana.classList.add('active'), 7000);
     setTimeout(() => granos.espana.classList.remove('active'), 9000);
@@ -174,6 +176,8 @@
 
   cicloGranos();
   setInterval(cicloGranos, 18000);
+});
+
 </script>
 
 </body>
