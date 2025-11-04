@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroConnect — Mapa animado</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #5389d9;
+    font-family: Arial, sans-serif;
+    padding: 1rem;
+  }
+
+  .propuesta-valor {
+    display: flex;
+    gap: 2rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* === MAPA === */
+  .mapa {
+    position: relative;
+    width: 60%;
+    min-width: 300px;
+    max-width: 900px;
+    overflow: hidden;
+  }
+
+  .mapa img {
+    width: 100%;
+    display: block;
+    border-radius: 0.5rem;
+  }
+
+  .iconos {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .iconos img {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    transform-origin: center;
+  }
+
+  /* === BARCOS === */
+  .barco {
+    opacity: 0;
+  }
+
+  .barco1 { animation: ruta1 20s linear infinite; }
+  .barco2 { animation: ruta2 24s linear infinite 5s; }
+  .barco3 { animation: ruta3 22s linear infinite 10s; }
+  .barco4 { animation: ruta4 26s linear infinite 3s; }
+
+  /* === RUTAS === */
+  /* Barco 1: Centroamérica -> África -> Europa */
+  @keyframes ruta1 {
+    0%   { top: 60%; left: 35%; opacity: 0; }
+    10%  { top: 58%; left: 40%; opacity: 1; }
+    30%  { top: 50%; left: 55%; opacity: 1; }
+    50%  { top: 45%; left: 60%; opacity: 1; }
+    70%  { top: 42%; left: 55%; opacity: 1; }
+    100% { top: 60%; left: 35%; opacity: 0; }
+  }
+
+  /* Barco 2: China -> Pacífico -> Estados Unidos */
+  @keyframes ruta2 {
+    0%   { top: 48%; left: 80%; opacity: 0; }
+    10%  { top: 48%; left: 75%; opacity: 1; }
+    30%  { top: 50%; left: 60%; opacity: 1; }
+    60%  { top: 55%; left: 40%; opacity: 1; }
+    100% { top: 48%; left: 80%; opacity: 0; }
+  }
+
+  /* Barco 3: Europa -> Océano Índico -> Asia */
+  @keyframes ruta3 {
+    0%   { top: 40%; left: 55%; opacity: 0; }
+    10%  { top: 42%; left: 58%; opacity: 1; }
+    40%  { top: 55%; left: 70%; opacity: 1; }
+    70%  { top: 50%; left: 80%; opacity: 1; }
+    100% { top: 40%; left: 55%; opacity: 0; }
+  }
+
+  /* Barco 4: Rusia -> Brasil */
+  @keyframes ruta4 {
+    0%   { top: 30%; left: 65%; opacity: 0; }
+    10%  { top: 35%; left: 60%; opacity: 1; }
+    40%  { top: 50%; left: 50%; opacity: 1; }
+    70%  { top: 65%; left: 40%; opacity: 1; }
+    100% { top: 30%; left: 65%; opacity: 0; }
+  }
+
+  /* === GRANOS === */
+  .grano {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+
+  .grano.active {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+
+  /* posiciones aproximadas de los destinos */
+  .grano-europa   { top: 42%; left: 55%; }
+  .grano-usa      { top: 55%; left: 40%; }
+  .grano-asia     { top: 50%; left: 80%; }
+  .grano-brasil   { top: 65%; left: 40%; }
+
+  /* === TEXTO === */
+  .seccion1 {
+    width: 35%;
+    min-width: 250px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 1.2rem;
+  }
+
+  .seccion1 h2 {
+    margin-top: 1rem;
+    color: #004080;
+  }
+
+  .seccion1 p {
+    margin-bottom: 0.8rem;
+  }
+
+  @media (max-width: 800px) {
+    .propuesta-valor {
+      flex-direction: column;
+    }
+    .mapa, .seccion1 {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+<h1 style="color:white; margin-bottom:1rem;">AgroConnect — Rutas comerciales animadas</h1>
+
+<section class="propuesta-valor">
+  <!-- MAPA IZQUIERDO -->
+  <div class="mapa">
+    <img src="mapaMundi.png" alt="Mapa del mundo">
+    <div class="iconos">
+      <!-- Barcos -->
+      <img class="barco barco1" src="iconos/barco1.png" alt="barco1">
+      <img class="barco barco2" src="iconos/barco2.png" alt="barco2">
+      <img class="barco barco3" src="iconos/barco3.png" alt="barco3">
+      <img class="barco barco4" src="iconos/barco4.png" alt="barco4">
+      <!-- Granos -->
+      <img class="grano grano-europa" src="iconos/aceite-de-oliva.png" alt="aceite">
+      <img class="grano grano-usa" src="iconos/maiz.png" alt="maiz">
+      <img class="grano grano-asia" src="iconos/cacao.png" alt="cacao">
+      <img class="grano grano-brasil" src="iconos/frijoles.png" alt="frijoles">
+    </div>
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="seccion1">
+    <h2>Conectamos tu trabajo con el mundo</h2>
+    <p>Desde agricultores locales hasta compradores globales: AgroConnect es el puente que transforma la producción en oportunidades.</p>
+    <h2>¿Qué es AgroConnect?</h2>
+    <p>Es una plataforma que conecta productores agrícolas con compradores y distribuidores internacionales, facilitando la visibilidad y la trazabilidad.</p>
+    <p>🌎 Visibilidad global para productores locales</p>
+    <p>🚢 Comercio justo y trazabilidad completa</p>
+    <p>🌾 Acceso directo a mercados internacionales</p>
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const granos = {
+    europa: document.querySelector(".grano-europa"),
+    usa: document.querySelector(".grano-usa"),
+    asia: document.querySelector(".grano-asia"),
+    brasil: document.querySelector(".grano-brasil")
+  };
+
+  function activarGrano(grano) {
+    if (!grano) return;
+    grano.classList.add("active");
+    setTimeout(() => grano.classList.remove("active"), 2000);
+  }
+
+  // Intervalos sincronizados con las animaciones (ajustables)
+  setInterval(() => activarGrano(granos.europa), 8000);  // barco1 llega a Europa
+  setInterval(() => activarGrano(granos.usa), 12000);     // barco2 llega a USA
+  setInterval(() => activarGrano(granos.asia), 15000);    // barco3 llega a Asia
+  setInterval(() => activarGrano(granos.brasil), 18000);  // barco4 llega a Brasil
+});
+</script>
+</body>
+</html>
