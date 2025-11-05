@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguimiento y Logística - AgroConnect</title>
+  <style>
+    :root {
+      --primary: #00796b;
+      --secondary: #004d40;
+      --accent: #80cbc4;
+      --bg: #f1f8f5;
+      --light: #e0f2f1;
+      --font: 'Segoe UI', 'Lucida Sans', sans-serif;
+      --text: #333;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* === HEADER === */
+    header {
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 { font-size: 1.8rem; font-weight: bold; }
+    header a {
+      color: #c8e6c9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    header a:hover { color: #fff; }
+
+    /* === HERO === */
+    .hero-seguimiento {
+      background: linear-gradient(135deg, #004d40, #26a69a);
+      color: white;
+      text-align: center;
+      padding: 4rem 2rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-seguimiento::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 70%);
+      z-index: 0;
+      animation: luz 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes luz {
+      0% { opacity: 0.4; transform: scale(1);}
+      100% { opacity: 0.7; transform: scale(1.1);}
+    }
+
+    .hero-seguimiento h2 {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-seguimiento p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      color: #e0f2f1;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === TRACKING TIMELINE === */
+    .tracking-container {
+      max-width: 900px;
+      margin: -3rem auto 4rem;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tracking-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .tracking-step:last-child { margin-bottom: 0; }
+
+    .tracking-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      margin-right: 1rem;
+      position: relative;
+    }
+
+    .tracking-line {
+      position: absolute;
+      width: 3px;
+      background: var(--accent);
+      left: 25px;
+      top: 50px;
+      bottom: -25px;
+      z-index: 0;
+    }
+
+    .tracking-content {
+      flex: 1;
+      background: var(--light);
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .tracking-content h3 {
+      color: var(--secondary);
+      margin-bottom: 0.3rem;
+      font-size: 1.2rem;
+    }
+
+    .tracking-content p { font-size: 1rem; color: #444; }
+
+    /* === MAPA SIMBÓLICO === */
+    .mapa {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .mapa img {
+      max-width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* === ESTADO FINAL === */
+    .estado-final {
+      text-align: center;
+      margin: 3rem auto;
+      background: linear-gradient(135deg, #f1f8e9, #dcedc8);
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .estado-final h3 {
+      color: var(--secondary);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .estado-final button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .estado-final button:hover { background: var(--secondary); }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--secondary);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+      font-size: 0.95rem;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .tracking-step { flex-direction: column; align-items: flex-start; }
+      .tracking-icon { margin-bottom: 0.5rem; }
+      .tracking-line { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <h1>AgroConnect</h1>
+    <a href="index.html">← Volver al inicio</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-seguimiento">
+    <h2>🚚 Seguimiento y Logística</h2>
+    <p>AgroConnect facilita el envío y monitorea el proceso hasta la entrega final, asegurando trazabilidad y transparencia.</p>
+  </section>
+
+  <!-- TRACKING TIMELINE -->
+  <section class="tracking-container">
+    <div class="tracking-step">
+      <div class="tracking-icon">📦</div>
+      <div class="tracking-line"></div>
+      <div class="tracking-content">
+        <h3>Pedido confirmado</h3>
+        <p>El productor ha preparado el lote y la documentación correspondiente.</p>
+      </div>
+    </div>
+
+    <div class="tracking-step">
+      <div class="tracking-icon">🚜</div>
+      <div class="tracking-line"></div>
+      <div class="tracking-content">
+        <h3>Recolección en finca</h3>
+        <p>El transportista recoge los productos directamente del productor.</p>
+      </div>
+    </div>
+
+    <div class="tracking-step">
+      <div class="tracking-icon">🚚</div>
+      <div class="tracking-line"></div>
+      <div class="tracking-content">
+        <h3>En tránsito</h3>
+        <p>El envío se encuentra en ruta hacia el comprador. Puedes monitorear su ubicación en tiempo real.</p>
+      </div>
+    </div>
+
+    <div class="tracking-step">
+      <div class="tracking-icon">📍</div>
+      <div class="tracking-line"></div>
+      <div class="tracking-content">
+        <h3>Llegada al destino</h3>
+        <p>El pedido ha llegado al punto de entrega acordado. Se está verificando la calidad del producto.</p>
+      </div>
+    </div>
+
+    <div class="tracking-step">
+      <div class="tracking-icon">✅</div>
+      <div class="tracking-content">
+        <h3>Entrega completada</h3>
+        <p>El comprador ha recibido el producto y confirmado la transacción. ¡Gracias por usar AgroConnect!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPA SIMBÓLICO -->
+  <div class="mapa">
+    <img src="https://cdn-icons-png.flaticon.com/512/854/854894.png" alt="Mapa de envío">
+  </div>
+
+  <!-- ESTADO FINAL -->
+  <section class="estado-final">
+    <h3>Estado actual: En tránsito 🚛</h3>
+    <p>El lote de café orgánico se encuentra en ruta hacia Bilbao. Tiempo estimado de llegada: 2 días.</p>
+    <button>Actualizar estado</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 AgroConnect Global. Comercio agrícola transparente y conectado.</p>
+  </footer>
+</body>
+</html>
