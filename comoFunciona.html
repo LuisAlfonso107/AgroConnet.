@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .como-funciona {
+  background: linear-gradient(135deg, #e0f7fa, #a5d6a7);
+  padding: 3rem 2rem;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  margin: 2rem auto;
+  max-width: 1100px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.como-funciona h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #004d40;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.como-funciona h2 span {
+  color: #00796b;
+}
+
+.pasos {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.paso {
+  background-color: #ffffffcc;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  flex: 1 1 220px;
+  max-width: 250px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.paso:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  border-color: #80cbc4;
+}
+
+.icono {
+  font-size: 2.5rem;
+  background: #00796b;
+  color: #fff;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.paso h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+  color: #004d40;
+}
+
+.paso p {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .pasos {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+    </style>
+</head>
+<body>
+    
+    <section class="como-funciona">
+  <h2>¿Cómo funciona <span>AgroConnect</span>?</h2>
+  <div class="pasos">
+    <div class="paso">
+      <div class="icono">🌱</div>
+      <h3>1. Publica tu producto</h3>
+      <p>El agricultor sube su producto y detalla su origen, calidad y cantidad disponible.</p>
+    </div>
+
+    <div class="paso">
+      <div class="icono">🔍</div>
+      <h3>2. Conexión directa</h3>
+      <p>El comprador encuentra fácilmente lo que busca y contacta al productor sin intermediarios.</p>
+    </div>
+
+    <div class="paso">
+      <div class="icono">💬</div>
+      <h3>3. Negociación y acuerdo</h3>
+      <p>Ambas partes establecen condiciones, precios y tiempos de entrega de forma transparente.</p>
+    </div>
+
+    <div class="paso">
+      <div class="icono">🚚</div>
+      <h3>4. Seguimiento y logística</h3>
+      <p>AgroConnect facilita el envío y monitorea el proceso hasta la entrega final.</p>
+    </div>
+  </div>
+</section>
+
+
+
+</body>
+</html>

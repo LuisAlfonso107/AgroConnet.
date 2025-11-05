@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroConnect | Conexión Directa</title>
+  <style>
+    /* ===== ESTILOS GLOBALES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(90deg, #004d40, #00796b);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    header a {
+      color: #c8e6c9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #ffffff;
+    }
+
+    /* ===== CONTENEDOR PRINCIPAL ===== */
+    main {
+      display: flex;
+      flex: 1;
+      padding: 1rem;
+      gap: 1rem;
+      overflow: hidden;
+    }
+
+    /* ===== PANEL DE CONTACTOS ===== */
+    .contactos {
+      width: 25%;
+      background: #ffffffcc;
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow-y: auto;
+    }
+
+    .contactos h2 {
+      color: #004d40;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .contacto {
+      padding: 0.8rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+      transition: background 0.3s;
+    }
+
+    .contacto:hover, .contacto.activo {
+      background-color: #b2dfdb;
+    }
+
+    .contacto strong {
+      display: block;
+      color: #004d40;
+    }
+
+    .contacto span {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* ===== AREA DE CHAT ===== */
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #ffffffee;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #00796b;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h3 {
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .chat-header .estado {
+      font-size: 0.9rem;
+      color: #c8e6c9;
+    }
+
+    .chat-mensajes {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      background: linear-gradient(180deg, #f1f8e9, #e0f7fa);
+    }
+
+    .mensaje {
+      max-width: 70%;
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .mensaje.comprador {
+      align-self: flex-end;
+      background: #00796b;
+      color: white;
+      border-bottom-right-radius: 0.2rem;
+    }
+
+    .mensaje.productor {
+      align-self: flex-start;
+      background: #c8e6c9;
+      color: #004d40;
+      border-bottom-left-radius: 0.2rem;
+    }
+
+    /* ===== INPUT DE MENSAJE ===== */
+    .chat-input {
+      display: flex;
+      padding: 0.8rem;
+      background: #fafafa;
+      border-top: 2px solid #b2dfdb;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 2px solid #b2dfdb;
+      border-radius: 2rem;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .chat-input input:focus {
+      border-color: #00796b;
+    }
+
+    .chat-input button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .chat-input button:hover {
+      background-color: #004d40;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+      }
+      .contactos {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+      }
+      .contacto {
+        min-width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>AgroConnect</h1>
+    <a href="index.html">← Volver al inicio</a>
+  </header>
+
+  <main>
+    <!-- Panel de contactos -->
+    <aside class="contactos">
+      <h2>Productores</h2>
+      <div class="contacto activo" data-nombre="Juan Pérez - Café Orgánico">
+        <strong>Juan Pérez</strong>
+        <span>Café Orgánico - Colombia</span>
+      </div>
+      <div class="contacto" data-nombre="María López - Cacao Fino">
+        <strong>María López</strong>
+        <span>Cacao Fino - Ecuador</span>
+      </div>
+      <div class="contacto" data-nombre="Kofi Adebayo - Granos Sostenibles">
+        <strong>Kofi Adebayo</strong>
+        <span>Granos Sostenibles - Ghana</span>
+      </div>
+    </aside>
+
+    <!-- Área del chat -->
+    <section class="chat-area">
+      <div class="chat-header">
+        <h3 id="nombreChat">Juan Pérez - Café Orgánico</h3>
+        <span class="estado">🟢 En línea</span>
+      </div>
+
+      <div class="chat-mensajes" id="chatMensajes">
+        <div class="mensaje productor">
+          ¡Hola! Soy Juan Pérez, productor de café orgánico certificado. ¿En qué puedo ayudarte?
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="inputMensaje" placeholder="Escribe tu mensaje..." />
+        <button id="btnEnviar">➤</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ===== SIMULACIÓN DE CHAT =====
+    const contactos = document.querySelectorAll('.contacto');
+    const nombreChat = document.getElementById('nombreChat');
+    const chatMensajes = document.getElementById('chatMensajes');
+    const inputMensaje = document.getElementById('inputMensaje');
+    const btnEnviar = document.getElementById('btnEnviar');
+
+    // Cambiar conversación al seleccionar contacto
+    contactos.forEach(contacto => {
+      contacto.addEventListener('click', () => {
+        contactos.forEach(c => c.classList.remove('activo'));
+        contacto.classList.add('activo');
+        nombreChat.textContent = contacto.dataset.nombre;
+        chatMensajes.innerHTML = `
+          <div class="mensaje productor">
+            ¡Hola! Soy ${contacto.querySelector('strong').textContent}, productor asociado a AgroConnect.
+          </div>
+        `;
+      });
+    });
+
+    // Enviar mensaje
+    btnEnviar.addEventListener('click', enviarMensaje);
+    inputMensaje.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') enviarMensaje();
+    });
+
+    function enviarMensaje() {
+      const texto = inputMensaje.value.trim();
+      if (texto === '') return;
+      const mensajeComprador = document.createElement('div');
+      mensajeComprador.classList.add('mensaje', 'comprador');
+      mensajeComprador.textContent = texto;
+      chatMensajes.appendChild(mensajeComprador);
+      inputMensaje.value = '';
+
+      // Scroll automático
+      chatMensajes.scrollTop = chatMensajes.scrollHeight;
+
+      // Simular respuesta del productor
+      setTimeout(() => {
+        const mensajeProd = document.createElement('div');
+        mensajeProd.classList.add('mensaje', 'productor');
+        mensajeProd.textContent = "Gracias por tu mensaje. Te enviaré la ficha técnica y cotización enseguida.";
+        chatMensajes.appendChild(mensajeProd);
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
