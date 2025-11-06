@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vender - AgroConnect</title>
+  <style>
+    :root {
+      --verde-oscuro: #004d40;
+      --verde-medio: #00796b;
+      --verde-claro: #b2dfdb;
+      --fondo: #f1f8f6;
+      --blanco: #fff;
+      --sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--fondo);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* === HEADER === */
+    header {
+      background: linear-gradient(90deg, var(--verde-oscuro), var(--verde-medio));
+      color: var(--blanco);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--sombra);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #c8e6c9;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--blanco);
+    }
+
+    /* === HERO VENDER === */
+    .hero-vender {
+      background: linear-gradient(135deg, #004d40, #00796b, #009688);
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-vender::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent 70%);
+      z-index: 0;
+      animation: luz 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes luz {
+      0% { opacity: 0.4; transform: scale(1);}
+      100% { opacity: 0.7; transform: scale(1.1);}
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-content h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #e0f2f1;
+      margin-bottom: 2rem;
+    }
+
+    .btn-hero {
+      display: inline-block;
+      background: var(--blanco);
+      color: var(--verde-oscuro);
+      font-weight: bold;
+      padding: 0.9rem 1.8rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .btn-hero:hover {
+      background: var(--verde-oscuro);
+      color: var(--blanco);
+      transform: translateY(-4px);
+    }
+
+    /* === FORMULARIO DE PUBLICACIÓN === */
+    .form-section {
+      max-width: 800px;
+      margin: 4rem auto;
+      background: var(--blanco);
+      border-radius: 1rem;
+      box-shadow: var(--sombra);
+      padding: 2.5rem;
+    }
+
+    .form-section h3 {
+      color: var(--verde-oscuro);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .form-section p {
+      text-align: center;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--verde-oscuro);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid var(--verde-claro);
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--verde-medio);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button[type="submit"] {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      padding: 0.9rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--verde-oscuro);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--verde-oscuro);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h2 { font-size: 2rem; }
+      .form-section { margin: 2rem; padding: 1.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>AgroConnect</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="productos.html">Productos</a>
+      <a href="vender.html">Vender</a>
+      <a href="comprar.html">Comprar</a>
+    </nav>
+  </header>
+
+  <section class="hero-vender">
+    <div class="hero-content">
+      <h2>Publica tu Producto</h2>
+      <p>Conecta tu producción agrícola con compradores globales.  
+      Muestra tu trabajo, comparte tus productos y llega a nuevos mercados.</p>
+      <a href="#formulario" class="btn-hero">Comenzar Ahora</a>
+    </div>
+  </section>
+
+  <section id="formulario" class="form-section">
+    <h3>Formulario de Publicación</h3>
+    <p>Completa la información de tu producto. Nos aseguraremos de que llegue a los compradores adecuados.</p>
+
+    <form>
+      <div>
+        <label for="nombre">Nombre del Producto:</label>
+        <input type="text" id="nombre" placeholder="Ej: Café orgánico, Maíz amarillo..." required>
+      </div>
+
+      <div>
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" required>
+          <option value="">Selecciona una categoría</option>
+          <option value="granos">Granos</option>
+          <option value="frutas">Frutas</option>
+          <option value="vegetales">Vegetales</option>
+          <option value="otros">Otros</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="precio">Precio por unidad ($):</label>
+        <input type="number" id="precio" step="0.01" placeholder="Ej: 2.50" required>
+      </div>
+
+      <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" placeholder="Describe brevemente tu producto..." required></textarea>
+      </div>
+
+      <div>
+        <label for="imagen">Imagen del producto:</label>
+        <input type="file" id="imagen" accept="image/*" required>
+      </div>
+
+      <button type="submit">Publicar Producto</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 AgroConnect — Impulsando el comercio agrícola global</p>
+  </footer>
+
+  <script>
+    // Pequeña validación visual del formulario
+    document.querySelector("form").addEventListener("submit", e => {
+      e.preventDefault();
+      alert("✅ Tu producto ha sido publicado con éxito en AgroConnect.");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos | AgroConnect</title>
+  <style>
+    /* === VARIABLES GLOBALES === */
+    :root {
+      --verde-oscuro: #004d40;
+      --verde-medio: #00796b;
+      --verde-claro: #80cbc4;
+      --verde-lima: #aed581;
+      --fondo: #f1f8f5;
+      --blanco: #ffffff;
+      --gris-texto: #333;
+      --sombra: 0 4px 12px rgba(0,0,0,0.1);
+      --fuente: 'Segoe UI', 'Lucida Sans', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--fuente);
+      background-color: var(--fondo);
+      color: var(--gris-texto);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* === HEADER === */
+    header {
+      background: linear-gradient(90deg, var(--verde-oscuro), var(--verde-medio));
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--blanco);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--sombra);
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    header .logo img {
+      width: 45px;
+      height: 45px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: #c8e6c9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--blanco);
+    }
+
+    /* === SELECTOR DE ROL === */
+   .rol-selector {
+  text-align: center;
+  background: var(--fondo);
+  padding: 1.5rem;
+  box-shadow: var(--sombra);
+}
+
+.rol-selector h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--verde-oscuro);
+}
+
+.rol-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rol-buttons button {
+  background: var(--blanco);
+  border: 2px solid var(--verde-medio);
+  color: var(--verde-medio);
+  padding: 0.7rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rol-buttons button:hover,
+.rol-buttons button.active {
+  background: var(--verde-medio);
+  color: var(--blanco);
+  transform: translateY(-3px);
+}
+
+
+    /* === HERO === */
+    .hero-productos {
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-medio), var(--verde-claro));
+      color: var(--blanco);
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-productos h2 {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .hero-productos p {
+      font-size: 1.2rem;
+      color: #e0f2f1;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--blanco);
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: var(--sombra);
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .search-bar button {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .search-bar button:hover {
+      background: var(--verde-oscuro);
+    }
+
+    /* === CATÁLOGO === */
+    .catalogo {
+      max-width: 1200px;
+      margin: 3rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
+    }
+
+    .producto {
+      background: var(--blanco);
+      border-radius: 1rem;
+      box-shadow: var(--sombra);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .producto:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .producto .info {
+      padding: 1rem;
+    }
+
+    .producto .info h3 {
+      color: var(--verde-oscuro);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .producto .info p {
+      color: #555;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .producto .precio {
+      color: var(--verde-medio);
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .producto button {
+      margin-top: 0.8rem;
+      width: 100%;
+      border: none;
+      background: var(--verde-medio);
+      color: var(--blanco);
+      font-weight: bold;
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .producto button:hover {
+      background: var(--verde-oscuro);
+    }
+
+    /* === FOOTER === */
+    footer {
+      text-align: center;
+      background: var(--verde-oscuro);
+      color: var(--blanco);
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    footer a {
+      color: var(--verde-lima);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .hero-productos h2 {
+        font-size: 2rem;
+      }
+      .rol-buttons {
+        flex-direction: column;
+      }
+      .search-bar {
+        flex-direction: column;
+        border-radius: 1rem;
+      }
+      .search-bar button {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4264/4264853.png" alt="AgroConnect Logo">
+      <h1>AgroConnect</h1>
+    </div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="soporte.html">Soporte</a>
+      <a href="#">Mi cuenta</a>
+    </nav>
+  </header>
+
+  <!-- SELECTOR DE ROL -->
+  <section class="rol-selector">
+    <h2>¿Eres comprador o vendedor?</h2>
+    <div class="rol-buttons">
+      <button id="compradorBtn" class="active">Comprador 🛒</button>
+      <button id="vendedorBtn">Vendedor 🌾</button>
+    </div>
+  </section>
+
+  <!-- HERO -->
+  <section class="hero-productos">
+    <h2>Explora Productos Agrícolas</h2>
+    <p>Conecta con productores sostenibles o encuentra compradores interesados en todo el mundo.  
+       AgroConnect te conecta directamente con el mercado global.</p>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar productos, regiones o tipos...">
+      <button>Buscar</button>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO -->
+  <section class="catalogo" id="catalogo">
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80" alt="Café Orgánico">
+      <div class="info">
+        <h3>Café Orgánico</h3>
+        <p>Origen: Colombia</p>
+        <p class="precio">$12.50 / kg</p>
+        <button>Ver Detalles</button>
+      </div>
+    </div>
+
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1603048297172-66d4e6a20c43?auto=format&fit=crop&w=600&q=80" alt="Cacao Premium">
+      <div class="info">
+        <h3>Cacao Premium</h3>
+        <p>Origen: Ecuador</p>
+        <p class="precio">$15.00 / kg</p>
+        <button>Ver Detalles</button>
+      </div>
+    </div>
+
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1592928302991-7b9f0d0e8d9a?auto=format&fit=crop&w=600&q=80" alt="Aceite de Oliva">
+      <div class="info">
+        <h3>Aceite de Oliva</h3>
+        <p>Origen: España</p>
+        <p class="precio">$10.00 / L</p>
+        <button>Ver Detalles</button>
+      </div>
+    </div>
+
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=600&q=80" alt="Maíz Amarillo">
+      <div class="info">
+        <h3>Maíz Amarillo</h3>
+        <p>Origen: México</p>
+        <p class="precio">$2.30 / kg</p>
+        <button>Ver Detalles</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 AgroConnect Global. Todos los derechos reservados. | <a href="soporte.html">Centro de Soporte</a></p>
+  </footer>
+
+  <script>
+    // Alternar roles visualmente
+    const compradorBtn = document.getElementById('compradorBtn');
+    const vendedorBtn = document.getElementById('vendedorBtn');
+
+    compradorBtn.addEventListener('click', () => {
+      compradorBtn.classList.add('active');
+      vendedorBtn.classList.remove('active');
+    });
+
+    vendedorBtn.addEventListener('click', () => {
+      vendedorBtn.classList.add('active');
+      compradorBtn.classList.remove('active');
+    });
+  </script>
+
+</body>
+</html>

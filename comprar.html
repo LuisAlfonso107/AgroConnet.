@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprar - AgroConnect Internacional</title>
+  <style>
+    :root {
+      --verde-oscuro: #004d40;
+      --verde-medio: #00796b;
+      --verde-claro: #a5d6a7;
+      --verde-suave: #e8f5e9;
+      --beige: #f8f5ec;
+      --blanco: #fff;
+      --sombra: 0 6px 16px rgba(0, 0, 0, 0.1);
+      --font: 'Poppins', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--beige);
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, var(--verde-oscuro), var(--verde-medio));
+      color: var(--blanco);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--sombra);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #c8e6c9;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--blanco);
+    }
+
+    /* ===== HERO ===== */
+    .hero-comprar {
+      position: relative;
+      background: linear-gradient(120deg, var(--verde-medio), #26a69a, #80cbc4);
+      color: white;
+      text-align: center;
+      padding: 6rem 2rem;
+      overflow: hidden;
+    }
+
+    .hero-comprar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      opacity: 0.3;
+      z-index: 0;
+      filter: brightness(0.9);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-content h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #f1f8f5;
+    }
+
+    /* ===== BUSCADOR INTERNACIONAL ===== */
+    .buscador {
+      background: var(--blanco);
+      margin: -3rem auto 3rem;
+      width: 90%;
+      max-width: 1000px;
+      box-shadow: var(--sombra);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .buscador h3 {
+      text-align: center;
+      color: var(--verde-oscuro);
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .buscador form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .buscador input,
+    .buscador select {
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      border: 2px solid var(--verde-claro);
+      font-size: 1rem;
+      outline: none;
+      min-width: 240px;
+      transition: all 0.3s ease;
+    }
+
+    .buscador input:focus,
+    .buscador select:focus {
+      border-color: var(--verde-medio);
+      box-shadow: 0 0 10px rgba(0, 121, 107, 0.2);
+    }
+
+    .buscador button {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .buscador button:hover {
+      background: var(--verde-oscuro);
+      transform: translateY(-2px);
+    }
+
+    /* ===== CATÁLOGO ===== */
+    .catalogo {
+      padding: 4rem 2rem;
+      background: var(--blanco);
+    }
+
+    .catalogo h3 {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--verde-oscuro);
+      margin-bottom: 2rem;
+    }
+
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .producto {
+      background: var(--blanco);
+      border-radius: 1rem;
+      box-shadow: var(--sombra);
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .producto:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .producto:hover img {
+      transform: scale(1.05);
+    }
+
+    .info {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .info h4 {
+      color: var(--verde-oscuro);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info p {
+      color: #555;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .precio {
+      font-weight: bold;
+      color: var(--verde-medio);
+      font-size: 1.1rem;
+    }
+
+    footer {
+      background: var(--verde-oscuro);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>AgroConnect</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="comprar.html" class="active">Comprar</a>
+      <a href="vender.html">Vender</a>
+      <a href="soporte.html">Soporte</a>
+    </nav>
+  </header>
+
+  <section class="hero-comprar">
+    <div class="hero-content">
+      <h2>Explora Productos Globales</h2>
+      <p>Busca productos agrícolas de alta calidad provenientes de los mejores exportadores del mundo 🌍</p>
+    </div>
+  </section>
+
+  <!-- 🧭 SECCIÓN DE BÚSQUEDA INTERNACIONAL -->
+  <section class="buscador">
+    <h3>Encuentra productos por país y tipo</h3>
+    <form id="busquedaForm">
+      <input type="text" id="nombreProducto" placeholder="Buscar producto... 🥭">
+      <select id="pais">
+        <option value="todos">🌍 Todos los países</option>
+        <option value="mexico">🇲🇽 México</option>
+        <option value="colombia">🇨🇴 Colombia</option>
+        <option value="peru">🇵🇪 Perú</option>
+        <option value="espana">🇪🇸 España</option>
+        <option value="brasil">🇧🇷 Brasil</option>
+        <option value="argentina">🇦🇷 Argentina</option>
+      </select>
+      <button type="submit">Buscar 🔍</button>
+    </form>
+  </section>
+
+  <section class="catalogo">
+    <h3>Resultados de Búsqueda</h3>
+    <div class="productos-grid" id="productosGrid">
+      <div class="producto" data-pais="mexico" data-nombre="mango">
+        <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800&q=80" alt="Mangos Orgánicos">
+        <div class="info">
+          <h4>Mangos Orgánicos</h4>
+          <p>Exportador: 🇲🇽 México</p>
+          <span class="precio">$2.50 / kg</span>
+        </div>
+      </div>
+
+      <div class="producto" data-pais="espana" data-nombre="aceite oliva">
+        <img src="https://images.unsplash.com/photo-1505575967455-40b8d89d04f4?auto=format&fit=crop&w=800&q=80" alt="Aceite de Oliva">
+        <div class="info">
+          <h4>Aceite de Oliva Virgen Extra</h4>
+          <p>Exportador: 🇪🇸 España</p>
+          <span class="precio">$12.00 / L</span>
+        </div>
+      </div>
+
+      <div class="producto" data-pais="colombia" data-nombre="cafe">
+        <img src="https://images.unsplash.com/photo-1510626176961-4b37d0ae3f69?auto=format&fit=crop&w=800&q=80" alt="Café Colombiano">
+        <div class="info">
+          <h4>Café de Altura</h4>
+          <p>Exportador: 🇨🇴 Colombia</p>
+          <span class="precio">$8.50 / kg</span>
+        </div>
+      </div>
+
+      <div class="producto" data-pais="peru" data-nombre="quinoa">
+        <img src="https://images.unsplash.com/photo-1585238341981-3a37f381e30b?auto=format&fit=crop&w=800&q=80" alt="Quinoa Andina">
+        <div class="info">
+          <h4>Quinoa Andina</h4>
+          <p>Exportador: 🇵🇪 Perú</p>
+          <span class="precio">$3.40 / kg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 AgroConnect — Comercio agrícola global responsable 🌱</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('busquedaForm');
+    const productos = document.querySelectorAll('.producto');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const texto = document.getElementById('nombreProducto').value.toLowerCase();
+      const pais = document.getElementById('pais').value;
+
+      productos.forEach(prod => {
+        const nombre = prod.dataset.nombre;
+        const origen = prod.dataset.pais;
+
+        const coincideNombre = nombre.includes(texto);
+        const coincidePais = pais === 'todos' || origen === pais;
+
+        if (coincideNombre && coincidePais) {
+          prod.style.display = 'block';
+          prod.style.opacity = 1;
+        } else {
+          prod.style.opacity = 0;
+          setTimeout(() => prod.style.display = 'none', 300);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroConnect | Selección de Rol</title>
+  <style>
+    :root {
+      --verde-oscuro: #004d40;
+      --verde-medio: #2e7d32;
+      --verde-claro: #a5d6a7;
+      --fondo: #f1f8e9;
+      --blanco: #fff;
+      --sombra: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: linear-gradient(180deg, #e8f5e9, #ffffff);
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #004d40, #00796b);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--sombra);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #c8e6c9;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    /* === SELECTOR DE ROL === */
+    .rol-selector {
+      text-align: center;
+      background: var(--fondo);
+      padding: 2rem;
+      box-shadow: var(--sombra);
+      border-radius: 1rem;
+      margin: 3rem auto;
+      width: 90%;
+      max-width: 800px;
+      transition: background 0.4s ease;
+    }
+
+    .rol-selector h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--verde-oscuro);
+    }
+
+    .rol-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .rol-buttons button {
+      background: var(--blanco);
+      border: 2px solid var(--verde-medio);
+      color: var(--verde-medio);
+      padding: 0.8rem 1.8rem;
+      border-radius: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .rol-buttons button:hover,
+    .rol-buttons button.active {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(46, 125, 50, 0.3);
+    }
+
+    /* === CONTENIDO CAMBIANTE === */
+    .contenido-rol {
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: #ffffffb3;
+      border-radius: 1rem;
+      box-shadow: var(--sombra);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .contenido-rol h3 {
+      color: var(--verde-oscuro);
+      margin-bottom: 1rem;
+    }
+
+    .contenido-rol p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    footer {
+      background: var(--verde-oscuro);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>AgroConnect</h1>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Productos</a>
+      <a href="#">Vender</a>
+      <a href="#">Comprar</a>
+    </nav>
+  </header>
+
+  <!-- SELECTOR DE ROL -->
+  <section class="rol-selector">
+    <h2>¿Eres comprador o vendedor?</h2>
+    <div class="rol-buttons">
+      <button id="compradorBtn" class="active">Comprador 🛒</button>
+      <button id="vendedorBtn">Vendedor 🌾</button>
+    </div>
+  </section>
+
+  <!-- CONTENIDO DINÁMICO -->
+  <section id="contenidoRol" class="contenido-rol">
+    <h3>Explora productos frescos y sostenibles 🌽</h3>
+    <p>Como <strong>comprador</strong>, puedes encontrar productores locales, comparar precios y adquirir productos directamente sin intermediarios.</p>
+  </section>
+
+  <footer>
+    <p>© 2025 AgroConnect — Conectando productores y compradores globales</p>
+  </footer>
+
+  <script>
+    const compradorBtn = document.getElementById("compradorBtn");
+    const vendedorBtn = document.getElementById("vendedorBtn");
+    const contenido = document.getElementById("contenidoRol");
+    const rolSelector = document.querySelector(".rol-selector");
+
+    compradorBtn.addEventListener("click", () => {
+      compradorBtn.classList.add("active");
+      vendedorBtn.classList.remove("active");
+      rolSelector.style.background = "#f1f8e9";
+      contenido.innerHTML = `
+        <h3>Explora productos frescos y sostenibles 🌽</h3>
+        <p>Como <strong>comprador</strong>, puedes encontrar productores locales, comparar precios y adquirir productos directamente sin intermediarios.</p>
+      `;
+    });
+
+    vendedorBtn.addEventListener("click", () => {
+      vendedorBtn.classList.add("active");
+      compradorBtn.classList.remove("active");
+      rolSelector.style.background = "#e8f5e9";
+      contenido.innerHTML = `
+        <h3>Publica tus cosechas y llega al mundo 🌾</h3>
+        <p>Como <strong>vendedor</strong>, puedes mostrar tus productos agrícolas, gestionar pedidos y conectar con compradores internacionales interesados en tu producción.</p>
+      `;
+    });
+  </script>
+</body>
+</html>
