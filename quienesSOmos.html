@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiénes Somos - AgroConnect</title>
+  <style>
+    :root {
+      --verde-oscuro: #004d40;
+      --verde-medio: #00796b;
+      --verde-claro: #80cbc4;
+      --verde-suave: #e8f5e9;
+      --amarillo: #d4e157;
+      --beige: #f7f4ec;
+      --blanco: #ffffff;
+      --sombra: 0 6px 16px rgba(0, 0, 0, 0.1);
+      --font: 'Poppins', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(135deg, var(--verde-suave), var(--beige));
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(90deg, var(--verde-oscuro), var(--verde-medio));
+      color: var(--blanco);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: var(--sombra);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    nav ul li a {
+      color: var(--blanco);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      background-color: var(--verde-claro);
+      color: var(--verde-oscuro);
+    }
+
+    .btn-cuenta {
+      background-color: #cddc39;
+      color: var(--verde-oscuro);
+      font-weight: 600;
+    }
+
+    .btn-login {
+      background-color: #3e2723;
+    }
+
+    /* SECCIÓN QUIÉNES SOMOS */
+    .quienes-somos {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      padding: 4rem 3rem;
+      flex-wrap: wrap;
+    }
+
+    .texto {
+      max-width: 550px;
+      animation: aparecer 1.2s ease-in-out forwards;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .texto h1 {
+      font-size: 2.6rem;
+      color: var(--verde-oscuro);
+      margin-bottom: 1rem;
+    }
+
+    .texto p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: #444;
+    }
+
+    .texto strong {
+      color: var(--verde-medio);
+    }
+
+    .resaltado {
+      background-color: var(--verde-claro);
+      color: var(--verde-oscuro);
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-weight: bold;
+    }
+
+    .mision-vision {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .mision-vision div {
+      background: var(--blanco);
+      box-shadow: var(--sombra);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .mision-vision div:hover {
+      transform: translateY(-5px);
+    }
+
+    .mision-vision h3 {
+      color: var(--verde-oscuro);
+      margin-bottom: 0.5rem;
+    }
+
+    .imagen {
+      max-width: 520px;
+      animation: flotar 6s ease-in-out infinite alternate;
+    }
+
+    .imagen img {
+      width: 100%;
+      border-radius: 1.5rem;
+      box-shadow: var(--sombra);
+    }
+
+    @keyframes flotar {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    /* EQUIPO */
+    .equipo {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: var(--verde-suave);
+    }
+
+    .equipo h2 {
+      color: var(--verde-oscuro);
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--blanco);
+      border-radius: 1rem;
+      box-shadow: var(--sombra);
+      width: 260px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h4 {
+      color: var(--verde-medio);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    footer {
+      background: var(--verde-oscuro);
+      color: var(--blanco);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">🌱 AgroConnect</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="vender.html">Vender</a></li>
+        <li><a href="comprar.html">Comprar</a></li>
+        <li><a href="crear-cuenta.html" class="btn-cuenta">Crear cuenta</a></li>
+        <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="quienes-somos">
+    <div class="texto">
+      <h1>¿Quiénes Somos?</h1>
+      <p><strong>AgroConnect</strong> es una plataforma digital que impulsa la conexión entre productores agrícolas, exportadores y compradores internacionales. Nuestra meta es <span class="resaltado">transformar la agricultura en una red global de oportunidades</span>.</p>
+
+      <p>Nos apasiona fomentar el desarrollo sostenible del campo y la expansión comercial de los agricultores locales, brindándoles herramientas tecnológicas que fortalecen su presencia en el mercado mundial.</p>
+
+      <div class="mision-vision">
+        <div>
+          <h3>🌍 Nuestra Misión</h3>
+          <p>Promover la conexión entre comunidades agrícolas y compradores internacionales, fortaleciendo el comercio justo y la sostenibilidad.</p>
+        </div>
+        <div>
+          <h3>💡 Nuestra Visión</h3>
+          <p>Ser la red digital más confiable del agro global, garantizando transparencia, trazabilidad y crecimiento para todos los productores del mundo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="imagen">
+      <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1000&q=80" alt="Equipo AgroConnect">
+    </div>
+  </section>
+
+  <section class="equipo">
+    <h2>Un equipo que conecta el campo con el mundo 🌾</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=500&q=80" alt="Equipo AgroConnect">
+        <h4>Innovación</h4>
+        <p>Impulsamos la digitalización del sector agrícola con tecnología moderna y accesible.</p>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1518110837427-7a4f00f9af56?auto=format&fit=crop&w=500&q=80" alt="Equipo AgroConnect">
+        <h4>Conexión</h4>
+        <p>Unimos productores, exportadores y compradores en un ecosistema confiable.</p>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1590080875830-91f8f8b6f74e?auto=format&fit=crop&w=500&q=80" alt="Equipo AgroConnect">
+        <h4>Sostenibilidad</h4>
+        <p>Apoyamos prácticas agrícolas responsables y sostenibles para el futuro.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 AgroConnect - Conectamos el campo con el mundo 🌱
+  </footer>
+
+</body>
+</html>

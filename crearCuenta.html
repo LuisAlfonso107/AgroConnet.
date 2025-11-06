@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Cuenta - AgroConnect</title>
+  <style>
+    :root {
+      --verde-oscuro: #004d40;
+      --verde-medio: #00796b;
+      --verde-claro: #80cbc4;
+      --verde-suave: #e8f5e9;
+      --blanco: #ffffff;
+      --beige: #f7f4ec;
+      --sombra: 0 6px 18px rgba(0, 0, 0, 0.12);
+      --font: 'Poppins', sans-serif;
+      --transicion: all 0.35s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(135deg, var(--verde-suave), var(--beige));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* === HEADER === */
+    header {
+      width: 100%;
+      background: linear-gradient(90deg, var(--verde-oscuro), var(--verde-medio));
+      color: var(--blanco);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: var(--sombra);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    nav a {
+      color: var(--blanco);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: var(--transicion);
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #b2dfdb;
+    }
+
+    /* === CONTENEDOR === */
+    .registro-container {
+      background: var(--blanco);
+      border-radius: 1.2rem;
+      box-shadow: var(--sombra);
+      width: 100%;
+      max-width: 520px;
+      padding: 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 4rem;
+      animation: entradaSuave 0.8s ease forwards;
+    }
+
+    @keyframes entradaSuave {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hoja {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.15;
+      animation: flotar 6s ease-in-out infinite alternate;
+    }
+    .hoja:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; }
+    .hoja:nth-child(2) { bottom: 15%; right: 10%; animation-delay: 1s; }
+    .hoja:nth-child(3) { top: 20%; right: 20%; animation-delay: 2s; }
+
+    @keyframes flotar {
+      from { transform: translateY(0px); opacity: 0.1; }
+      to { transform: translateY(-10px); opacity: 0.3; }
+    }
+
+    h1 {
+      color: var(--verde-oscuro);
+      margin-bottom: 0.5rem;
+      font-size: 2.2rem;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    /* === BOTONES DE TIPO DE CUENTA === */
+    .tipo-cuenta {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .tipo-cuenta button {
+      flex: 1;
+      border: 2px solid var(--verde-medio);
+      background: transparent;
+      color: var(--verde-medio);
+      padding: 0.8rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: var(--transicion);
+    }
+
+    .tipo-cuenta button.active,
+    .tipo-cuenta button:hover {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      transform: translateY(-2px);
+    }
+
+    /* === FORMULARIO === */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: left;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--verde-oscuro);
+      font-size: 0.95rem;
+    }
+
+    input, select {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      width: 100%;
+      transition: var(--transicion);
+    }
+
+    input:focus, select:focus {
+      border-color: var(--verde-medio);
+      outline: none;
+      box-shadow: 0 0 6px rgba(0, 121, 107, 0.3);
+    }
+
+    .btn-crear {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      font-weight: bold;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.9rem;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: var(--transicion);
+    }
+
+    .btn-crear:hover {
+      background: var(--verde-oscuro);
+      transform: translateY(-2px);
+    }
+
+    .enlace {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .enlace a {
+      color: var(--verde-medio);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .enlace a:hover {
+      text-decoration: underline;
+    }
+
+    .campo-extra {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      padding: 2rem;
+    }
+
+    footer a {
+      color: var(--verde-medio);
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4264/4264853.png" alt="AgroConnect Logo">
+      <h1>AgroConnect</h1>
+    </div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="comprar.html">Comprar</a>
+      <a href="vender.html">Vender</a>
+      <a href="login.html">Iniciar sesión</a>
+    </nav>
+  </header>
+
+  <!-- FORMULARIO -->
+  <div class="registro-container">
+    <span class="hoja">🍃</span>
+    <span class="hoja">🌿</span>
+    <span class="hoja">🌱</span>
+
+    <h1>Crear cuenta</h1>
+    <p>Únete a AgroConnect y forma parte del futuro del comercio agrícola sostenible 🌾</p>
+
+    <div class="tipo-cuenta">
+      <button id="compradorBtn" class="active">Comprador 🛒</button>
+      <button id="vendedorBtn">Vendedor 🌍</button>
+    </div>
+
+    <form id="formRegistro">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" placeholder="Tu nombre" required>
+
+      <label for="correo">Correo electrónico</label>
+      <input type="email" id="correo" placeholder="ejemplo@correo.com" required>
+
+      <label for="pais">País</label>
+      <select id="pais" required>
+        <option value="">Selecciona tu país</option>
+        <option>México</option>
+        <option>Colombia</option>
+        <option>Perú</option>
+        <option>Brasil</option>
+        <option>Argentina</option>
+        <option>España</option>
+      </select>
+
+      <div id="campoExtra"></div>
+
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" placeholder="Mínimo 6 caracteres" minlength="6" required>
+
+      <button type="submit" class="btn-crear">Crear cuenta</button>
+    </form>
+
+    <div class="enlace">
+      ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 AgroConnect · Comercio agrícola inteligente y sostenible 🌱 · <a href="#">Política de privacidad</a>
+  </footer>
+
+  <script>
+    const compradorBtn = document.getElementById("compradorBtn");
+    const vendedorBtn = document.getElementById("vendedorBtn");
+    const campoExtra = document.getElementById("campoExtra");
+
+    function mostrarCampos(tipo) {
+      campoExtra.classList.add("campo-extra");
+      campoExtra.innerHTML = "";
+
+      if (tipo === "vendedor") {
+        campoExtra.innerHTML = `
+          <label for="tipoVendedor">¿Eres una persona o una empresa?</label>
+          <select id="tipoVendedor" required>
+            <option value="">Selecciona una opción</option>
+            <option>Persona individual</option>
+            <option>Empresa agrícola</option>
+          </select>
+
+          <label for="empresa">Nombre de la empresa (opcional si eres persona)</label>
+          <input type="text" id="empresa" placeholder="Ej. AgroExport S.A.">
+
+          <label for="producto">Producto principal</label>
+          <input type="text" id="producto" placeholder="Ej. Café, Mango, Quinoa" required>
+
+          <label for="exportaDesde">Exporta desde</label>
+          <select id="exportaDesde" required>
+            <option value="">Selecciona país de origen</option>
+            <option>México</option>
+            <option>Perú</option>
+            <option>Colombia</option>
+            <option>Chile</option>
+            <option>Brasil</option>
+            <option>España</option>
+          </select>
+
+          <label for="exportaA">Exporta hacia</label>
+          <select id="exportaA" required>
+            <option value="">Selecciona destino</option>
+            <option>Unión Europea</option>
+            <option>Estados Unidos</option>
+            <option>Asia</option>
+            <option>Medio Oriente</option>
+            <option>Latinoamérica</option>
+          </select>
+
+          <label for="capacidad">Capacidad de exportación mensual</label>
+          <input type="text" id="capacidad" placeholder="Ej. 5 toneladas, 200 cajas" required>
+        `;
+      } else {
+        campoExtra.innerHTML = `
+          <label for="interes">¿Qué productos te interesan?</label>
+          <select id="interes" required>
+            <option value="">Selecciona una categoría</option>
+            <option>Frutas y verduras</option>
+            <option>Granos y semillas</option>
+            <option>Café y cacao</option>
+            <option>Productos orgánicos</option>
+          </select>
+        `;
+      }
+    }
+
+    compradorBtn.addEventListener("click", () => {
+      compradorBtn.classList.add("active");
+      vendedorBtn.classList.remove("active");
+      mostrarCampos("comprador");
+    });
+
+    vendedorBtn.addEventListener("click", () => {
+      vendedorBtn.classList.add("active");
+      compradorBtn.classList.remove("active");
+      mostrarCampos("vendedor");
+    });
+
+    mostrarCampos("comprador");
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - AgroConnect</title>
+  <style>
+    :root {
+      --verde-oscuro: #004d40;
+      --verde-medio: #00796b;
+      --verde-claro: #80cbc4;
+      --verde-suave: #e8f5e9;
+      --beige: #f7f4ec;
+      --blanco: #ffffff;
+      --sombra: 0 6px 16px rgba(0, 0, 0, 0.1);
+      --font: 'Poppins', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(135deg, var(--verde-suave), var(--beige));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+    }
+
+    /* === HEADER === */
+    header {
+      width: 100%;
+      background: linear-gradient(90deg, var(--verde-oscuro), var(--verde-medio));
+      color: var(--blanco);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--sombra);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      color: var(--blanco);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: var(--verde-claro);
+    }
+
+    /* === CONTENEDOR === */
+    .login-container {
+      background: var(--blanco);
+      border-radius: 1.2rem;
+      box-shadow: var(--sombra);
+      width: 90%;
+      max-width: 440px;
+      padding: 2.5rem;
+      text-align: center;
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+      animation: entrada 0.8s ease forwards;
+    }
+
+    @keyframes entrada {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hoja {
+      position: absolute;
+      font-size: 1.4rem;
+      opacity: 0.15;
+      animation: flotar 6s ease-in-out infinite alternate;
+    }
+
+    .hoja:nth-child(1) { top: 8%; left: 10%; animation-delay: 0s; }
+    .hoja:nth-child(2) { bottom: 10%; right: 12%; animation-delay: 1s; }
+    .hoja:nth-child(3) { top: 20%; right: 25%; animation-delay: 2s; }
+
+    @keyframes flotar {
+      from { transform: translateY(0); opacity: 0.15; }
+      to { transform: translateY(-10px); opacity: 0.3; }
+    }
+
+    h1 {
+      color: var(--verde-oscuro);
+      font-size: 2.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: left;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--verde-oscuro);
+      font-size: 0.95rem;
+    }
+
+    input {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    input:focus {
+      border-color: var(--verde-medio);
+      outline: none;
+      box-shadow: 0 0 6px rgba(0, 121, 107, 0.3);
+    }
+
+    .opciones {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .opciones a {
+      color: var(--verde-medio);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .opciones a:hover {
+      color: var(--verde-oscuro);
+      text-decoration: underline;
+    }
+
+    .btn-login {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      font-weight: bold;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.9rem;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background: var(--verde-oscuro);
+      transform: translateY(-2px);
+    }
+
+    .separador {
+      margin: 1.5rem 0;
+      position: relative;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .separador::before,
+    .separador::after {
+      content: "";
+      position: absolute;
+      height: 1px;
+      width: 40%;
+      background: #ccc;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .separador::before { left: 0; }
+    .separador::after { right: 0; }
+
+    .btn-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .btn-social button {
+      background: var(--blanco);
+      border: 2px solid var(--verde-medio);
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      color: var(--verde-medio);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-social button:hover {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      transform: translateY(-2px);
+    }
+
+    .enlace {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .enlace a {
+      color: var(--verde-medio);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .enlace a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">🌱 AgroConnect</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="comprar.html">Comprar</a></li>
+        <li><a href="vender.html">Vender</a></li>
+        <li><a href="crear-cuenta.html">Crear cuenta</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CONTENEDOR LOGIN -->
+  <div class="login-container">
+    <span class="hoja">🍃</span>
+    <span class="hoja">🌿</span>
+    <span class="hoja">🌱</span>
+
+    <h1>Iniciar Sesión</h1>
+    <p>Bienvenido de nuevo a <strong>AgroConnect</strong> 🌾</p>
+
+    <form>
+      <label for="correo">Correo electrónico</label>
+      <input type="email" id="correo" placeholder="ejemplo@correo.com" required>
+
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" placeholder="Tu contraseña" required>
+
+      <div class="opciones">
+        <label><input type="checkbox"> Recuérdame</label>
+        <a href="#">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn-login">Iniciar Sesión</button>
+    </form>
+
+    <div class="separador">o continúa con</div>
+
+    <div class="btn-social">
+      <button title="Google">🌐</button>
+      <button title="Facebook">📘</button>
+      <button title="LinkedIn">💼</button>
+    </div>
+
+    <div class="enlace">
+      ¿Aún no tienes cuenta? <a href="crear-cuenta.html">Crea una aquí</a>
+    </div>
+  </div>
+
+</body>
+</html>

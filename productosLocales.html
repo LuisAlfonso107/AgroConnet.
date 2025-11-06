@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descubre Productores Locales - AgroConnect</title>
+  <style>
+    :root {
+      --verde-oscuro: #004d40;
+      --verde-medio: #00796b;
+      --verde-claro: #80cbc4;
+      --verde-suave: #e8f5e9;
+      --beige: #f7f4ec;
+      --blanco: #ffffff;
+      --sombra: 0 6px 16px rgba(0, 0, 0, 0.1);
+      --font: 'Poppins', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(135deg, var(--verde-suave), var(--beige));
+      color: var(--verde-oscuro);
+      overflow-x: hidden;
+    }
+
+    /* === HEADER === */
+    header {
+      background: linear-gradient(135deg, #00695c, #004d40);
+      color: var(--blanco);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      box-shadow: var(--sombra);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--blanco);
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: var(--verde-claro);
+      color: var(--verde-oscuro);
+    }
+
+    .activo {
+      background: var(--blanco);
+      color: var(--verde-oscuro);
+    }
+
+    /* === SECCIÓN PRINCIPAL === */
+    .productores-locales {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--verde-suave), var(--beige));
+    }
+
+    .productores-locales h2 {
+      font-size: 2.4rem;
+      color: var(--verde-oscuro);
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s ease;
+    }
+
+    .productores-locales p {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      color: #333;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      animation: fadeIn 1.2s ease;
+    }
+
+    /* === TARJETAS === */
+    .cards-productores {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 2rem;
+      justify-content: center;
+      padding: 1rem 0;
+    }
+
+    .productor-card {
+      background: var(--blanco);
+      border-radius: 1.2rem;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+      text-align: left;
+    }
+
+    .productor-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0, 121, 107, 0.2);
+    }
+
+    .productor-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .productor-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .productor-card h3 {
+      color: var(--verde-medio);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .productor-card p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 0.4rem;
+    }
+
+    .productor-card button {
+      background: var(--verde-medio);
+      color: var(--blanco);
+      border: none;
+      border-radius: 2rem;
+      padding: 0.7rem 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+    }
+
+    .productor-card button:hover {
+      background: var(--verde-oscuro);
+      transform: translateY(-2px);
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: linear-gradient(135deg, #004d40, #00695c);
+      color: var(--blanco);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: #b2dfdb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* === ANIMACIONES === */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- === HEADER === -->
+  <header>
+    <h1>AgroConnect</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="vender.html">Vender</a></li>
+        <li><a href="comprar.html">Comprar</a></li>
+        <li><a href="crear-cuenta.html">Crear cuenta</a></li>
+        <li><a href="login.html">Iniciar Sesión</a></li>
+        <li><a href="productores-locales.html" class="activo">Productores Locales</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- === SECCIÓN PRODUCTORES LOCALES === -->
+  <section class="productores-locales">
+    <h2>🌱 Descubre Productores Locales</h2>
+    <p>Conecta con agricultores y cooperativas comprometidos con la sostenibilidad, la trazabilidad y la producción responsable.  
+    AgroConnect impulsa la conexión entre productores auténticos y compradores conscientes alrededor del mundo.</p>
+
+    <div class="cards-productores">
+      <div class="productor-card">
+        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80" alt="Productor local">
+        <div class="card-content">
+          <h3>Finca El Sol 🌾</h3>
+          <p><strong>Ubicación:</strong> Antioquia, Colombia</p>
+          <p><strong>Producto:</strong> Café orgánico premium</p>
+          <button>Ver perfil</button>
+        </div>
+      </div>
+
+      <div class="productor-card">
+        <img src="https://images.unsplash.com/photo-1590080875830-91f8f8b6f74e?auto=format&fit=crop&w=800&q=80" alt="Productor local">
+        <div class="card-content">
+          <h3>Huerto Verde 🍅</h3>
+          <p><strong>Ubicación:</strong> Guanajuato, México</p>
+          <p><strong>Producto:</strong> Hortalizas frescas sin pesticidas</p>
+          <button>Ver perfil</button>
+        </div>
+      </div>
+
+      <div class="productor-card">
+        <img src="https://images.unsplash.com/photo-1602535549404-f8a6e1c1525d?auto=format&fit=crop&w=800&q=80" alt="Productor local">
+        <div class="card-content">
+          <h3>Cooperativa Andina 🥑</h3>
+          <p><strong>Ubicación:</strong> Cusco, Perú</p>
+          <p><strong>Producto:</strong> Aguacates Hass de exportación</p>
+          <button>Ver perfil</button>
+        </div>
+      </div>
+
+      <div class="productor-card">
+        <img src="https://images.unsplash.com/photo-1562514155-444b0f9f6d1a?auto=format&fit=crop&w=800&q=80" alt="Productor local">
+        <div class="card-content">
+          <h3>Campos del Sur 🍇</h3>
+          <p><strong>Ubicación:</strong> Mendoza, Argentina</p>
+          <p><strong>Producto:</strong> Uvas y vinos artesanales</p>
+          <button>Ver perfil</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === FOOTER === -->
+  <footer>
+    © 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.  
+    <br><a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a>
+  </footer>
+
+</body>
+</html>

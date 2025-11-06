@@ -1,280 +1,410 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vender - AgroConnect</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vender | AgroConnect</title>
   <style>
     :root {
       --verde-oscuro: #004d40;
       --verde-medio: #00796b;
-      --verde-claro: #b2dfdb;
-      --fondo: #f1f8f6;
-      --blanco: #fff;
-      --sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --verde-claro: #e0f2f1;
+      --blanco: #ffffff;
+      --gris-fondo: #f8f9f8;
+      --sombra: 0 4px 10px rgba(0,0,0,0.15);
+      --transicion: all 0.4s ease;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--fondo);
+      font-family: "Poppins", sans-serif;
+      background: var(--gris-fondo);
       color: #333;
-      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    /* === HEADER === */
+    /* ===== HEADER ===== */
     header {
       background: linear-gradient(90deg, var(--verde-oscuro), var(--verde-medio));
       color: var(--blanco);
-      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1rem 2rem;
       box-shadow: var(--sombra);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    header h1 {
-      font-size: 1.8rem;
-      font-weight: bold;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
     }
 
     nav a {
-      color: #c8e6c9;
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
       color: var(--blanco);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transicion);
+      position: relative;
     }
 
-    /* === HERO VENDER === */
+    nav a:hover,
+    nav a.active {
+      color: #b2dfdb;
+    }
+
+    /* === BUSCADOR EN NAV === */
+    .buscador-nav {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.2);
+      border-radius: 2rem;
+      padding: 0.3rem 1rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .buscador-nav input {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--blanco);
+      padding: 0.4rem;
+      width: 160px;
+    }
+
+    .buscador-nav input::placeholder {
+      color: #e0f2f1;
+    }
+
+    .buscador-nav button {
+      border: none;
+      background: #004d40;
+      color: var(--blanco);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      transition: var(--transicion);
+    }
+
+    .buscador-nav button:hover {
+      background: var(--verde-medio);
+    }
+
+    /* ===== HERO ===== */
     .hero-vender {
-      background: linear-gradient(135deg, #004d40, #00796b, #009688);
-      color: white;
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-medio));
+      color: var(--blanco);
       text-align: center;
       padding: 5rem 2rem;
       position: relative;
       overflow: hidden;
     }
 
-    .hero-vender::before {
-      content: "";
-      position: absolute;
-      top: -20%;
-      left: -10%;
-      width: 140%;
-      height: 140%;
-      background: radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent 70%);
-      z-index: 0;
-      animation: luz 10s infinite alternate ease-in-out;
-    }
-
-    @keyframes luz {
-      0% { opacity: 0.4; transform: scale(1);}
-      100% { opacity: 0.7; transform: scale(1.1);}
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero-content h2 {
-      font-size: 2.8rem;
-      font-weight: 700;
+    .hero-vender h1 {
+      font-size: 2.5rem;
       margin-bottom: 1rem;
+      font-weight: 700;
     }
 
-    .hero-content p {
-      font-size: 1.2rem;
+    .hero-vender p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
       color: #e0f2f1;
-      margin-bottom: 2rem;
     }
 
-    .btn-hero {
-      display: inline-block;
-      background: var(--blanco);
-      color: var(--verde-oscuro);
-      font-weight: bold;
-      padding: 0.9rem 1.8rem;
-      border-radius: 2rem;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .btn-hero:hover {
-      background: var(--verde-oscuro);
-      color: var(--blanco);
-      transform: translateY(-4px);
-    }
-
-    /* === FORMULARIO DE PUBLICACIÓN === */
-    .form-section {
-      max-width: 800px;
-      margin: 4rem auto;
+    /* ===== COMPRADORES ===== */
+    .compradores {
+      max-width: 1200px;
+      margin: -3rem auto 5rem;
       background: var(--blanco);
       border-radius: 1rem;
+      padding: 3rem 2rem;
       box-shadow: var(--sombra);
-      padding: 2.5rem;
+      position: relative;
+      z-index: 2;
     }
 
-    .form-section h3 {
+    .compradores h2 {
+      text-align: center;
       color: var(--verde-oscuro);
+      margin-bottom: 2rem;
       font-size: 1.8rem;
+    }
+
+    .compradores-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .comprador-card {
+      background: var(--verde-claro);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: var(--transicion);
+    }
+
+    .comprador-card:hover {
+      background: var(--blanco);
+      transform: translateY(-5px);
+      box-shadow: var(--sombra);
+    }
+
+    .comprador-card h3 {
+      color: var(--verde-medio);
+      margin-bottom: 0.5rem;
+    }
+
+    .comprador-card p {
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 0.4rem;
+    }
+
+    .btn-publicar {
+      display: block;
+      margin: 3rem auto 0;
+      background: var(--verde-medio);
+      color: var(--blanco);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transicion);
+    }
+
+    .btn-publicar:hover {
+      background: var(--verde-oscuro);
+      transform: translateY(-3px);
+    }
+
+    /* ===== MODAL (Formulario) ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal.active {
+      display: flex;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .formulario-vender {
+      background: var(--blanco);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: var(--sombra);
+      width: 90%;
+      max-width: 650px;
+      position: relative;
+    }
+
+    .cerrar-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--verde-medio);
+      cursor: pointer;
+    }
+
+    .formulario-vender h2 {
+      color: var(--verde-oscuro);
       margin-bottom: 1rem;
       text-align: center;
     }
 
-    .form-section p {
-      text-align: center;
+    .formulario-vender p {
+      font-size: 0.9rem;
       color: #555;
-      margin-bottom: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
 
     form {
       display: grid;
-      gap: 1.5rem;
+      gap: 1rem;
     }
 
     label {
-      font-weight: 600;
+      font-weight: bold;
       color: var(--verde-oscuro);
+      margin-bottom: 0.3rem;
+      display: block;
     }
 
     input, select, textarea {
       width: 100%;
       padding: 0.8rem;
-      border: 2px solid var(--verde-claro);
+      border: 1px solid #ccc;
       border-radius: 0.5rem;
+      transition: var(--transicion);
       font-size: 1rem;
-      outline: none;
-      transition: border-color 0.3s ease;
     }
 
     input:focus, select:focus, textarea:focus {
       border-color: var(--verde-medio);
+      outline: none;
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    button[type="submit"] {
+    button.enviar {
       background: var(--verde-medio);
       color: var(--blanco);
-      padding: 0.9rem;
-      font-size: 1.1rem;
       border: none;
-      border-radius: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 2rem;
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transicion);
     }
 
-    button[type="submit"]:hover {
+    button.enviar:hover {
       background: var(--verde-oscuro);
-      transform: translateY(-3px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    /* === FOOTER === */
-    footer {
-      background: var(--verde-oscuro);
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 3rem;
     }
 
     @media (max-width: 768px) {
-      .hero-content h2 { font-size: 2rem; }
-      .form-section { margin: 2rem; padding: 1.5rem; }
+      header { flex-direction: column; gap: 1rem; }
+      nav { flex-wrap: wrap; justify-content: center; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- HEADER -->
   <header>
-    <h1>AgroConnect</h1>
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4264/4264853.png" alt="AgroConnect">
+      <h1>AgroConnect</h1>
+    </div>
     <nav>
       <a href="index.html">Inicio</a>
-      <a href="productos.html">Productos</a>
-      <a href="vender.html">Vender</a>
       <a href="comprar.html">Comprar</a>
+      <a href="vender.html" class="active">Vender</a>
+      <div class="buscador-nav">
+        <input type="text" placeholder="Buscar producto...">
+        <button>🔍</button>
+      </div>
     </nav>
   </header>
 
+  <!-- HERO -->
   <section class="hero-vender">
-    <div class="hero-content">
-      <h2>Publica tu Producto</h2>
-      <p>Conecta tu producción agrícola con compradores globales.  
-      Muestra tu trabajo, comparte tus productos y llega a nuevos mercados.</p>
-      <a href="#formulario" class="btn-hero">Comenzar Ahora</a>
+    <h1>Conecta tu producción con el mundo 🌍</h1>
+    <p>Publica fácilmente tus productos agrícolas y encuentra compradores internacionales verificados.</p>
+  </section>
+
+  <!-- COMPRADORES -->
+  <section class="compradores">
+    <h2>Compradores interesados</h2>
+    <div class="compradores-grid">
+      <div class="comprador-card">
+        <h3>EcoCoffee Europe</h3>
+        <p><strong>Producto:</strong> Café orgánico premium</p>
+        <p><strong>Ubicación:</strong> Alemania</p>
+        <p><strong>Volumen:</strong> 12 toneladas mensuales</p>
+      </div>
+      <div class="comprador-card">
+        <h3>GlobalAvocado</h3>
+        <p><strong>Producto:</strong> Aguacates Hass</p>
+        <p><strong>Ubicación:</strong> España</p>
+        <p><strong>Volumen:</strong> 4 contenedores por temporada</p>
+      </div>
+      <div class="comprador-card">
+        <h3>GreenTrade USA</h3>
+        <p><strong>Producto:</strong> Hoja de tabaco</p>
+        <p><strong>Ubicación:</strong> EE.UU.</p>
+        <p><strong>Volumen:</strong> 10 toneladas trimestrales</p>
+      </div>
     </div>
+
+    <button class="btn-publicar" id="abrirModal">📤 Publicar producto</button>
   </section>
 
-  <section id="formulario" class="form-section">
-    <h3>Formulario de Publicación</h3>
-    <p>Completa la información de tu producto. Nos aseguraremos de que llegue a los compradores adecuados.</p>
+  <!-- MODAL -->
+  <div class="modal" id="modalVender">
+    <div class="formulario-vender">
+      <button class="cerrar-modal" id="cerrarModal">✖</button>
+      <h2>Publicar producto</h2>
+      <p>Completa la información de tu oferta para conectarte con compradores interesados.</p>
+      <form>
+        <label>Nombre o empresa</label>
+        <input type="text" placeholder="Ej: AgroExport S.A.">
 
-    <form>
-      <div>
-        <label for="nombre">Nombre del Producto:</label>
-        <input type="text" id="nombre" placeholder="Ej: Café orgánico, Maíz amarillo..." required>
-      </div>
-
-      <div>
-        <label for="categoria">Categoría:</label>
-        <select id="categoria" required>
-          <option value="">Selecciona una categoría</option>
-          <option value="granos">Granos</option>
-          <option value="frutas">Frutas</option>
-          <option value="vegetales">Vegetales</option>
-          <option value="otros">Otros</option>
+        <label>Tipo</label>
+        <select>
+          <option>Persona</option>
+          <option>Empresa</option>
         </select>
-      </div>
 
-      <div>
-        <label for="precio">Precio por unidad ($):</label>
-        <input type="number" id="precio" step="0.01" placeholder="Ej: 2.50" required>
-      </div>
+        <label>País de origen</label>
+        <input type="text" placeholder="Ej: México">
 
-      <div>
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" placeholder="Describe brevemente tu producto..." required></textarea>
-      </div>
+        <label>País de destino</label>
+        <input type="text" placeholder="Ej: Canadá">
 
-      <div>
-        <label for="imagen">Imagen del producto:</label>
-        <input type="file" id="imagen" accept="image/*" required>
-      </div>
+        <label>Producto</label>
+        <input type="text" placeholder="Ej: Café, cacao, aguacate...">
 
-      <button type="submit">Publicar Producto</button>
-    </form>
-  </section>
+        <label>Cantidad</label>
+        <input type="text" placeholder="Ej: 10 toneladas mensuales">
 
-  <footer>
-    <p>© 2025 AgroConnect — Impulsando el comercio agrícola global</p>
-  </footer>
+        <label>Descripción</label>
+        <textarea rows="4" placeholder="Describe tu producto, certificaciones, calidad, empaques..."></textarea>
+
+        <button type="submit" class="enviar">Enviar publicación</button>
+      </form>
+    </div>
+  </div>
 
   <script>
-    // Pequeña validación visual del formulario
-    document.querySelector("form").addEventListener("submit", e => {
-      e.preventDefault();
-      alert("✅ Tu producto ha sido publicado con éxito en AgroConnect.");
-      e.target.reset();
+    const modal = document.getElementById("modalVender");
+    const abrir = document.getElementById("abrirModal");
+    const cerrar = document.getElementById("cerrarModal");
+
+    abrir.addEventListener("click", () => modal.classList.add("active"));
+    cerrar.addEventListener("click", () => modal.classList.remove("active"));
+    modal.addEventListener("click", e => {
+      if (e.target === modal) modal.classList.remove("active");
     });
   </script>
 </body>
