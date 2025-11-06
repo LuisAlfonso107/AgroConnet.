@@ -14,25 +14,84 @@ body {
 
 /* === HEADER HERO === */
 .hero {
-  background: linear-gradient(135deg, #004d40, #00796b);
+  background: linear-gradient(135deg, #013f35, #319c90);
   color: white;
-  padding: 3rem 2rem;
+  padding: 1rem 2rem;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
 }
 
 .hero h1 {
+  display: flex;
+  justify-content: left;
+  margin-bottom: -2rem;
   font-size: 3rem;
-  margin-bottom: 1.5rem;
   font-weight: 700;
   letter-spacing: 1px;
 }
 
 .nav-enlaces {
   display: flex;
-  justify-content: center;
+  justify-content: right  ;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.nav-enlaces a { 
+  background: white;
+   color: #00796b;
+  opacity: 0;
+  transform: translateX(100px); /* 👉 se mueven desde la derecha */
+  border-radius: 50%;
+  display: inline-block;
+  transition: all 0.4s ease;
+  animation: slideInLinksRight 1s ease forwards;
+}
+.nav-enlaces a:last-child{
+  background: #423719;
+  color: white;
+}
+.nav-enlaces a:last-child:hover{
+   background-color: #ffffff;
+  color: #00796b;
+  padding: 0.8rem 1.6rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.nav-enlaces :nth-last-child(-n+2){
+  background: #9bb316;
+  color: white; 
+}
+
+/* 🔁 Animación secuencial para cada enlace */
+.nav-enlaces a:nth-child(1) { animation-delay: 0.2s; }
+.nav-enlaces a:nth-child(2) { animation-delay: 0.4s; }
+.nav-enlaces a:nth-child(3) { animation-delay: 0.6s; }
+.nav-enlaces a:nth-child(4) { animation-delay: 0.8s; }
+.nav-enlaces a:nth-child(5) { animation-delay: 1s; }
+.nav-enlaces a:nth-child(6) { animation-delay: 1.2s; }
+
+/* 🎬 Keyframes para animación desde la derecha */
+@keyframes slideInLinksRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px) scale(0.8); /* empieza fuera del lado derecho */
+    border-radius: 100%;
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(-10px) scale(1.1); /* se pasa un poco a la izquierda */
+    border-radius: 2rem;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1); /* posición final normal */
+    border-radius: 8rem;
+  }
 }
 
 .cta-button {
@@ -42,7 +101,7 @@ body {
   border-radius: 2rem;
   font-weight: bold;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -51,11 +110,11 @@ body {
   color: white;
 }
 
-/* === PROPUESTA DE VALOR === */
+/* -------- PROPUESTA DE VALOR -------- */
 .propuesta-valor {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1rem;
   background: linear-gradient(135deg, #e3f2fd, #f1f8e9);
   border-radius: 1rem;
   padding: 3rem 2rem;
@@ -64,7 +123,7 @@ body {
 
 .mapa {
   position: relative;
-  width: 60%;
+  width: 110%;
   max-width: 800px;
 }
 
@@ -97,7 +156,7 @@ body {
 .barco4 {  animation: ruta4 26s linear infinite 3s; }
 @keyframes ruta1 {
   18%   { top: 70%; left: 45%; opacity: 1; }
-20%  { top: 38%; left: 40%; opacity: ; }
+20%  { top: 38%; left: 40%; opacity: 1; }
   30%  { top: 50%; left: 55%; opacity: 1; }
   50%  { top: 45%; left: 60%; opacity: 1; }
   70%  { top: 42%; left: 55%; opacity: 1; }
@@ -145,15 +204,22 @@ body {
 .grano.espana { top: 40%; left: 65%; }
 .grano.colombia { top: 65%; left: 40%; }
 
+/* === contenedor de mapa y info === */
+.contenedor1 {
+  display: flex;
+  justify-content: space-between;
+  align-items:flex-end;
+  margin: 1.5rem;
+}
+
 /* === COLUMNA DERECHA === */
+
 .seccion1 {
-  width: 40%;
+  width: 45%;
+  height: 100%;
   text-align: center;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ccc;
+  background: #e3f2fd, #f1f8e9;   
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .seccion1 h2 {
