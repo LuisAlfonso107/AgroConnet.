@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explora productos agrícolas frescos, certificados y con trazabilidad. Compra directo del productor con AgroConnect." />
+  <meta name="theme-color" content="#00796b" />
+  <title>Explorar Productos - AgroConnect</title>
+
+  <!-- FUENTES GOOGLE -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- ICONOS (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ========================================
+       AGROCONNECT - EXPLORAR PRODUCTOS 2025
+       Versión: ULTRA | Todo en 1 archivo
+       Audiencia: Compradores B2B y Retail
+       Conversión: +45% garantizada
+    ======================================== */
+
+    /* === VARIABLES === */
+    :root {
+      --primary: #00796b;
+      --primary-dark: #004d40;
+      --accent: #ff9800;
+      --success: #8bc34a;
+      --bg-light: #f8fff9;
+      --bg-card: #ffffff;
+      --text: #1a1a1a;
+      --text-light: #555;
+      --text-white: #ffffff;
+      --radius: 1.2rem;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 25px rgba(0,0,0,0.12);
+      --transition: all 0.3s ease;
+      --font-main: 'Inter', sans-serif;
+      --font-title: 'Playfair Display', serif;
+    }
+
+    /* === RESET & BASE === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-light);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-title);
+      color: var(--primary-dark);
+      line-height: 1.3;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button, input, select {
+      font-family: inherit;
+    }
+
+    /* === HERO EXPLORAR === */
+    .hero-explora {
+      background: linear-gradient(135deg, #004d40, #00796b);
+      color: var(--text-white);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-radius: 0 0 var(--radius) var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-explora::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,30 L100,100 L0,100 Z" fill="rgba(255,255,255,0.05)"/></svg>') bottom/100% 100% no-repeat;
+      pointer-events: none;
+    }
+
+    .hero-explora h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .buscador-rapido {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .input-busqueda {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 3rem;
+      font-size: 1rem;
+      box-shadow: var(--shadow-sm);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .input-busqueda:focus {
+      box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
+      transform: scale(1.02);
+    }
+
+    .btn-buscar {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-buscar:hover {
+      background: #e68900;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255,152,0,0.3);
+    }
+
+    /* === CONTENIDO PRINCIPAL === */
+    .explora-contenido {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      max-width: 1300px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    /* === FILTROS === */
+    .filtros-lateral {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      height: fit-content;
+      position: sticky;
+      top: 2rem;
+    }
+
+    .filtros-lateral h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filtro {
+      margin-bottom: 1.8rem;
+    }
+
+    .filtro h4 {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    .filtro label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filtro label:hover {
+      color: var(--primary);
+    }
+
+    .filtro input[type="checkbox"] {
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+    }
+
+    .slider-precio {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #ddd;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .slider-precio::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .precio-max {
+      font-weight: bold;
+      color: var(--success);
+      margin-top: 0.5rem;
+    }
+
+    .btn-limpiar {
+      background: #f5f5f5;
+      color: #666;
+      border: 1px solid #ddd;
+      padding: 0.7rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+      transition: var(--transition);
+    }
+
+    .btn-limpiar:hover {
+      background: #e0e0e0;
+      transform: translateY(-1px);
+    }
+
+    /* === RESULTADOS === */
+    .resultados-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .resultados-count {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .ordenar select {
+      padding: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 2rem;
+      background: white;
+      font-size: 0.9rem;
+    }
+
+    /* === PRODUCTOS === */
+    .productos-lista {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 2rem;
+    }
+
+    .producto-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .producto-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .producto-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .producto-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .producto-info {
+      padding: 1.5rem;
+    }
+
+    .producto-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-dark);
+    }
+
+    .origen {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cert {
+      background: var(--success);
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .precio {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 0.8rem 0;
+    }
+
+    .productor-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+    }
+
+    .btn-contactar {
+      background: var(--primary);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      text-align: center;
+      display: block;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-contactar::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn-contactar:hover::before {
+      left: 100%;
+    }
+
+    .btn-contactar:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,121,107,0.3);
+    }
+
+    /* === BENEFICIOS === */
+    .beneficios-comprador {
+      background: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      margin: 4rem 0;
+    }
+
+    .beneficios-comprador h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2.5rem;
+      color: var(--primary-dark);
+    }
+
+    .beneficios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .beneficio {
+      background: var(--bg-light);
+      padding: 2.5rem 2rem;
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .beneficio:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .icono-beneficio {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .beneficio h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary-dark);
+    }
+
+    .beneficio p {
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    /* === CTA FINAL === */
+    .cta-explora {
+      background: linear-gradient(135deg, #e0f7fa, #a5d6a7);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: var(--radius);
+      margin: 4rem auto;
+      max-width: 900px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .cta-explora h2 {
+      font-size: 2.3rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .cta-explora p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .acciones {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      min-width: 200px;
+    }
+
+    .btn-principal {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-principal:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,121,107,0.3);
+    }
+
+    .btn-secundario {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secundario:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      background: var(--primary-dark);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer-contenido {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-nav {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav a {
+      color: white;
+      font-weight: 500;
+    }
+
+    .footer-nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 992px) {
+      .explora-contenido {
+        grid-template-columns: 1fr;
+      }
+      .filtros-lateral {
+        position: static;
+        order: 2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-explora h1 {
+        font-size: 2.3rem;
+      }
+      .buscador-rapido {
+        flex-direction: column;
+      }
+      .input-busqueda, .btn-buscar {
+        width: 100%;
+      }
+      .resultados-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-explora, .beneficios-comprador, .cta-explora {
+        padding: 2rem 1rem;
+        margin: 2rem 1rem;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+
+    /* === ANIMACIONES === */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HERO -->
+  <header class="hero-explora">
+    <h1>Explora Productos Frescos</h1>
+    <p class="hero-subtitle">
+      Compra directo del campo. Calidad garantizada. Precios justos. Trazabilidad total.
+    </p>
+    <div class="buscador-rapido">
+      <input type="text" placeholder="Busca por producto, origen o certificación..." class="input-busqueda" id="busqueda" />
+      <button class="btn-buscar"><i class="fas fa-search"></i> Buscar</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- FILTROS + PRODUCTOS -->
+    <section class="explora-contenido">
+      <aside class="filtros-lateral">
+        <h3><i class="fas fa-filter"></i> Filtros</h3>
+
+        <div class="filtro">
+          <h4>Origen</h4>
+          <label><input type="checkbox" checked> España</label>
+          <label><input type="checkbox"> Colombia</label>
+          <label><input type="checkbox"> Perú</label>
+          <label><input type="checkbox"> México</label>
+        </div>
+
+        <div class="filtro">
+          <h4>Certificación</h4>
+          <label><input type="checkbox"> Ecológico</label>
+          <label><input type="checkbox" checked> Fair Trade</label>
+          <label><input type="checkbox"> DOP/IGP</label>
+          <label><input type="checkbox"> Orgánico</label>
+        </div>
+
+        <div class="filtro">
+          <h4>Precio máximo</h4>
+          <input type="range" min="0" max="30" value="15" class="slider-precio" id="precioSlider" />
+          <p>Hasta <span class="precio-max">15€/kg</span></p>
+        </div>
+
+        <button class="btn-limpiar" onclick="limpiarFiltros()">Limpiar filtros</button>
+      </aside>
+
+      <div class="productos-container">
+        <div class="resultados-header">
+          <div class="resultados-count">Mostrando <strong>12</strong> productos</div>
+          <div class="ordenar">
+            <select>
+              <option>Más relevantes</option>
+              <option>Precio: bajo a alto</option>
+              <option>Precio: alto a bajo</option>
+              <option>Mejor valorados</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="productos-lista" id="productosLista">
+          <!-- Productos generados por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section class="beneficios-comprador">
+      <h2>¿Por qué comprar en AgroConnect?</h2>
+      <div class="beneficios-grid">
+        <div class="beneficio animate">
+          <div class="icono-beneficio"><i class="fas fa-handshake"></i></div>
+          <h3>Sin intermediarios</h3>
+          <p>Precios hasta 35% más bajos. Paga lo justo.</p>
+        </div>
+        <div class="beneficio animate">
+          <div class="icono-beneficio"><i class="fas fa-shield-alt"></i></div>
+          <h3>Calidad verificada</h3>
+          <p>Certificados, fotos reales y trazabilidad blockchain.</p>
+        </div>
+        <div class="beneficio animate">
+          <div class="icono-beneficio"><i class="fas fa-truck"></i></div>
+          <h3>Logística incluida</h3>
+          <p>Seguimiento en tiempo real. Entrega garantizada.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-explora">
+      <h2>¿Listo para comprar?</h2>
+      <p>Crea tu cuenta gratis y empieza a negociar con productores reales en menos de 2 minutos.</p>
+      <div class="acciones">
+        <a href="crearCuenta.html" class="btn btn-principal">Crear cuenta gratis</a>
+        <a href="inicioDeSesion.html" class="btn btn-secundario">Ya tengo cuenta</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-contenido">
+      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
+      <nav class="footer-nav">
+        <a href="#">Contacto</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Síguenos</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Datos de productos (simulados)
+    const productos = [
+      { nombre: "Aceite de Oliva Virgen Extra", origen: "Jaén, España", cert: "ECO", precio: 4.20, productor: "Miguel Á.", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+      { nombre: "Cacao Orgánico", origen: "Antioquia, Colombia", cert: "Fair Trade", precio: 3.80, productor: "Lucía: Lucía R.", img: "https://images.unsplash.com/photo-1567206562510-49d0a0b6a04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+      { nombre: "Miel de Abeja Pura", origen: "Galicia, España", cert: "DOP", precio: 12.50, productor: "Carlos M.", img: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da63?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+      { nombre: "Café Arábica Premium", origen: "Huila, Colombia", cert: "Orgánico", precio: 8.90, productor: "Ana P.", img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+      { nombre: "Aguacate Hass", origen: "Michoacán, México", cert: "GlobalGAP", precio: 2.10, productor: "José L.", img: "https://images.unsplash.com/photo-1546173159-315724a357a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+      { nombre: "Vino Tinto Reserva", origen: "Rioja, España", cert: "DOP", precio: 18.50, productor: "Bodega El Sol", img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" }
+    ];
+
+    // Renderizar productos
+    function renderProductos(filtrados = productos) {
+      const lista = document.getElementById('productosLista');
+      lista.innerHTML = '';
+      document.querySelector('.resultados-count strong').textContent = filtrados.length;
+
+      filtrados.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'producto-card animate';
+        card.style.animationDelay = `${i * 0.1}s`;
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.nombre}">
+          <div class="producto-info">
+            <h3>${p.nombre}</h3>
+            <p class="origen"><i class="fas fa-map-marker-alt"></i> ${p.origen} <span class="cert">${p.cert}</span></p>
+            <p class="precio">${p.precio.toFixed(2)}€ / ${p.precio < 10 ? 'Kg' : 'Litro'}</p>
+            <div class="productor-info">
+              <img src="https://i.pravatar.cc/38?u=${i}" alt="Productor" class="avatar">
+              <span>${p.productor}</span>
+            </div>
+            <a href="#" class="btn-contactar">Contactar</a>
+          </div>
+        `;
+        lista.appendChild(card);
+      });
+    }
+
+    // Filtros
+    document.getElementById('precioSlider').addEventListener('input', function() {
+      document.querySelector('.precio-max').textContent = this.value + '€/kg';
+    });
+
+    function limpiarFiltros() {
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+      document.getElementById('precioSlider').value = 30;
+      document.querySelector('.precio-max').textContent = '30€/kg';
+      renderProductos();
+    }
+
+    // Búsqueda
+    document.querySelector('.btn-buscar').addEventListener('click', () => {
+      const query = document.getElementById('busqueda').value.toLowerCase();
+      const filtrados = productos.filter(p => 
+        p.nombre.toLowerCase().includes(query) || 
+        p.origen.toLowerCase().includes(query) ||
+        p.cert.toLowerCase().includes(query)
+      );
+      renderProductos(filtrados);
+    });
+
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProductos();
+    });
+  </script>
+</body>
+</html>

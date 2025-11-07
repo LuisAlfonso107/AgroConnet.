@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Crea tu cuenta en AgroConnect. Elige si eres productor o comprador y únete a la red global de comercio agrícola directo." />
+  <meta name="theme-color" content="#00796b" />
+  <title>Crear Cuenta | AgroConnect</title>
+
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <style>
+    /* ========================================
+       AGROCONNECT - CREAR CUENTA (ALL-IN-ONE)
+       HTML + CSS + JS en una sola página
+       2025 | Responsive | PWA | Validación real
+    ======================================== */
+
+    /* === VARIABLES GLOBALES === */
+    :root {
+      --primary: #00796b;
+      --primary-dark: #004d40;
+      --accent: #ff9800;
+      --success: #8bc34a;
+      --warning: #ffb300;
+      --info: #29b6f6;
+      --light: #e0f2f1;
+      --bg: #f8fff9;
+      --bg-card: #ffffff;
+      --text: #1a1a1a;
+      --text-light: #555;
+      --radius: 1.5rem;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 25px rgba(0,0,0,0.12);
+      --transition: all 0.4s ease;
+      --font-main: 'Inter', sans-serif;
+      --font-title: 'Playfair Display', serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1.1rem;
+      position: relative;
+      overflow-x: hidden;
+      padding-top: 90px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0,121,107,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,152,0,0.08) 0%, transparent 50%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><path d="M40 10c16.5 0 30 13.5 30 30s-13.5 30-30 30-30-13.5-30-30 13.5-30 30-30zm0 8c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22z" fill="%2300796b" opacity="0.03"/></svg>') repeat;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    ul, ol { list-style: none; }
+    a { text-decoration: none; color: inherit; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; }
+
+    /* === NAV PREMIUM === */
+    .nav-wrapper {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    .nav-wrapper.scrolled {
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    }
+    .nav-container {
+      display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;
+    }
+    .logo {
+      font-family: var(--font-title); font-size: 1.9rem; font-weight: 700; color: var(--primary);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .logo i { color: var(--accent); animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    .nav-menu { display: flex; gap: 1.8rem; align-items: center; }
+    .nav-link {
+      color: var(--text); font-weight: 600; padding: 0.5rem 1rem; border-radius: 2rem;
+      transition: var(--transition); font-size: 0.95rem;
+    }
+    .nav-link:hover { color: var(--primary); background: rgba(0,121,107,0.1); }
+    .btn-login {
+      background: transparent; color: var(--primary); border: 2px solid var(--primary);
+      padding: 0.6rem 1.5rem; border-radius: 3rem; font-weight: 600; transition: var(--transition);
+    }
+    .btn-login:hover { background: var(--primary); color: white; }
+    .hamburger { display: none; font-size: 1.8rem; color: var(--primary); cursor: pointer; }
+
+    /* === HERO REGISTRO === */
+    .registro-hero {
+      padding: 6rem 2rem 4rem; min-height: 100vh; display: flex; align-items: center;
+    }
+    .registro-card {
+      background: white; border-radius: var(--radius); box-shadow: var(--shadow-md);
+      padding: 3rem; max-width: 800px; margin: 0 auto;
+    }
+    .registro-header { text-align: center; margin-bottom: 3rem; }
+    .registro-header h1 { font-size: 2.5rem; color: var(--primary-dark); margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem; }
+    .progreso { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+    .progreso .paso {
+      width: 40px; height: 40px; border-radius: 50%; background: #e0e0e0; color: #999;
+      display: flex; align-items: center; justify-content: center; font-weight: 600;
+      transition: var(--transition);
+    }
+    .progreso .paso.activo { background: var(--primary); color: white; transform: scale(1.1); }
+    .progreso .paso.completado { background: var(--success); color: white; }
+
+    .paso-contenido { display: none; animation: fadeIn 0.5s ease; }
+    .paso-contenido.activo { display: block; }
+    .paso-contenido h2 { text-align: center; margin-bottom: 2rem; color: var(--primary-dark); font-size: 1.8rem; }
+
+    /* ROLES */
+    .roles { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .rol-card {
+      flex: 1; min-width: 280px; max-width: 350px; background: #f8fff9; border: 3px solid transparent;
+      border-radius: var(--radius); padding: 2rem; text-align: center; cursor: pointer;
+      transition: var(--transition); position: relative;
+    }
+    .rol-card input { position: absolute; opacity: 0; cursor: pointer; }
+    .rol-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,121,107,0.15); }
+    .rol-card.selected { border-color: var(--primary); background: rgba(0,121,107,0.05); box-shadow: 0 8px 20px rgba(0,121,107,0.2); }
+    .rol-icon { font-size: 3rem; color: var(--primary); margin-bottom: 1rem; }
+    .rol-card h3 { margin-bottom: 0.8rem; color: var(--primary-dark); }
+    .rol-card p { font-size: 0.95rem; color: var(--text-light); }
+
+    /* FORMULARIO */
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .input-group { position: relative; }
+    .input-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text); }
+    .input-group input, .input-group select {
+      width: 100%; padding: 0.9rem 1rem; border: 2px solid #e0e0e0; border-radius: 1rem;
+      font-size: 1rem; transition: var(--transition);
+    }
+    .input-group input:focus, .input-group select:focus {
+      outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,121,107,0.2);
+    }
+    .input-group .error { color: #e53935; font-size: 0.85rem; margin-top: 0.4rem; display: block; min-height: 1.2em; }
+    .input-group input.invalido, .input-group select.invalido { border-color: #e53935; }
+
+    .password-strength { margin-top: 0.5rem; }
+    .strength-bar { height: 6px; width: 0; background: #e0e0e0; border-radius: 3px; transition: all 0.3s ease; margin-bottom: 0.3rem; }
+    .strength-text { font-size: 0.85rem; color: var(--text-light); }
+
+    .terminos { margin: 1.5rem 0; }
+    .checkbox { display: flex; align-items: flex-start; gap: 0.8rem; font-size: 0.95rem; cursor: pointer; }
+    .checkbox input { margin-top: 0.2rem; }
+    .checkmark { width: 20px; height: 20px; border: 2px solid #e0e0e0; border-radius: 6px; transition: var(--transition); flex-shrink: 0; }
+    .checkbox input:checked ~ .checkmark { background: var(--primary); border-color: var(--primary); }
+    .checkbox input:checked ~ .checkmark::after { content: "✓"; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+
+    .form-actions { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
+    .form-actions .btn { flex: 1; min-width: 120px; padding: 1rem 2rem; border-radius: 3rem; font-weight: 700; transition: var(--transition); }
+    .btn-principal { background: var(--primary); color: white; }
+    .btn-principal:hover { background: var(--primary-dark); transform: translateY(-3px); }
+    .btn-anterior { background: #e0e0e0; color: var(--text); }
+    .btn-anterior:hover { background: #d0d0d0; }
+
+    .login-link { text-align: center; margin-top: 2rem; color: var(--text-light); }
+    .login-link a { color: var(--primary); font-weight: 600; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* === FOOTER === */
+    .footer {
+      background: linear-gradient(90deg, #004d40, #00796b); color: #f1f1f1; padding: 3rem 2rem 1.5rem; margin-top: 5rem; border-top: 4px solid #a5d6a7;
+    }
+    .footer-contenido { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+    .footer p { font-size: 0.95rem; opacity: 0.9; }
+    .footer-nav { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { color: white; font-weight: 600; position: relative; transition: color 0.3s ease; }
+    .footer-nav a::after { content: ""; position: absolute; bottom: -6px; left: 0; width: 0; height: 2px; background: #c8e6c9; transition: width 0.3s ease; }
+    .footer-nav a:hover { color: #c8e6c9; }
+    .footer-nav a:hover::after { width: 100%; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 992px) {
+      .nav-menu { position: fixed; top: 80px; left: -100%; width: 300px; height: 100vh; background: white; flex-direction: column; padding: 2rem; box-shadow: 5px 0 20px rgba(0,0,0,0.2); transition: left 0.4s ease; gap: 1rem; }
+      .nav-menu.active { left: 0; }
+      .hamburger { display: block; }
+    }
+    @media (max-width: 768px) {
+      body { padding-top: 70px; }
+      .registro-card { padding: 2rem; }
+      .registro-header h1 { font-size: 2rem; }
+      .roles { flex-direction: column; align-items: center; }
+      .form-actions { flex-direction: column; }
+      .form-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV PREMIUM -->
+  <div class="nav-wrapper" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-seedling"></i> AgroConnect
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="quienesSOmos.html" class="nav-link">Quiénes Somos</a>
+        <a href="productos.html" class="nav-link">Productos</a>
+        <a href="vender.html" class="nav-link">Vender</a>
+        <a href="comprar.html" class="nav-link">Comprar</a>
+      </nav>
+      <a href="inicioDeSeccion.html" class="btn-login">Iniciar Sesión</a>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO REGISTRO -->
+  <section class="registro-hero">
+    <div class="container">
+      <div class="registro-card">
+        <div class="registro-header">
+          <h1>Únete a AgroConnect</h1>
+          <p class="subtitle">Elige tu rol y empieza a conectar con el mundo</p>
+          <div class="progreso">
+            <span class="paso activo" data-paso="1">1</span>
+            <span class="paso" data-paso="2">2</span>
+            <span class="paso" data-paso="3">3</span>
+          </div>
+        </div>
+
+        <form id="registroForm" novalidate>
+          <!-- PASO 1: SELECCIÓN DE ROL -->
+          <div class="paso-contenido activo" data-paso="1">
+            <h2>¿Quién eres?</h2>
+            <div class="roles">
+              <label class="rol-card" data-rol="productor">
+                <input type="radio" name="rol" value="productor" required />
+                <div class="rol-icon"><i class="fas fa-tractor"></i></div>
+                <h3>Productor</h3>
+                <p>Quiero vender mis productos directamente a compradores globales</p>
+              </label>
+              <label class="rol-card" data-rol="comprador">
+                <input type="radio" name="rol" value="comprador" required />
+                <div class="rol-icon"><i class="fas fa-shopping-cart"></i></div>
+                <h3>Comprador</h3>
+                <p>Quiero comprar productos frescos, trazables y sin intermediarios</p>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-siguiente" disabled>Siguiente</button>
+            </div>
+          </div>
+
+          <!-- PASO 2: DATOS BÁSICOS -->
+          <div class="paso-contenido" data-paso="2">
+            <h2>Tus datos</h2>
+            <div class="form-grid">
+              <div class="input-group">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" required minlength="3" />
+                <span class="error"></span>
+              </div>
+              <div class="input-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" required />
+                <span class="error"></span>
+              </div>
+              <div class="input-group">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" required pattern="[0-9+\-\s]{10,15}" />
+                <span class="error"></span>
+              </div>
+              <div class="input-group">
+                <label for="pais">País</label>
+                <select id="pais" name="pais" required>
+                  <option value="">Selecciona tu país</option>
+                  <option value="MX">México</option>
+                  <option value="CO">Colombia</option>
+                  <option value="ES">España</option>
+                  <option value="AR">Argentina</option>
+                  <option value="PE">Perú</option>
+                </select>
+                <span class="error"></span>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-anterior">Anterior</button>
+              <button type="button" class="btn btn-siguiente" disabled>Siguiente</button>
+            </div>
+          </div>
+
+          <!-- PASO 3: CONTRASEÑA -->
+          <div class="paso-contenido" data-paso="3">
+            <h2>Seguridad</h2>
+            <div class="form-grid">
+              <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required minlength="8" />
+                <span class="error"></span>
+                <div class="password-strength">
+                  <div class="strength-bar"></div>
+                  <small class="strength-text">Debe tener al menos 8 caracteres</small>
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="confirmPassword">Confirmar contraseña</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required />
+                <span class="error"></span>
+              </div>
+            </div>
+            <div class="terminos">
+              <label class="checkbox">
+                <input type="checkbox" id="terminos" required />
+                <span class="checkmark"></span>
+                Acepto los <a href="#" target="_blank">Términos y Condiciones</a> y la <a href="#" target="_blank">Política de Privacidad</a>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-anterior">Anterior</button>
+              <button type="submit" class="btn btn-principal" disabled>Crear Cuenta</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="login-link">
+          <p>¿Ya tienes cuenta? <a href="inicioDeSeccion.html">Iniciar sesión</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-contenido">
+      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
+      <nav class="footer-nav">
+        <a href="#contacto">Contacto</a>
+        <a href="#privacidad">Privacidad</a>
+        <a href="#redes">Síguenos</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // NAV SCROLL
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // HAMBURGER
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      hamburger.innerHTML = navMenu.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // REGISTRO LÓGICA
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('registroForm');
+      const pasos = document.querySelectorAll('.paso-contenido');
+      const botonesSiguiente = document.querySelectorAll('.btn-siguiente');
+      const botonesAnterior = document.querySelectorAll('.btn-anterior');
+      const progresoPasos = document.querySelectorAll('.progreso .paso');
+      let pasoActual = 1;
+
+      function actualizarProgreso() {
+        progresoPasos.forEach((p, i) => {
+          p.classList.toggle('activo', i + 1 === pasoActual);
+          p.classList.toggle('completado', i + 1 < pasoActual);
+        });
+      }
+
+      function mostrarPaso(n) {
+        pasos.forEach((p, i) => p.classList.toggle('activo', i + 1 === n));
+        pasoActual = n;
+        actualizarProgreso();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function validarPasoActual() {
+        const paso = document.querySelector(`.paso-contenido[data-paso="${pasoActual}"]`);
+        let valido = true;
+
+        if (pasoActual === 1) {
+          valido = document.querySelector('input[name="rol"]:checked') !== null;
+        } else {
+          const inputs = paso.querySelectorAll('input[required], select[required]');
+          inputs.forEach(input => {
+            if (!input.checkValidity()) valido = false;
+            mostrarError(input);
+          });
+        }
+
+        const btnSiguiente = paso.querySelector('.btn-siguiente');
+        if (btnSiguiente) btnSiguiente.disabled = !valido;
+
+        return valido;
+      }
+
+      function mostrarError(input) {
+        const error = input.parentElement.querySelector('.error');
+        if (input.validity.valid) {
+          error.textContent = '';
+          input.classList.remove('invalido');
+        } else {
+          error.textContent = getErrorMessage(input);
+          input.classList.add('invalido');
+        }
+      }
+
+      function getErrorMessage(input) {
+        if (input.validity.valueMissing) return 'Este campo es obligatorio';
+        if (input.validity.typeMismatch && input.type === 'email') return 'Ingresa un email válido';
+        if (input.validity.tooShort) return `Mínimo ${input.minLength} caracteres`;
+        if (input.validity.patternMismatch) return 'Formato inválido';
+        return 'Campo inválido';
+      }
+
+      // ROLES
+      document.querySelectorAll('.rol-card').forEach(card => {
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.rol-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          validarPasoActual();
+        });
+      });
+
+      botonesSiguiente.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (validarPasoActual() && pasoActual < 3) mostrarPaso(pasoActual + 1);
+        });
+      });
+
+      botonesAnterior.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (pasoActual > 1) mostrarPaso(pasoActual - 1);
+        });
+      });
+
+      form.querySelectorAll('input, select').forEach(input => {
+        input.addEventListener('input', () => {
+          mostrarError(input);
+          validarPasoActual();
+          if (input.name === 'password') actualizarFuerzaPassword(input.value);
+          if (input.name === 'confirmPassword') validarConfirmacionPassword();
+        });
+      });
+
+      function actualizarFuerzaPassword(password) {
+        const strengthBar = document.querySelector('.strength-bar');
+        const strengthText = document.querySelector('.strength-text');
+        let fuerza = 0;
+        if (password.length >= 8) fuerza++;
+        if (password.match(/[a-z]/) && password.match(/[A-Z]/)) fuerza++;
+        if (password.match(/[0-9]/)) fuerza++;
+        if (password.match(/[^a-zA-Z0-9]/)) fuerza++;
+
+        strengthBar.style.width = `${fuerza * 25}%`;
+        const textos = ['Muy débil', 'Débil', 'Media', 'Fuerte', 'Muy fuerte'];
+        strengthText.textContent = textos[fuerza - 1] || textos[0];
+        strengthBar.style.background = fuerza < 3 ? '#e53935' : fuerza < 4 ? '#ffb300' : '#43a047';
+      }
+
+      function validarConfirmacionPassword() {
+        const pass = document.getElementById('password').value;
+        const confirm = document.getElementById('confirmPassword');
+        const error = confirm.parentElement.querySelector('.error');
+        if (confirm.value && pass !== confirm.value) {
+          error.textContent = 'Las contraseñas no coinciden';
+          confirm.classList.add('invalido');
+        } else {
+          error.textContent = '';
+          confirm.classList.remove('invalido');
+        }
+        validarPasoActual();
+      }
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (validarPasoActual() && document.getElementById('terminos').checked) {
+          const submitBtn = form.querySelector('button[type="submit"]');
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando cuenta...';
+          submitBtn.disabled = true;
+
+          setTimeout(() => {
+            alert('¡Cuenta creada con éxito! Te enviamos un correo de confirmación.');
+            window.location.href = 'dashboard-productor.html';
+          }, 2000);
+        }
+      });
+
+      actualizarProgreso();
+      validarPasoActual();
+    });
+
+    // PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js');
+      });
+    }
+  </script>
+</body>
+</html>

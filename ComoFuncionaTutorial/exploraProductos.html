@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tutorial paso a paso: Cómo explorar, filtrar y contactar productos agrícolas en AgroConnect." />
+  <meta name="theme-color" content="#00796b" />
+  <title>Cómo Explorar Productos | AgroConnect - Tutorial</title>
+
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ========================================
+       AGROCONNECT - EXPLORAR PRODUCTOS
+       NAV INTELIGENTE + 6 PASOS + EJEMPLOS VISUALES
+       Todo en 1 archivo | 2025
+    ======================================== */
+
+    :root {
+      --primary: #00796b;
+      --primary-dark: #004d40;
+      --accent: #ff9800;
+      --success: #8bc34a;
+      --warning: #ffb300;
+      --info: #29b6f6;
+      --light: #e0f2f1;
+      --bg: #f8fff9;
+      --bg-card: #ffffff;
+      --text: #1a1a1a;
+      --text-light: #555;
+      --radius: 1.5rem;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 25px rgba(0,0,0,0.12);
+      --transition: all 0.4s ease;
+      --font-main: 'Inter', sans-serif;
+      --font-title: 'Playfair Display', serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1.1rem;
+      position: relative;
+      overflow-x: hidden;
+      padding-top: 90px;
+    }
+
+    /* FONDO DECORATIVO */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0,121,107,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,152,0,0.1) 0%, transparent 50%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><path d="M40 10c16.5 0 30 13.5 30 30s-13.5 30-30 30-30-13.5-30-30 13.5-30 30-30zm0 8c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22z" fill="%2300796b" opacity="0.03"/></svg>') repeat;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* === NAV INTELIGENTE === */
+    .nav-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .nav-wrapper.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo i {
+      color: var(--accent);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(0,121,107,0.1);
+    }
+
+    .nav-link.active {
+      color: white;
+      background: var(--primary);
+      box-shadow: 0 4px 12px rgba(0,121,107,0.3);
+    }
+
+    .nav-link i {
+      margin-right: 0.4rem;
+    }
+
+    .btn-volver {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 0.6rem 1.5rem;
+      border-radius: 3rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .btn-volver:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      overflow: hidden;
+      flex: 1;
+      max-width: 120px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* === HERO TUTORIAL === */
+    .hero-tutorial {
+      background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+      border-radius: 0 0 var(--radius) var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-tutorial::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z" fill="rgba(255,255,255,0.1)"/></svg>') bottom/100% 100% repeat-x;
+      animation: wave 18s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes wave {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .badge-tutorial {
+      background: var(--accent);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 10px rgba(255,152,0,0.3);
+    }
+
+    .hero-tutorial h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-subtitle {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      font-size: 1.2rem;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === PASOS DEL TUTORIAL === */
+    .pasos-tutorial {
+      margin: 4rem 0;
+    }
+
+    .paso {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 3rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      border: 1px solid #e0e0e0;
+    }
+
+    .paso::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 6px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .paso-numero {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 6px 15px rgba(0,121,107,0.3);
+    }
+
+    .paso h3 {
+      font-size: 1.8rem;
+      margin: 0.8rem 0 1rem;
+      color: var(--primary-dark);
+    }
+
+    .paso p {
+      color: var(--text-light);
+      margin-bottom: 1.2rem;
+    }
+
+    .ejemplo {
+      background: #e8f5e9;
+      padding: 1.8rem;
+      border-radius: var(--radius);
+      margin: 1.8rem 0;
+      border-left: 6px solid var(--success);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ejemplo h4 {
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    .captura {
+      background: #f0f0f0;
+      border: 2px dashed #ccc;
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      color: #999;
+      font-style: italic;
+      margin: 1.8rem 0;
+      font-size: 0.95rem;
+    }
+
+    .tip {
+      background: #fff8e1;
+      padding: 1.2rem 1.5rem;
+      border-radius: var(--radius);
+      border-left: 6px solid var(--accent);
+      font-size: 0.98rem;
+      color: #5d4037;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* === EJEMPLOS VISUALES === */
+    .ejemplos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin: 3rem 0;
+    }
+
+    .ejemplo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      border: 1px solid #e0e0e0;
+    }
+
+    .ejemplo-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .ejemplo-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid #eee;
+    }
+
+    .ejemplo-info {
+      padding: 1.8rem;
+    }
+
+    .etiqueta {
+      background: var(--success);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+
+    /* === CTA FINAL === */
+    .cta-tutorial {
+      background: linear-gradient(135deg, #e0f7fa, #a5d6a7);
+      padding: 5rem 2rem;
+      text-align: center;
+      border-radius: var(--radius);
+      margin: 5rem auto;
+      max-width: 900px;
+      box-shadow: var(--shadow-md);
+      border: 3px dashed var(--accent);
+    }
+
+    .cta-tutorial h2 {
+      font-size: 2.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .cta-tutorial p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1.2rem 3rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      min-width: 240px;
+      text-align: center;
+      margin: 0.5rem;
+    }
+
+    .btn-principal {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 8px 20px rgba(0,121,107,0.3);
+    }
+
+    .btn-principal:hover {
+      background: var(--primary-dark);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,121,107,0.4);
+    }
+
+    .btn-secundario {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secundario:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      font-size: 0.95rem;
+      margin-top: 5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #c8e6c9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 992px) {
+      .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 300px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        padding: 2rem;
+        box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+        transition: left 0.4s ease;
+        gap: 1rem;
+      }
+
+      .nav-menu.active {
+        left: 0;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .progress-container {
+        display: none;
+      }
+
+      .paso h3 {
+        font-size: 1.6rem;
+      }
+
+      .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-tutorial h1 {
+        font-size: 2.5rem;
+      }
+
+      .paso {
+        padding: 2rem;
+      }
+
+      .ejemplos-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV INTELIGENTE -->
+  <div class="nav-wrapper" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-seedling"></i> AgroConnect
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#paso1" class="nav-link active"><i class="fas fa-home"></i> Inicio</a>
+        <a href="#paso2" class="nav-link"><i class="fas fa-search"></i> Búsqueda</a>
+        <a href="#paso3" class="nav-link"><i class="fas fa-filter"></i> Filtros</a>
+        <a href="#paso5" class="nav-link"><i class="fas fa-comments"></i> Contactar</a>
+      </nav>
+      <div class="progress-container">
+        <span>Paso <strong id="current-step">1</strong> de 6</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+      <a href="index.html" class="btn-volver">Volver al Inicio</a>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero-tutorial">
+    <div class="container">
+      <div class="badge-tutorial">TUTORIAL PARA COMPRADORES</div>
+      <h1>Cómo Explorar Productos en AgroConnect</h1>
+      <p class="hero-subtitle">
+        Aprende paso a paso cómo encontrar, evaluar y contactar productores agrícolas de confianza.
+        <strong>Sin intermediarios. Con garantía.</strong>
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- PASOS -->
+    <section class="pasos-tutorial">
+
+      <!-- PASO 1 -->
+      <div class="paso" id="paso1">
+        <div class="paso-numero">1</div>
+        <h3>Accede a la sección "Explorar Productos"</h3>
+        <p>
+          Desde la página principal, haz clic en <strong>"Explorar Productos"</strong> o en el botón grande del paso 2 del flujo.
+        </p>
+        <div class="captura">
+          <p><em>[Aquí iría una captura de pantalla del botón en el index.html]</em></p>
+        </div>
+        <div class="tip">
+          <strong>Consejo:</strong> Si ya tienes cuenta, inicia sesión para guardar productos en favoritos.
+        </div>
+      </div>
+
+      <!-- PASO 2 -->
+      <div class="paso" id="paso2">
+        <div class="paso-numero">2</div>
+        <h3>Usa el buscador inteligente</h3>
+        <p>
+          Escribe lo que necesitas: <strong>producto, origen, certificación o precio aproximado</strong>.
+        </p>
+        <div class="ejemplo">
+          <h4>Ejemplos de búsqueda:</h4>
+          <ul>
+            <li><code>Aceite de oliva ecológico España</code></li>
+            <li><code>Café fair trade Colombia</code></li>
+            <li><code>Miel DOP Galicia</code></li>
+            <li><code>Aguacate México menos de 3€</code></li>
+          </ul>
+        </div>
+        <div class="captura">
+          <p><em>[Aquí iría una captura del buscador en acción]</em></p>
+        </div>
+      </div>
+
+      <!-- PASO 3 -->
+      <div class="paso" id="paso3">
+        <div class="paso-numero">3</div>
+        <h3>Aplica filtros para afinar tu búsqueda</h3>
+        <p>
+          Usa los filtros laterales para encontrar exactamente lo que necesitas:
+        </p>
+        <ul>
+          <li><strong>Origen:</strong> Filtra por país o región</li>
+          <li><strong>Certificación:</strong> ECO, Fair Trade, DOP, etc.</li>
+          <li><strong>Precio:</strong> Ajusta el rango con el deslizador</li>
+        </ul>
+        <div class="tip">
+          <strong>Truco:</strong> Combina varios filtros. Ej: <em>España + ECO + menos de 5€</em>
+        </div>
+      </div>
+
+      <!-- PASO 4 -->
+      <div class="paso" id="paso4">
+        <div class="paso-numero">4</div>
+        <h3>Evalúa cada producto con confianza</h3>
+        <p>
+          Cada tarjeta te muestra:
+        </p>
+        <ul>
+          <li>Nombre y foto real del producto</li>
+          <li>Origen exacto (con mapa si haces clic)</li>
+          <li>Certificaciones verificadas</li>
+          <li>Precio por unidad</li>
+          <li>Nombre y foto del productor</li>
+        </ul>
+
+        <h4>Ejemplos reales de productos:</h4>
+        <div class="ejemplos-grid">
+          <div class="ejemplo-card">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Aceite">
+            <div class="ejemplo-info">
+              <span class="etiqueta">ECO</span>
+              <h4>Aceite de Oliva Virgen Extra</h4>
+              <p><strong>Jaén, España</strong> • 4,20€/L</p>
+              <p><em>Productor: Miguel Á.</em></p>
+            </div>
+          </div>
+          <div class="ejemplo-card">
+            <img src="https://images.unsplash.com/photo-1567206562510-49d0a0b6a04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cacao">
+            <div class="ejemplo-info">
+              <span class="etiqueta">Fair Trade</span>
+              <h4>Cacao Orgánico</h4>
+              <p><strong>Antioquia, Colombia</strong> • 3,80€/Kg</p>
+              <p><em>Productora: Lucía R.</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 5 -->
+      <div class="paso" id="paso5">
+        <div class="paso-numero">5</div>
+        <h3>Contacta al productor directamente</h3>
+        <p>
+          Haz clic en <strong>"Contactar"</strong> y abre un chat seguro. Puedes:
+        </p>
+        <ul>
+          <li>Preguntar por disponibilidad</li>
+          <li>Pedir muestras o certificados</li>
+          <li>Negociar precio y condiciones</li>
+          <li>Acordar logística</li>
+        </ul>
+        <div class="tip">
+          <strong>Consejo:</strong> Los productores responden en menos de 2 horas. ¡Pregunta sin miedo!
+        </div>
+      </div>
+
+      <!-- PASO 6 -->
+      <div class="paso" id="paso6">
+        <div class="paso-numero">6</div>
+        <h3>Sigue tu pedido con trazabilidad total</h3>
+        <p>
+          Una vez acordado, AgroConnect te da:
+        </p>
+        <ul>
+          <li>Contrato digital firmado</li>
+          <li>Seguimiento en tiempo real</li>
+          <li>Certificado de origen blockchain</li>
+          <li>Notificaciones automáticas</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-tutorial">
+      <div class="container">
+        <h2>¿Listo para empezar?</h2>
+        <p>
+          Ya sabes cómo funciona. Ahora es tu turno: explora, contacta y compra con confianza.
+        </p>
+        <div>
+          <a href="explorar-productos.html" class="btn btn-principal">Ir a Explorar Productos</a>
+          <a href="crearCuenta.html" class="btn btn-secundario">Crear cuenta gratis</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">Ayuda</a>
+        <a href="#">Soporte</a>
+        <a href="#">Tutoriales</a>
+        <a href="#">API</a>
+      </div>
+      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // NAV SCROLL
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // HAMBURGER MENU
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      hamburger.innerHTML = navMenu.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // PROGRESS BAR + ACTIVE NAV
+    window.addEventListener('scroll', () => {
+      const pasos = document.querySelectorAll('.paso');
+      let current = 1;
+      pasos.forEach((paso, i) => {
+        if (paso.getBoundingClientRect().top < 200) {
+          current = i + 1;
+        }
+      });
+      document.getElementById('current-step').textContent = current;
+      document.getElementById('progress-fill').style.width = (current / 6 * 100) + '%';
+
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`a[href="#paso${current}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    });
+  </script>
+</body>
+</html>
+    

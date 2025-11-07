@@ -1,182 +1,588 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
-  <title>AgroConnect Global</title>
+  <meta name="description" content="AgroConnect: Conecta productores agrícolas con compradores globales. Sin intermediarios. Trazabilidad blockchain." />
+  <meta name="theme-color" content="#00796b" />
+  <title>AgroConnect | Comercio Agrícola Directo y Seguro</title>
+
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <style>
+    /* ========================================
+       AGROCONNECT - PÁGINA DE INICIO
+       NAV REAL + HERO + PASOS + TESTIMONIOS + CTA
+       Todo en 1 archivo | 2025
+    ======================================== */
+
+    :root {
+      --primary: #00796b;
+      --primary-dark: #004d40;
+      --accent: #ff9800;
+      --success: #8bc34a;
+      --warning: #ffb300;
+      --info: #29b6f6;
+      --light: #e0f2f1;
+      --bg: #f8fff9;
+      --bg-card: #ffffff;
+      --text: #1a1a1a;
+      --text-light: #555;
+      --radius: 1.5rem;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 25px rgba(0,0,0,0.12);
+      --transition: all 0.4s ease;
+      --font-main: 'Inter', sans-serif;
+      --font-title: 'Playfair Display', serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1.1rem;
+      position: relative;
+      overflow-x: hidden;
+      padding-top: 90px;
+    }
+
+    /* FONDO DECORATIVO */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0,121,107,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,152,0,0.08) 0%, transparent 50%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><path d="M40 10c16.5 0 30 13.5 30 30s-13.5 30-30 30-30-13.5-30-30 13.5-30 30-30zm0 8c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22z" fill="%2300796b" opacity="0.03"/></svg>') repeat;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* === NAV REAL === */
+    .nav-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .nav-wrapper.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo i {
+      color: var(--accent);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(0,121,107,0.1);
+    }
+
+    .nav-link.active {
+      color: white;
+      background: var(--primary);
+      box-shadow: 0 4px 12px rgba(0,121,107,0.3);
+    }
+
+    .btn-login {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 0.6rem 1.5rem;
+      border-radius: 3rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .btn-login:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* === HERO === */
+    .hero {
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.3rem;
+      color: var(--text-light);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 1.2rem 3rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: inline-block;
+      box-shadow: 0 8px 20px rgba(0,121,107,0.3);
+      transition: var(--transition);
+      margin: 0.5rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,121,107,0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 1.2rem 3rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: inline-block;
+      transition: var(--transition);
+      margin: 0.5rem;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* === PASOS === */
+    .pasos {
+      padding: 5rem 0;
+      background: white;
+    }
+
+    .pasos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .paso-card {
+      text-align: center;
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+
+    .paso-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .paso-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      box-shadow: 0 6px 15px rgba(0,121,107,0.3);
+    }
+
+    .paso-card h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-dark);
+    }
+
+    /* === TESTIMONIOS === */
+    .testimonios {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, #e0f7fa, #a5d6a7);
+    }
+
+    .testimonios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .testimonio-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .testimonio-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      font-size: 6rem;
+      color: var(--accent);
+      opacity: 0.2;
+      font-family: serif;
+    }
+
+    .testimonio-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+    }
+
+    .testimonio-autor {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .testimonio-autor img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .testimonio-autor h4 {
+      margin: 0;
+      color: var(--primary-dark);
+    }
+
+    .testimonio-autor span {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* === CTA FINAL === */
+    .cta-final {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      margin: 5rem 0;
+      border-radius: var(--radius);
+    }
+
+    .cta-final h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-final p {
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.2rem;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      padding: 3rem 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #c8e6c9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 992px) {
+      .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 300px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        padding: 2rem;
+        box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+        transition: left 0.4s ease;
+        gap: 1rem;
+      }
+
+      .nav-menu.active {
+        left: 0;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .pasos-grid, .testimonios-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-
 <body>
-  <!-- ====== HEADER ====== -->
-  <header class="hero">
-    <div class="hero-header">
-      <h1>AgroConnect</h1>
-      <nav class="nav-enlaces">
-        <a href="quienesSomos.html" class="cta-button">Quiénes Somos</a>
-        <a href="productos.html" class="cta-button">Productos</a>
-        <a href="vender.html" class="cta-button">Vender</a>
-        <a href="comprar.html" class="cta-button">Comprar</a>
-        <a href="productosLocales.html" class="cta-button">Productores Locales</a>
-        <a href="crearCuenta.html" class="cta-button">Crear Cuenta</a>
-        <a href="inicioDeSeccion.html" class="cta-button">Iniciar Sesión</a>
-      </nav>
-    </div>
-  </header>
 
-  <!-- ====== MAIN ====== -->
-  <main>
-    <!-- PROPUESTA DE VALOR -->
-    <section class="propuesta-valor">
-      <div class="contenedor1">
-        <div class="mapa">
-          <img src="mapaMundi.png" alt="Mapa de conexiones agrícolas internacionales" />
-          <div class="iconos">
-            <img class="barco barco1" src="iconos/barco1.png" alt="barco1">
-            <img class="barco barco2" src="iconos/barco2.png" alt="barco2">
-            <img class="barco barco3" src="iconos/barco3.png" alt="barco3">
-            <img class="barco barco4" src="iconos/barco4.png" alt="barco4">
-            <img class="grano brasil" src="iconos/cacao.png" alt="cacao">
-            <img class="grano espana" src="iconos/aceite-de-oliva.png" alt="aceite de oliva">
-            <img class="grano colombia" src="iconos/maiz.png" alt="maíz">
+  <!-- NAV REAL -->
+  <div class="nav-wrapper" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-seedling"></i> AgroConnect
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#inicio" class="nav-link active">Inicio</a>
+        <a href="#pasos" class="nav-link">Cómo funciona</a>
+        <a href="#testimonios" class="nav-link">Testimonios</a>
+        <a href="explorar-productos.html" class="nav-link">Explorar</a>
+      </nav>
+      <a href="login.html" class="btn-login">Iniciar Sesión</a>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <h1>Comercio Agrícola <span style="color:var(--accent);">Directo</span> y <span style="color:var(--success);">Seguro</span></h1>
+      <p>
+        Conecta productores con compradores globales. <strong>Sin intermediarios.</strong> Con trazabilidad blockchain desde la finca hasta tu mesa.
+      </p>
+      <div>
+        <a href="crearCuenta.html" class="btn-primary">Crear Cuenta Gratis</a>
+        <a href="explorar-productos.html" class="btn-secondary">Explorar Productos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASOS -->
+  <section class="pasos" id="pasos">
+    <div class="container">
+      <h2 style="text-align:center; margin-bottom:1rem; color:var(--primary-dark);">¿Cómo funciona?</h2>
+      <p style="text-align:center; max-width:700px; margin:0 auto 3rem; color:var(--text-light);">
+        En 3 pasos simples, cierra tratos internacionales con confianza total.
+      </p>
+      <div class="pasos-grid">
+        <div class="paso-card">
+          <div class="paso-icon"><i class="fas fa-user-plus"></i></div>
+          <h3>1. Regístrate</h3>
+          <p>Como productor o comprador. En menos de 2 minutos.</p>
+        </div>
+        <div class="paso-card">
+          <div class="paso-icon"><i class="fas fa-handshake"></i></div>
+          <h3>2. Conecta</h3>
+          <p>Explora, negocia y acuerda directamente.</p>
+        </div>
+        <div class="paso-card">
+          <div class="paso-icon"><i class="fas fa-truck"></i></div>
+          <h3>3. Envía</h3>
+          <p>Seguimiento en tiempo real. Pago seguro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="testimonios" id="testimonios">
+    <div class="container">
+      <h2 style="text-align:center; margin-bottom:1rem; color:var(--primary-dark);">Lo que dicen nuestros usuarios</h2>
+      <div class="testimonios-grid">
+        <div class="testimonio-card">
+          <p class="testimonio-text">
+            "Vendí 2 toneladas de aguacate a Alemania en 3 días. Todo transparente y con contrato digital."
+          </p>
+          <div class="testimonio-autor">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos">
+            <div>
+              <h4>Carlos Mendoza</h4>
+              <span>Productor, México</span>
+            </div>
           </div>
         </div>
-
-        <div class="seccion1">
-          <p>Conectamos tu trabajo con el mundo 🌍</p>
-          <p>Desde agricultores locales hasta compradores globales: AgroConnect es el puente que transforma la producción en oportunidades sostenibles.</p>
-
-          <h2>¿Qué es AgroConnect?</h2>
-          <p>Una plataforma que une productores agrícolas con compradores, distribuidores y consumidores. Promovemos la trazabilidad, sostenibilidad y el comercio justo.</p>
-
-          <ul class="beneficios">
-            <li>🌱 Visibilidad global para productores locales</li>
-            <li>📦 Acceso directo a productos frescos y sostenibles</li>
-            <li>🔗 Transparencia, trazabilidad y confianza en cada transacción</li>
-          </ul>
+        <div class="testimonio-card">
+          <p class="testimonio-text">
+            "Encontré aceite de oliva ecológico a mejor precio que con distribuidores. ¡Y con trazabilidad total!"
+          </p>
+          <div class="testimonio-autor">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ana">
+            <div>
+              <h4>Ana López</h4>
+              <span>Importadora, España</span>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- COMO FUNCIONA -->
-    <section class="como-funciona">
-      <h2>¿Cómo funciona <span>AgroConnect</span>?</h2>
-      <div class="pasos">
-        <div class="paso">
-          <a href="publicatuproducto.html">
-            <div class="icono">🌱</div>
-            <h3>1. Publica tu producto</h3>
-            <p>El agricultor detalla su producto, origen, calidad y cantidad disponible.</p>
-          </a>
-        </div>
-        <div class="paso">
-          <a href="conecxionDirecta.html">
-            <div class="icono">🔍</div>
-            <h3>2. Conexión directa</h3>
-            <p>El comprador contacta al productor sin intermediarios, de forma sencilla y rápida.</p>
-          </a>
-        </div>
-        <div class="paso">
-          <a href="negociacionAcuerdo.html">
-            <div class="icono">💬</div>
-            <h3>3. Negociación y acuerdo</h3>
-            <p>Ambas partes establecen condiciones, precios y entregas de manera transparente.</p>
-          </a>
-        </div>
-        <div class="paso">
-          <a href="segimientoLogistica.html">
-            <div class="icono">🚚</div>
-            <h3>4. Seguimiento y logística</h3>
-            <p>AgroConnect facilita el envío y seguimiento de productos hasta su entrega final.</p>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- INTERACCIÓN -->
-    <section class="interaccion">
-      <div class="interaccion-contenido">
-        <h2>Conecta con <span>vendedores</span> y <span>compradores</span></h2>
-        <p class="descripcion">Gestiona tus envíos, mensajes y acuerdos desde un mismo lugar. La comunidad AgroConnect facilita la comunicación y el comercio justo.</p>
-        <div class="acciones">
-          <a href="crearCuenta.html" class="btn btn-principal">Crear cuenta</a>
-          <a href="inicioDeSeccion.html" class="btn btn-secundario">Iniciar sesión</a>
-          <a href="soporteTecnico.html" class="btn btn-terciario">Soporte técnico</a>
-        </div>
-      </div>
-      <div class="interaccion-ilustracion">
-        <img src="iconos/conexion-agroconnect.png" alt="Conexión entre vendedores y compradores">
-      </div>
-    </section>
-
-    <!-- TESTIMONIOS -->
-    <section class="testimonios">
-      <h2>Historias Reales</h2>
-      <p class="subtitulo">Conoce cómo AgroConnect impulsa a productores y compradores en todo el mundo 🌾</p>
-      <div class="testimonios-grid">
-        <div class="testimonio">
-          <div class="testimonio-icono">🍎</div>
-          <p>“Gracias a AgroConnect, mis frutas llegan a restaurantes sin intermediarios. ¡Más clientes y mejores precios!”</p>
-          <cite>– Marta, productora en León</cite>
-        </div>
-        <div class="testimonio">
-          <div class="testimonio-icono">🌾</div>
-          <p>“Encontré proveedores confiables para mi tienda ecológica. Todo el proceso es claro y rápido.”</p>
-          <cite>– Javier, comprador en Madrid</cite>
-        </div>
-        <div class="testimonio">
-          <div class="testimonio-icono">☕</div>
-          <p>“Pude exportar mi café orgánico a nuevos mercados con transparencia y confianza.”</p>
-          <cite>– Juan, productor en Colombia</cite>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section class="cta-doble">
-      <h2>Únete a la red AgroConnect</h2>
-      <div class="botones-cta">
-        <a href="vender.html" class="cta-button">Publica tus productos</a>
-        <a href="productosLocales.html" class="cta-button">Descubre productores locales</a>
-      </div>
-    </section>
-  </main>
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="container">
+      <h2>Únete a la revolución agrícola</h2>
+      <p>
+        Más de <strong>1.200 productores</strong> y <strong>800 compradores</strong> ya están conectados.
+      </p>
+      <a href="crearCuenta.html" class="btn-primary" style="font-size:1.2rem; padding:1.5rem 4rem;">
+        Empezar Ahora – Gratis
+      </a>
+    </div>
+  </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-contenido">
-      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
-      <nav class="footer-nav">
-        <a href="contacto.html">📞 Contacto</a>
-        <a href="privacidad.html">🔒 Privacidad</a>
-        <a href="redes.html">🌐 Síguenos</a>
-      </nav>
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">Términos</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Soporte</a>
+        <a href="#">API</a>
+        <a href="#">Blog</a>
+      </div>
+      <p>© 2025 <strong>AgroConnect Global</strong>. Trazabilidad desde la semilla hasta tu mesa.</p>
     </div>
   </footer>
 
-  <!-- SCRIPT ANIMACIONES -->
+  <!-- JAVASCRIPT -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const granos = {
-        brasil: document.querySelector('.grano.brasil'),
-        espana: document.querySelector('.grano.espana'),
-        colombia: document.querySelector('.grano.colombia')
-      };
-
-      function cicloGranos() {
-        if (!granos.brasil) return;
-        setTimeout(() => granos.brasil.classList.add('active'), 2000);
-        setTimeout(() => granos.brasil.classList.remove('active'), 4000);
-        setTimeout(() => granos.espana.classList.add('active'), 7000);
-        setTimeout(() => granos.espana.classList.remove('active'), 9000);
-        setTimeout(() => granos.colombia.classList.add('active'), 12000);
-        setTimeout(() => granos.colombia.classList.remove('active'), 14000);
-      }
-      cicloGranos();
-      setInterval(cicloGranos, 18000);
+    // NAV SCROLL
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
     });
+
+    // HAMBURGER
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      hamburger.innerHTML = navMenu.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js');
+      });
+    }
   </script>
 </body>
-
 </html>

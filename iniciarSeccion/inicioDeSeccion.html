@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Inicia sesión en AgroConnect. Accede a tu cuenta de productor o comprador y conecta con el mundo agrícola." />
+  <meta name="theme-color" content="#00796b" />
+  <title>Iniciar Sesión | AgroConnect</title>
+
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <style>
+    /* ========================================
+       AGROCONNECT - INICIAR SESIÓN (ALL-IN-ONE)
+       Login inteligente | Recordar sesión | PWA
+       2025 | Responsive | Validación real
+    ======================================== */
+
+    :root {
+      --primary: #00796b;
+      --primary-dark: #004d40;
+      --accent: #ff9800;
+      --success: #8bc34a;
+      --danger: #e53935;
+      --light: #e0f2f1;
+      --bg: #f8fff9;
+      --text: #1a1a1a;
+      --text-light: #555;
+      --radius: 1.5rem;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 25px rgba(0,0,0,0.12);
+      --transition: all 0.4s ease;
+      --font-main: 'Inter', sans-serif;
+      --font-title: 'Playfair Display', serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      padding-top: 90px;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0,121,107,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,152,0,0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    a { text-decoration: none; color: inherit; }
+
+    /* === NAV PREMIUM === */
+    .nav-wrapper {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12); z-index: 1000;
+      transition: var(--transition);
+    }
+    .nav-wrapper.scrolled { box-shadow: 0 6px 25px rgba(0,0,0,0.15); }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .logo { font-family: var(--font-title); font-size: 1.9rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.6rem; }
+    .logo i { color: var(--accent); animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    .nav-menu { display: flex; gap: 1.8rem; }
+    .nav-link { color: var(--text); font-weight: 600; padding: 0.5rem 1rem; border-radius: 2rem; transition: var(--transition); }
+    .nav-link:hover { color: var(--primary); background: rgba(0,121,107,0.1); }
+    .btn-login { background: var(--primary); color: white; padding: 0.6rem 1.5rem; border-radius: 3rem; font-weight: 600; }
+    .hamburger { display: none; font-size: 1.8rem; color: var(--primary); cursor: pointer; }
+
+    /* === HERO LOGIN === */
+    .login-hero {
+      min-height: calc(100vh - 180px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .login-card {
+      background: white; border-radius: var(--radius); box-shadow: var(--shadow-md);
+      padding: 3rem; max-width: 480px; width: 100%; text-align: center;
+    }
+    .login-header { margin-bottom: 2.5rem; }
+    .login-header h1 { font-size: 2.3rem; color: var(--primary-dark); margin-bottom: 0.5rem; }
+    .login-header p { color: var(--text-light); font-size: 1.05rem; }
+
+    .form-group { margin-bottom: 1.5rem; text-align: left; position: relative; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text); }
+    .form-group input {
+      width: 100%; padding: 0.9rem 1rem; border: 2px solid #e0e0e0; border-radius: 1rem;
+      font-size: 1rem; transition: var(--transition);
+    }
+    .form-group input:focus {
+      outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,121,107,0.2);
+    }
+    .form-group .error {
+      color: var(--danger); font-size: 0.85rem; margin-top: 0.4rem; display: block; min-height: 1.2em;
+    }
+    .form-group input.invalido { border-color: var(--danger); }
+
+    .checkbox-group {
+      display: flex; align-items: center; gap: 0.8rem; margin: 1.5rem 0; font-size: 0.95rem; cursor: pointer;
+    }
+    .checkbox-group input { margin: 0; }
+    .checkmark {
+      width: 20px; height: 20px; border: 2px solid #e0e0e0; border-radius: 6px; transition: var(--transition); flex-shrink: 0;
+    }
+    .checkbox-group input:checked ~ .checkmark {
+      background: var(--primary); border-color: var(--primary);
+    }
+    .checkbox-group input:checked ~ .checkmark::after {
+      content: "✓"; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
+    }
+
+    .btn-login-full {
+      width: 100%; padding: 1rem; background: var(--primary); color: white; border: none;
+      border-radius: 3rem; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: var(--transition);
+      margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .btn-login-full:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-login-full:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+    .login-options {
+      margin: 2rem 0; display: flex; justify-content: space-between; font-size: 0.9rem;
+    }
+    .login-options a { color: var(--primary); font-weight: 600; }
+
+    .register-link {
+      margin-top: 2rem; color: var(--text-light);
+    }
+    .register-link a { color: var(--primary); font-weight: 600; }
+
+    /* === FOOTER === */
+    .footer {
+      background: linear-gradient(90deg, #004d40, #00796b); color: #f1f1f1; padding: 2rem 2rem 1rem; margin-top: 3rem;
+      border-top: 4px solid #a5d6a7;
+    }
+    .footer-contenido { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .footer p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 0.8rem; }
+    .footer-nav { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .footer-nav a { color: white; font-weight: 600; position: relative; }
+    .footer-nav a::after { content: ""; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #c8e6c9; transition: width 0.3s ease; }
+    .footer-nav a:hover { color: #c8e6c9; }
+    .footer-nav a:hover::after { width: 100%; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 992px) {
+      .nav-menu { position: fixed; top: 80px; left: -100%; width: 300px; height: 100vh; background: white; flex-direction: column; padding: 2rem; box-shadow: 5px 0 20px rgba(0,0,0,0.2); transition: left 0.4s ease; }
+      .nav-menu.active { left: 0; }
+      .hamburger { display: block; }
+    }
+    @media (max-width: 768px) {
+      body { padding-top: 70px; }
+      .login-card { padding: 2rem; }
+      .login-header h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-wrapper" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-seedling"></i> AgroConnect
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="quienesSOmos.html" class="nav-link">Quiénes Somos</a>
+        <a href="productos.html" class="nav-link">Productos</a>
+        <a href="vender.html" class="nav-link">Vender</a>
+        <a href="comprar.html" class="nav-link">Comprar</a>
+      </nav>
+      <a href="crearCuenta.html" class="btn-login">Crear Cuenta</a>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO LOGIN -->
+  <section class="login-hero">
+    <div class="container">
+      <div class="login-card">
+        <div class="login-header">
+          <h1>Iniciar Sesión</h1>
+          <p>Accede a tu cuenta y conecta con el mundo agrícola</p>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" required placeholder="tu@email.com" />
+            <span class="error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" required minlength="6" placeholder="••••••••" />
+            <span class="error"></span>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="recordar" />
+            <label for="recordar" style="cursor:pointer; margin:0; display:flex; align-items:center; gap:0.5rem;">
+              <span class="checkmark"></span>
+              Recordar mi sesión
+            </label>
+          </div>
+
+          <button type="submit" class="btn-login-full" id="btnSubmit">
+            <span id="btnText">Iniciar Sesión</span>
+            <i class="fas fa-spinner fa-spin" id="btnLoader" style="display:none;"></i>
+          </button>
+
+          <div class="login-options">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+            <a href="crearCuenta.html">Crear cuenta</a>
+          </div>
+        </form>
+
+        <div class="register-link">
+          <p>¿Eres nuevo? <a href="crearCuenta.html">Regístrate aquí</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-contenido">
+      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
+      <nav class="footer-nav">
+        <a href="#contacto">Contacto</a>
+        <a href="#privacidad">Privacidad</a>
+        <a href="#redes">Síguenos</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // NAV SCROLL
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // HAMBURGER
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      hamburger.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // LOGIN LÓGICA
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('loginForm');
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const recordar = document.getElementById('recordar');
+      const btnSubmit = document.getElementById('btnSubmit');
+      const btnText = document.getElementById('btnText');
+      const btnLoader = document.getElementById('btnLoader');
+
+      // Cargar sesión guardada
+      if (localStorage.getItem('recordarSesion') === 'true') {
+        const saved = JSON.parse(localStorage.getItem('usuarioGuardado'));
+        if (saved) {
+          email.value = saved.email;
+          recordar.checked = true;
+        }
+      }
+
+      // Validación en tiempo real
+      function validarCampo(input) {
+        const error = input.parentElement.querySelector('.error');
+        if (input.validity.valid) {
+          error.textContent = '';
+          input.classList.remove('invalido');
+        } else {
+          error.textContent = getErrorMessage(input);
+          input.classList.add('invalido');
+        }
+      }
+
+      function getErrorMessage(input) {
+        if (input.validity.valueMissing) return 'Este campo es obligatorio';
+        if (input.validity.typeMismatch) return 'Ingresa un email válido';
+        if (input.validity.tooShort) return `Mínimo ${input.minLength} caracteres`;
+        return 'Campo inválido';
+      }
+
+      [email, password].forEach(input => {
+        input.addEventListener('input', () => validarCampo(input));
+      });
+
+      // Submit
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        [email, password].forEach(validarCampo);
+
+        if (form.checkValidity()) {
+          btnText.style.display = 'none';
+          btnLoader.style.display = 'inline-block';
+          btnSubmit.disabled = true;
+
+          // Guardar sesión si "recordar"
+          if (recordar.checked) {
+            localStorage.setItem('recordarSesion', 'true');
+            localStorage.setItem('usuarioGuardado', JSON.stringify({ email: email.value }));
+          } else {
+            localStorage.removeItem('recordarSesssion');
+            localStorage.removeItem('usuarioGuardado');
+          }
+
+          // Simular login
+          setTimeout(() => {
+            alert(`¡Bienvenido de nuevo, ${email.value.split('@')[0]}!`);
+            // Redirección por rol (simulado)
+            const rol = email.value.includes('productor') ? 'dashboard-productor.html' : 'explorar.html';
+            window.location.href = rol;
+          }, 2000);
+        }
+      });
+    });
+
+    // PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js');
+      });
+    }
+  </script>
+</body>
+</html>
