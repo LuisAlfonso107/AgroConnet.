@@ -369,7 +369,7 @@ button {
   flex: 1 1 250px;
   max-width: 280px;
   transition: var(--transition);
-  border: 2px solid transparent;
+  border: 0.1rem solid transparent;
   text-align: center;
 }
 
@@ -388,9 +388,9 @@ button {
   font-size: 3rem;
   background: var(--primary);
   color: white;
-  width: 5rem;
+ 
   height: 5rem;
-  border-radius: 50%;
+  border-radius: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
