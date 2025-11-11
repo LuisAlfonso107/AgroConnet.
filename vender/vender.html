@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Publica tu producto agrícola y conecta con compradores globales sin intermediarios." />
+  <meta name="theme-color" content="#00796b" />
+  <title>Vender | AgroConnect</title>
+
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <style>
+    /* ========================================
+           AGROCONNECT - VENDER PRODUCTOS
+           Publica, negocia y exporta directo
+           2025 | Responsive | PWA | Simulación JS
+        ======================================== */
+    :root {
+      --primary: #00796b;
+      --primary-dark: #004d40;
+      --accent: #ff9800;
+      --success: #8bc34a;
+      --warning: #ffb300;
+      --danger: #e53935;
+      --light: #e0f2f1;
+      --bg: #f8fff9;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --text-light: #555;
+      --radius: 1.5rem;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 25px rgba(0,0,0,0.12);
+      --transition: all 0.4s ease;
+      --font-main: 'Inter', sans-serif;
+      --font-title: 'Playfair Display', serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      color: var(--text);
+      line-height: 1.7;
+      padding-top: 90px;
+    }
+    body::before {
+      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 20% 80%, rgba(0,121,107,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255,152,0,0.08) 0%, transparent 50%);
+      pointer-events: none; z-index: -1;
+    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+    a { text-decoration: none; color: inherit; }
+
+    /* === NAV === */
+    .nav-wrapper {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12); z-index: 1000;
+    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .logo { font-family: var(--font-title); font-size: 1.9rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.6rem; }
+    .logo i { color: var(--accent); animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    .nav-menu { display: flex; gap: 1.5rem; }
+    .nav-link { color: var(--text); font-weight: 600; padding: 0.5rem 1rem; border-radius: 2rem; transition: var(--transition); }
+    .nav-link:hover, .nav-link.active { color: white; background: var(--primary); }
+    .btn-login { background: var(--primary); color: white; padding: 0.6rem 1.5rem; border-radius: 3rem; font-weight: 600; }
+    .hamburger { display: none; font-size: 1.8rem; color: var(--primary); cursor: pointer; }
+
+    /* === HERO VENDER === */
+    .vender-hero {
+      background: linear-gradient(135deg, var(--success), #66bb6a);
+      color: white; padding: 6rem 2rem 5rem; text-align: center; border-radius: 0 0 var(--radius) var(--radius);
+    }
+    .vender-hero h1 { font-size: 3.2rem; margin-bottom: 1rem; font-family: var(--font-title); }
+    .vender-hero p { font-size: 1.3rem; max-width: 900px; margin: 0 auto 2.5rem; opacity: 0.95; }
+    .cta-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    .btn-cta {
+      background: white; color: var(--primary-dark); padding: 1rem 2.5rem; border-radius: 3rem;
+      font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 0.8rem; transition: var(--transition);
+    }
+    .btn-cta:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .btn-cta i { font-size: 1.4rem; }
+
+    /* === PASOS === */
+    .pasos {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 5rem 0;
+    }
+    .paso-card {
+      background: var(--card); border-radius: var(--radius); padding: 2rem; text-align: center;
+      box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .paso-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); }
+    .paso-icon {
+      width: 90px; height: 90px; background: var(--light); border-radius: 50%; margin: 0 auto 1.5rem;
+      display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--primary);
+    }
+    .paso-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark); }
+    .paso-card p { color: var(--text-light); font-size: 1rem; }
+
+    /* === FORMULARIO DE PUBLICACIÓN === */
+    .form-publicar {
+      background: var(--card); border-radius: var(--radius); padding: 3rem; box-shadow: var(--shadow-md); margin: 4rem 0;
+    }
+    .form-publicar h2 { text-align: center; margin-bottom: 2rem; color: var(--primary-dark); font-size: 2rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label { margin-bottom: 0.6rem; font-weight: 600; color: var(--text); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 1rem; border: 2px solid #e0e0e0; border-radius: 1rem; font-size: 1rem; transition: border 0.3s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--primary);
+    }
+    .form-group textarea { grid-column: 1 / -1; resize: vertical; min-height: 120px; }
+    .btn-publicar {
+      background: var(--primary); color: white; padding: 1rem 2.5rem; border: none; border-radius: 3rem;
+      font-weight: 700; font-size: 1.1rem; cursor: pointer; margin: 2rem auto 0; display: block; transition: var(--transition);
+    }
+    .btn-publicar:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    /* === BENEFICIOS === */
+    .beneficios {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 5rem 0;
+    }
+    .beneficio-card {
+      background: white; border-radius: var(--radius); padding: 2rem; text-align: center; box-shadow: var(--shadow-sm);
+    }
+    .beneficio-icon {
+      font-size: 3rem; color: var(--success); margin-bottom: 1rem;
+    }
+    .beneficio-card h3 { font-size: 1.4rem; margin-bottom: 0.8rem; }
+
+    /* === NOTIFICACIÓN === */
+    .notificacion {
+      position: fixed; bottom: 20px; right: 20px; background: var(--card); padding: 1.2rem 1.8rem;
+      border-radius: 1.5rem; box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 1rem;
+      animation: slideIn 0.5s ease; z-index: 1000; max-width: 380px; border-left: 5px solid var(--success);
+    }
+    @keyframes slideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    /* === FOOTER === */
+    .footer {
+      background: linear-gradient(90deg, #004d40, #00796b);
+      color: #f1f1f1; padding: 4rem 2rem 2rem; margin-top: 6rem; border-top: 5px solid #a5d6a7;
+    }
+    .footer-contenido { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .footer-nav a { color: white; margin: 0 1.2rem; font-weight: 600; font-size: 1rem; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 992px) {
+      .nav-menu { position: fixed; top: 80px; left: -100%; width: 300px; height: 100vh; background: white; flex-direction: column; padding: 2rem; box-shadow: 5px 0 20px rgba(0,0,0,0.2); transition: left 0.4s ease; }
+      .nav-menu.active { left: 0; }
+      .hamburger { display: block; }
+      .form-grid { grid-template-columns: 1fr; }
+      .vender-hero h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-wrapper" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-seedling"></i> AgroConnect
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="quienesSOmos.html" class="nav-link">Quiénes Somos</a>
+        <a href="explorar.html" class="nav-link">Mercado Global</a>
+        <a href="vender.html" class="nav-link active">Vender</a>
+        <a href="comprar.html" class="nav-link">Comprar</a>
+      </nav>
+      <a href="inicioDeSeccion.html" class="btn-login">Iniciar Sesión</a>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="vender-hero">
+    <div class="container">
+      <h1>Publica y Vende Directo</h1>
+      <p>Conecta con compradores globales sin intermediarios. Publica tu cosecha, negocia precios y exporta con trazabilidad total.</p>
+      <div class="cta-buttons">
+        <a href="#publicar" class="btn-cta"><i class="fas fa-plus-circle"></i> Publicar Producto</a>
+        <a href="#pasos" class="btn-cta"><i class="fas fa-play-circle"></i> Ver Cómo Funciona</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASOS -->
+  <section class="container pasos" id="pasos">
+    <div class="paso-card">
+      <div class="paso-icon"><i class="fas fa-camera"></i></div>
+      <h3>1. Sube fotos y detalles</h3>
+      <p>Calidad, origen, certificados y cantidad disponible.</p>
+    </div>
+    <div class="paso-card">
+      <div class="paso-icon"><i class="fas fa-search-dollar"></i></div>
+      <h3>2. Recibe ofertas</h3>
+      <p>Compradores te contactan directamente con propuestas.</p>
+    </div>
+    <div class="paso-card">
+      <div class="paso-icon"><i class="fas fa-handshake"></i></div>
+      <h3>3. Negocia y cierra</h3>
+      <p>Acuerdos transparentes, precios justos y logística incluida.</p>
+    </div>
+    <div class="paso-card">
+      <div class="paso-icon"><i class="fas fa-truck"></i></div>
+      <h3>4. Envía con trazabilidad</h3>
+      <p>Seguimiento en tiempo real hasta el destino final.</p>
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="container form-publicar" id="publicar">
+    <h2>Publica tu Producto Ahora</h2>
+    <form id="formProducto">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nombre del producto</label>
+          <input type="text" placeholder="Ej: Aguacate Hass" required />
+        </div>
+        <div class="form-group">
+          <label>Cantidad disponible</label>
+          <input type="text" placeholder="Ej: 10 toneladas" required />
+        </div>
+        <div class="form-group">
+          <label>Precio por unidad</label>
+          <input type="text" placeholder="Ej: $2.10/kg" required />
+        </div>
+        <div class="form-group">
+          <label>Certificados</label>
+          <select>
+            <option>GlobalG.A.P.</option>
+            <option>USDA Orgánico</option>
+            <option>Rainforest Alliance</option>
+            <option>Ninguno</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Origen</label>
+          <input type="text" placeholder="Ej: Michoacán, México" required />
+        </div>
+        <div class="form-group">
+          <label>Disponible hasta</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>Descripción detallada</label>
+          <textarea placeholder="Calibre, empaque, condiciones de envío..."></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn-publicar">Publicar Oferta</button>
+    </form>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="container beneficios">
+    <div class="beneficio-card">
+      <div class="beneficio-icon"><i class="fas fa-dollar-sign"></i></div>
+      <h3>Mayor Ganancia</h3>
+      <p>Sin comisiones de intermediarios. Tú fijas el precio.</p>
+    </div>
+    <div class="beneficio-card">
+      <div class="beneficio-icon"><i class="fas fa-globe"></i></div>
+      <h3>Mercado Global</h3>
+      <p>Acceso a compradores en +40 países.</p>
+    </div>
+    <div class="beneficio-card">
+      <div class="beneficio-icon"><i class="fas fa-shield-alt"></i></div>
+      <h3>Pagos Seguros</h3>
+      <p>Escrow y trazabilidad blockchain.</p>
+    </div>
+  </section>
+
+  <!-- NOTIFICACIÓN -->
+  <div id="notificacion" class="notificacion" style="display:none;">
+    <i class="fas fa-check-circle"></i>
+    <div>
+      <strong>¡Oferta publicada!</strong>
+      <small>Tu maíz ya está visible para 1,200 compradores.</small>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-contenido">
+      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
+      <nav class="footer-nav">
+        <a href="#">Contacto</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Términos</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // NAV
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      hamburger.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // FORMULARIO
+    document.getElementById('formProducto').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const notif = document.getElementById('notificacion');
+      notif.style.display = 'flex';
+      setTimeout(() => notif.style.display = 'none', 5000);
+      this.reset();
+    });
+
+    // SIMULACIÓN DE OFERTAS RECIENTES
+    setInterval(() => {
+      const notif = document.getElementById('notificacion');
+      const textos = [
+        "¡Oferta publicada! Tu café ya está visible para 800 compradores.",
+        "3 compradores contactaron tu aguacate en 2 minutos.",
+        "¡Nuevo récord! 12 ofertas en tu maíz orgánico."
+      ];
+      const randomText = textos[Math.floor(Math.random() * textos.length)];
+      document.querySelector('#notificacion small').textContent = randomText;
+      notif.style.display = 'flex';
+      setTimeout(() => notif.style.display = 'none', 5000);
+    }, 12000);
+  </script>
+</body>
+</html>

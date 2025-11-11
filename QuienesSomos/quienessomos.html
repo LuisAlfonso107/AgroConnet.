@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AgroConnect conecta productores reales con compradores globales. Sin intermediarios. Precios justos. Trazabilidad total. Impacto real." />
+  <meta name="theme-color" content="#00796b" />
+  <title>Quiénes Somos | AgroConnect</title>
+
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <style>
+    /* === TU ESTILO PREMIUM UNIFICADO === */
+    :root {
+      --primary: #00796b; --primary-dark: #004d40; --primary-light: #e0f2f1;
+      --accent: #5da614; --accent-light: #015c1f; --success: #8bc34a; --success-light: #a5d6a7;
+      --warning: #92793d; --danger: #e53935; --bg: #f8fff9; --card: #ffffff;
+      --text: #1a1a1a; --text-light: #555; --radius: 1.8rem;
+      --shadow-sm: 0 6px 16px rgba(0,0,0,0.08); --shadow-md: 0 12px 32px rgba(0,0,0,0.14);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.18); --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-main: 'Inter', sans-serif; --font-title: 'Playfair Display', serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: var(--font-main); background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%); color: var(--text); line-height: 1.7; padding-top: 90px; position: relative; }
+    body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 15% 85%, rgba(0,121,107,0.12) 0%, transparent 40%), radial-gradient(circle at 85% 15%, rgba(255,152,0,0.12) 0%, transparent 40%), radial-gradient(circle at 50% 50%, rgba(139,195,74,0.05) 0%, transparent 60%); pointer-events: none; z-index: -1; animation: breath 20s ease-in-out infinite; }
+    @keyframes breath { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+    .container { max-width: 1480px; margin: 0 auto; padding: 0 2rem; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(0,0,0,0.12); z-index: 1000; transition: var(--transition); }
+    .nav-wrapper.scrolled { background: rgba(255,255,255,0.98); box-shadow: 0 8px 40px rgba(0,0,0,0.16); }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; }
+    .logo { font-family: var(--font-title); font-size: 2.1rem; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 0.7rem; }
+    .logo i { color: var(--accent); animation: float 3.5s ease-in-out infinite; font-size: 1.8rem; }
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-8px) rotate(5deg)} }
+    .nav-menu { display: flex; gap: 1.8rem; }
+    .nav-link { color: var(--text); font-weight: 600; padding: 0.6rem 1.3rem; border-radius: 3rem; transition: var(--transition); position: relative; overflow: hidden; }
+    .nav-link::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.6s; }
+    .nav-link:hover::before { left: 100%; }
+    .nav-link:hover, .nav-link.active { color: white; background: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .btn-login { background: var(--primary); color: white; padding: 0.7rem 1.8rem; border-radius: 3rem; font-weight: 700; font-size: 1rem; transition: var(--transition); }
+    .btn-login:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .hamburger { display: none; font-size: 1.9rem; color: var(--primary); cursor: pointer; }
+
+    /* HERO QUIÉNES SOMOS */
+    .hero-quienes {
+      position: relative; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white; padding: 10rem 2rem 8rem; text-align: center; overflow: hidden;
+      border-radius: 0 0 var(--radius) var(--radius); box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    }
+    .hero-bg-quienes {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.2;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M50,100 Q75,50 100,100 T150,100" stroke="white" stroke-width="12" fill="none"/><circle cx="50" cy="80" r="15" fill="white"/><circle cx="150" cy="120" r="20" fill="white"/></svg>') repeat;
+      background-size: 300px; animation: drift 40s linear infinite; pointer-events: none;
+    }
+    @keyframes drift { 0% { background-position: 0 0; } 100% { background-position: 300px 300px; } }
+    .hero-quienes h1 {
+      font-size: 4.2rem; font-family: var(--font-title); font-weight: 900; margin-bottom: 1.5rem;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.4); animation: titlePulse 4s ease-in-out infinite;
+    }
+    @keyframes titlePulse { 0%,100% { text-shadow: 0 6px 20px rgba(0,0,0,0.4); } 50% { text-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.3); } }
+    .hero-quienes p {
+      font-size: 1.5rem; max-width: 900px; margin: 0 auto 2.5rem; opacity: 0.95; font-weight: 300;
+    }
+    .mision-badge {
+      background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 1.2rem 2.5rem;
+      border-radius: 3rem; display: inline-block; font-weight: 700; font-size: 1.3rem; margin-top: 1.5rem;
+      border: 2px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-md);
+    }
+
+    /* SECCIÓN PROBLEMA → SOLUCIÓN */
+    .problema-solucion {
+      padding: 6rem 2rem; background: var(--bg); position: relative; overflow: hidden;
+    }
+    .problema-solucion::before {
+      content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 70%, rgba(139,195,74,0.1) 0%, transparent 50%);
+      pointer-events: none; z-index: 0;
+    }
+    .ps-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1;
+    }
+    .ps-card {
+      background: var(--card); padding: 3rem; border-radius: var(--radius); box-shadow: var(--shadow-lg);
+      transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .ps-card:hover { transform: translateY(-15px); box-shadow: 0 25px 60px rgba(0,0,0,0.2); }
+    .ps-card h2 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: var(--primary-dark); font-family: var(--font-title);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .ps-card h2 i { font-size: 2.5rem; color: var(--danger); }
+    .ps-card h2.success i { color: var(--success); }
+    .ps-card ul { list-style: none; margin: 1.5rem 0; }
+    .ps-card li {
+      padding: 0.8rem 0; font-size: 1.1rem; display: flex; align-items: center; gap: 1rem;
+      border-bottom: 1px dashed #e0e0e0; color: var(--text-light);
+    }
+    .ps-card li i { color: var(--danger); }
+    .ps-card.success li i { color: var(--success); }
+    .ps-card .cta {
+      margin-top: 2rem; background: var(--primary); color: white; padding: 1rem 2rem;
+      border-radius: 3rem; font-weight: 700; display: inline-block; transition: var(--transition);
+    }
+    .ps-card .cta:hover { background: var(--primary-dark); transform: translateY(-3px); }
+
+    /* IMPACTO EN NÚMEROS */
+    .impacto {
+      padding: 6rem 2rem; background: linear-gradient(135deg, #f1f8e9, #e8f5e9); text-align: center;
+    }
+    .impacto h2 { font-size: 2.8rem; margin-bottom: 3rem; color: var(--primary-dark); font-family: var(--font-title); }
+    .stats-impacto {
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    }
+    .stat-impacto {
+      background: var(--card); padding: 2.5rem; border-radius: var(--radius); min-width: 220px;
+      box-shadow: var(--shadow-md); transition: var(--transition);
+    }
+    .stat-impacto:hover { transform: translateY(-12px); box-shadow: var(--shadow-lg); }
+    .stat-impacto strong { display: block; font-size: 3.2rem; font-weight: 900; color: var(--accent); font-family: var(--font-title); }
+    .stat-impacto small { font-size: 1.1rem; color: var(--text-light); font-weight: 600; }
+
+    /* CÓMO FUNCIONA */
+    .como-funciona {
+      padding: 6rem 2rem; background: white;
+    }
+    .pasos {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;
+    }
+    .paso {
+      text-align: center; padding: 2.5rem; background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); transition: var(--transition); position: relative;
+    }
+    .paso:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+    .paso-num {
+      width: 70px; height: 70px; background: var(--primary); color: white; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900;
+      margin: 0 auto 1.5rem; box-shadow: 0 8px 20px rgba(0,121,107,0.3);
+    }
+    .paso h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark); }
+    .paso p { color: var(--text-light); }
+
+    /* EQUIPO */
+    .equipo {
+      padding: 6rem 2rem; background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
+    }
+    .equipo h2 { text-align: center; font-size: 2.8rem; margin-bottom: 3rem; color: var(--primary-dark); font-family: var(--font-title); }
+    .equipo-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem;
+    }
+    .miembro {
+      background: var(--card); padding: 2.5rem; border-radius: var(--radius); text-align: center;
+      box-shadow: var(--shadow-md); transition: var(--transition);
+    }
+    .miembro:hover { transform: translateY(-12px); box-shadow: var(--shadow-lg); }
+    .miembro-img {
+      width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 1.5rem;
+      border: 5px solid var(--primary-light); box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .miembro h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--primary-dark); }
+    .miembro small { color: var(--accent); font-weight: 600; display: block; margin-bottom: 1rem; }
+    .miembro p { font-size: 0.95rem; color: var(--text-light); }
+
+    /* VALORES */
+    .valores {
+      padding: 6rem 2rem; background: var(--bg); text-align: center;
+    }
+    .valores h2 { font-size: 2.8rem; margin-bottom: 3rem; color: var(--primary-dark); font-family: var(--font-title); }
+    .valores-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem;
+    }
+    .valor {
+      padding: 2.5rem; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+    }
+    .valor i { font-size: 3rem; color: var(--primary); margin-bottom: 1.5rem; }
+    .valor h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark); }
+    .valor p { color: var(--text-light); font-size: 0.98rem; }
+
+    /* CTA FINAL */
+    .cta-final {
+      padding: 6rem 2rem; background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      text-align: center; color: white; border-radius: var(--radius); margin: 4rem auto; max-width: 1000px;
+      box-shadow: var(--shadow-lg);
+    }
+    .cta-final h2 { font-size: 2.8rem; margin-bottom: 1.5rem; font-family: var(--font-title); }
+    .cta-final p { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; }
+    .btn-cta-final {
+      background: white; color: var(--primary-dark); padding: 1.3rem 3rem; border-radius: 3.5rem;
+      font-weight: 700; font-size: 1.3rem; display: inline-flex; align-items: center; gap: 1rem;
+      box-shadow: var(--shadow-md); transition: var(--transition);
+    }
+    .btn-cta-final:hover { transform: translateY(-5px) scale(1.05); box-shadow: var(--shadow-lg); }
+
+    /* FOOTER */
+    .footer { background: linear-gradient(135deg, #004d40 0%, #00796b 100%); color: #f1f1f1; padding: 5rem 2rem 2.5rem; border-top: 6px solid var(--success-light); }
+    .footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z" fill="rgba(165,214,167,0.1)"/></svg>') repeat-x; background-size: 200px; animation: wave 15s linear infinite; }
+    @keyframes wave { 0% { background-position: 0 0; } 100% { background-position: 200px 0; } }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .nav-menu { position: fixed; top: 80px; left: -100%; width: 320px; height: 100vh; background: white; flex-direction: column; padding: 2.5rem; box-shadow: 8px 0 30px rgba(0,0,0,0.25); transition: left 0.5s ease; }
+      .nav-menu.active { left: 0; }
+      .hamburger { display: block; }
+      .ps-grid, .stats-impacto, .pasos, .equipo-grid, .valores-grid { grid-template-columns: 1fr; }
+      .hero-quienes h1 { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-wrapper" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-seedling"></i> AgroConnect</a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="../index.html" class="nav-link">Inicio</a>
+        <a href="quienesSOmos.html" class="nav-link active">Quiénes Somos</a>
+        <a href="../Mercado/MercadoGloba.html" class="nav-link">Mercado Global</a>
+        <a href="../vender/vender.html" class="nav-link">Vender</a>
+        <a href="../comprar/comprar.html" class="nav-link">Comprar</a>
+      </nav>
+      <a href="inicioDeSeccion.html" class="btn-login">Iniciar Sesión</a>
+      <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero-quienes">
+    <div class="hero-bg-quienes"></div>
+    <div class="container">
+      <h1>Conectamos el Campo con el Mundo</h1>
+      <p>Somos la plataforma que elimina intermediarios, garantiza precios justos y lleva la trazabilidad desde la semilla hasta tu mesa.</p>
+      <div class="mision-badge">MISIÓN: Democratizar el comercio agrícola global</div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA vs SOLUCIÓN -->
+  <section class="problema-solucion">
+    <div class="container">
+      <div class="ps-grid">
+        <div class="ps-card">
+          <h2><i class="fas fa-exclamation-triangle"></i> El Problema</h2>
+          <ul>
+            <li><i class="fas fa-times"></i> Hasta 7 intermediarios por transacción</li>
+            <li><i class="fas fa-times"></i> Productores reciben solo 15-25% del precio final</li>
+            <li><i class="fas fa-times"></i> Falta de transparencia en origen y calidad</li>
+            <li><i class="fas fa-times"></i> Compradores pagan sobreprecios sin garantía</li>
+            <li><i class="fas fa-times"></i> Pequeños agricultores excluidos del mercado global</li>
+          </ul>
+          <a href="#" class="cta">Ver cómo lo solucionamos →</a>
+        </div>
+        <div class="ps-card success">
+          <h2><i class="fas fa-check-circle"></i> Nuestra Solución</h2>
+          <ul>
+            <li><i class="fas fa-check"></i> Conexión directa: 0 intermediarios</li>
+            <li><i class="fas fa-check"></i> Productores reciben hasta 85% del valor</li>
+            <li><i class="fas fa-check"></i> Trazabilidad blockchain desde el campo</li>
+            <li><i class="fas fa-check"></i> Precios reales, negociados en vivo</li>
+            <li><i class="fas fa-check"></i> Acceso global para cualquier productor</li>
+          </ul>
+          <a href="#" class="cta">Únete a la revolución →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACTO -->
+  <section class="impacto">
+    <div class="container">
+      <h2>Impacto Real en 2025</h2>
+      <div class="stats-impacto">
+        <div class="stat-impacto"><strong>2,847</strong><small>Productores conectados</small></div>
+        <div class="stat-impacto"><strong>$4.2M</strong><small>Pagados directamente</small></div>
+        <div class="stat-impacto"><strong>47</strong><small>Países activos</small></div>
+        <div class="stat-impacto"><strong>92%</strong><small>Satisfacción</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="como-funciona">
+    <div class="container">
+      <h2 style="text-align:center; margin-bottom:3rem; font-size:2.8rem; color:var(--primary-dark); font-family:var(--font-title);">Cómo Funciona</h2>
+      <div class="pasos">
+        <div class="paso"><div class="paso-num">1</div><h3>Regístrate Gratis</h3><p>Productor o comprador, en 2 minutos.</p></div>
+        <div class="paso"><div class="paso-num">2</div><h3>Publica o Busca</h3><p>Ofertas reales, fotos, certificados.</p></div>
+        <div class="paso"><div class="paso-num">3</div><h3>Negocia Directo</h3><p>Chat en vivo, videollamada, contrato digital.</p></div>
+        <div class="paso"><div class="paso-num">4</div><h3>Recibe y Paga Seguro</h3><p>Escrow, trazabilidad, entrega garantizada.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="equipo">
+    <div class="container">
+      <h2>Nuestro Equipo</h2>
+      <div class="equipo-grid">
+        <div class="miembro">
+          <img src="https://i.pravatar.cc/150?img=68" class="miembro-img" alt="CEO">
+          <h3>Luis Alfonso Garcia Lagos</h3><small>CEO & Fundadora</small><p>15 años en agronegocios. Ex-directora de exportación en México.</p>
+        </div>
+        <div class="miembro">
+          <img src="https://i.pravatar.cc/150?img=56" class="miembro-img" alt="CTO">
+          <h3>Carlos Vega</h3><small>CTO</small><p>Ingeniero blockchain. Ex-líder técnico en IBM.</p>
+        </div>
+        <div class="miembro">
+          <img src="https://i.pravatar.cc/150?img=33" class="miembro-img" alt="CMO">
+          <h3>Ana Torres</h3><small>CMO</small><p>Estrategia digital. Crecimiento 10x en startups agro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="valores">
+    <div class="container">
+      <h2>Nuestros Valores</h2>
+      <div class="valores-grid">
+        <div class="valor"><i class="fas fa-handshake"></i><h3>Transparencia</h3><p>Todo visible: origen, precio, calidad.</p></div>
+        <div class="valor"><i class="fas fa-leaf"></i><h3>Sostenibilidad</h3><p>Apoyamos prácticas ecológicas y regenerativas.</p></div>
+        <div class="valor"><i class="fas fa-users"></i><h3>Inclusión</h3><p>Cualquier productor puede vender globalmente.</p></div>
+        <div class="valor"><i class="fas fa-shield-alt"></i><h3>Seguridad</h3><p>Pagos protegidos, contratos inteligentes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="container">
+      <h2>Únete al Cambio</h2>
+      <p>Productores: vende al mundo. Compradores: accede al origen real.</p>
+      <a href="comprar.html" class="btn-cta-final"><i class="fas fa-shopping-cart"></i> Comprar Ahora</a>
+      <a href="vender.html" class="btn-cta-final" style="margin-left:1rem;"><i class="fas fa-tractor"></i> Vender Ahora</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-contenido">
+      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
+      <nav class="footer-nav">
+        <a href="#">Contacto</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Términos</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // NAV
+    window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      hamburger.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+  </script>
+</body>
+</html>

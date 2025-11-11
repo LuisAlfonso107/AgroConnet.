@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Compra directo del campo: productores verificados, precios justos, trazabilidad total." />
+  <meta name="theme-color" content="#00796b" />
+  <title>Comprar | AgroConnect</title>
+
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <style>
+    /* ========================================
+           AGROCONNECT - COMPRAR (MASTERPIECE EDITION)
+           Impacto visual + UX premium + Animaciones hipnóticas
+           2025 | Responsive | PWA | Full JS Magic
+        ======================================== */
+    :root {
+      --primary: #00796b;
+      --primary-dark: #004d40;
+      --primary-light: #e0f2f1;
+      --accent: #5da614;
+      --accent-light: #015c1f;
+      --success: #8bc34a;
+      --success-light: #a5d6a7;
+      --warning: #92793d;
+      --danger: #e53935;
+      --bg: #f8fff9;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --text-light: #555;
+      --radius: 1.8rem;
+      --shadow-sm: 0 6px 16px rgba(0,0,0,0.08);
+      --shadow-md: 0 12px 32px rgba(0,0,0,0.14);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.18);
+      --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-main: 'Inter', sans-serif;
+      --font-title: 'Playfair Display', serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      color: var(--text);
+      line-height: 1.7;
+      padding-top: 90px;
+      position: relative;
+    }
+
+    /* FONDO ANIMADO CON PARTÍCULAS */
+    body::before {
+      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 15% 85%, rgba(0,121,107,0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(255,152,0,0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(139,195,74,0.05) 0%, transparent 60%);
+      pointer-events: none; z-index: -1; animation: breath 20s ease-in-out infinite;
+    }
+    @keyframes breath {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .container { max-width: 1480px; margin: 0 auto; padding: 0 2rem; }
+    a { text-decoration: none; color: inherit; }
+
+    /* === NAV PREMIUM === */
+    .nav-wrapper {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.12); z-index: 1000;
+      transition: var(--transition);
+    }
+    .nav-wrapper.scrolled { background: rgba(255,255,255,0.98); box-shadow: 0 8px 40px rgba(0,0,0,0.16); }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; }
+    .logo { font-family: var(--font-title); font-size: 2.1rem; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 0.7rem; }
+    .logo i { color: var(--accent); animation: float 3.5s ease-in-out infinite; font-size: 1.8rem; }
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-8px) rotate(5deg)} }
+    .nav-menu { display: flex; gap: 1.8rem; }
+    .nav-link { color: var(--text); font-weight: 600; padding: 0.6rem 1.3rem; border-radius: 3rem; transition: var(--transition); position: relative; overflow: hidden; }
+    .nav-link::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.6s; }
+    .nav-link:hover::before { left: 100%; }
+    .nav-link:hover, .nav-link.active { color: white; background: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .btn-login { background: var(--primary); color: white; padding: 0.7rem 1.8rem; border-radius: 3rem; font-weight: 700; font-size: 1rem; transition: var(--transition); }
+    .btn-login:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .hamburger { display: none; font-size: 1.9rem; color: var(--primary); cursor: pointer; transition: 0.3s; }
+    .hamburger:hover { transform: rotate(90deg); }
+
+    /* === HERO ÉPICO CON PARALLAX === */
+    .comprar-hero {
+      position: relative; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      color: white; padding: 8rem 2rem 6rem; text-align: center; border-radius: 0 0 var(--radius) var(--radius);
+      overflow: hidden; box-shadow: 0 20px 60px rgba(255,152,0,0.2);
+    }
+    .hero-bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.15; pointer-events: none;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="30" r="15" fill="white"/><circle cx="80" cy="70" r="20" fill="white"/><path d="M10,50 Q30,30 50,50 T90,50" stroke="white" stroke-width="8" fill="none"/></svg>') repeat;
+      background-size: 200px; animation: drift 30s linear infinite;
+    }
+    @keyframes drift { 0% { background-position: 0 0; } 100% { background-position: 200px 200px; } }
+    .comprar-hero h1 { font-size: 3.8rem; margin-bottom: 1.2rem; font-family: var(--font-title); font-weight: 900; text-shadow: 0 4px 12px rgba(0,0,0,0.2); animation: titleGlow 3s ease-in-out infinite alternate; }
+    @keyframes titleGlow { 0% { text-shadow: 0 4px 12px rgba(0,0,0,0.2); } 100% { text-shadow: 0 6px 20px rgba(0,0,0,0.3), 0 0 30px rgba(255,152,0,0.4); } }
+    .comprar-hero p { font-size: 1.4rem; max-width: 1000px; margin: 0 auto 3rem; opacity: 0.95; font-weight: 300; }
+    .cta-buttons { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .btn-cta {
+      background: white; color: var(--primary-dark); padding: 1.2rem 3rem; border-radius: 3.5rem;
+      font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 1rem; transition: var(--transition);
+      box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+    }
+    .btn-cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); transition: 0.7s; }
+    .btn-cta:hover::before { left: 100%; }
+    .btn-cta:hover { transform: translateY(-5px) scale(1.05); box-shadow: var(--shadow-lg); }
+    .btn-cta i { font-size: 1.6rem; animation: bounce 2s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+    /* === FILTROS + MAPA INTERACTIVO === */
+    .comprar-main {
+      display: grid; grid-template-columns: 1fr 360px; gap: 3rem; margin: 5rem 0; align-items: start;
+    }
+    .mapa-container {
+      position: relative; height: 620px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg);
+      background: #f0f4f8; transition: var(--transition);
+    }
+    .mapa-container:hover { box-shadow: 0 25px 60px rgba(0,0,0,0.2); }
+    .mapa-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .mapa-container:hover img { transform: scale(1.03); }
+    .pin {
+      position: absolute; width: 48px; height: 48px; background: var(--success); border: 5px solid white;
+      border-radius: 50%; box-shadow: 0 6px 20px rgba(0,0,0,0.3); cursor: pointer; animation: pulse 2.2s infinite;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: white; font-weight: bold;
+      transition: var(--transition); z-index: 5;
+    }
+    .pin:hover { transform: scale(1.5) !important; z-index: 20; animation: none; box-shadow: 0 15px 40px rgba(139,195,74,0.6); }
+    .pin-label {
+      position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%);
+      background: var(--primary-dark); color: white; padding: 0.8rem 1.3rem; border-radius: 2rem;
+      font-size: 0.9rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: var(--transition);
+      box-shadow: var(--shadow-md); font-weight: 600;
+    }
+    .pin:hover .pin-label { opacity: 1; bottom: 70px; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(139,195,74,0.7); } 70% { box-shadow: 0 0 0 22px rgba(139,195,74,0); } 100% { box-shadow: 0 0 0 0 rgba(139,195,74,0); } }
+
+    .filtros {
+      background: var(--card); padding: 2.8rem; border-radius: var(--radius); box-shadow: var(--shadow-md); height: fit-content;
+      position: sticky; top: 110px; transition: var(--transition);
+    }
+    .filtros:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); }
+    .filtros h3 { margin-bottom: 2rem; color: var(--primary-dark); font-size: 1.8rem; text-align: center; font-weight: 700; }
+    .filtro-group { margin-bottom: 2rem; }
+    .filtro-group label { display: block; margin-bottom: 0.7rem; font-weight: 600; color: var(--text); font-size: 1.05rem; }
+    .filtro-group select, .filtro-group input {
+      width: 100%; padding: 1rem; border: 2.5px solid #e0e0e0; border-radius: 1.3rem; font-size: 1rem; transition: var(--transition);
+      background: white; font-weight: 500;
+    }
+    .filtro-group select:focus, .filtro-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0,121,107,0.15); }
+    .filtro-group input[type="range"] { accent-color: var(--primary); height: 8px; border-radius: 1rem; }
+    .precio-valor { font-size: 1rem; text-align: right; margin-top: 0.5rem; color: var(--primary); font-weight: 700; }
+
+    /* === PRODUCTOS GRID PREMIUM === */
+    .productos-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2.5rem; margin: 5rem 0;
+    }
+    .producto-card {
+      background: var(--card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+      transition: var(--transition); position: relative; animation: fadeUp 0.8s ease backwards;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .producto-card:nth-child(1) { animation-delay: 0.1s; }
+    .producto-card:nth-child(2) { animation-delay: 0.2s; }
+    .producto-card:nth-child(3) { animation-delay: 0.3s; }
+    .producto-card:hover { transform: translateY(-15px) scale(1.02); box-shadow: var(--shadow-lg); z-index: 10; }
+    .producto-img { height: 220px; overflow: hidden; position: relative; }
+    .producto-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+    .producto-card:hover .producto-img img { transform: scale(1.15); }
+    .producto-badge {
+      position: absolute; top: 1.2rem; right: 1.2rem; background: var(--success); color: white;
+      padding: 0.5rem 1rem; border-radius: 2.5rem; font-size: 0.85rem; font-weight: 700; box-shadow: var(--shadow-sm);
+      animation: badgePulse 2s infinite; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    @keyframes badgePulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    .producto-info { padding: 2rem; }
+    .producto-info h3 { font-size: 1.4rem; margin-bottom: 0.7rem; color: var(--primary-dark); font-weight: 600; }
+    .producto-meta { display: flex; justify-content: space-between; font-size: 0.98rem; color: var(--text-light); margin-bottom: 1.2rem; font-weight: 500; }
+    .producto-precio { font-size: 1.8rem; font-weight: 800; color: var(--success); margin: 0.6rem 0; font-family: var(--font-title); }
+    .producto-trazabilidad { font-size: 0.95rem; color: var(--primary); margin: 1rem 0; display: flex; align-items: center; gap: 0.6rem; font-weight: 600; }
+    .btn-oferta {
+      background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 3.5rem;
+      font-weight: 700; display: block; text-align: center; margin-top: 1.5rem; transition: var(--transition);
+      position: relative; overflow: hidden; font-size: 1.05rem;
+    }
+    .btn-oferta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: 0.6s; }
+    .btn-oferta:hover::before { left: 100%; }
+    .btn-oferta:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+    /* === NOTIFICACIÓN PREMIUM === */
+    .notificacion {
+      position: fixed; bottom: 25px; right: 25px; background: var(--card); padding: 1.4rem 2rem;
+      border-radius: 2rem; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 1.2rem;
+      animation: slideIn 0.6s ease; z-index: 1000; max-width: 420px; border-left: 6px solid var(--accent);
+      font-weight: 500; backdrop-filter: blur(10px); border: 1px solid rgba(255,152,0,0.2);
+    }
+    .notificacion i { color: var(--accent); font-size: 2rem; animation: ring 1.5s ease infinite; }
+    @keyframes ring { 0%,100% { transform: rotate(0); } 10% { transform: rotate(-15deg); } 20% { transform: rotate(15deg); } 30% { transform: rotate(-10deg); } 40% { transform: rotate(10deg); } 50% { transform: rotate(0); } }
+    .notificacion strong { display: block; font-size: 1.15rem; color: var(--primary-dark); }
+    .notificacion small { color: var(--text-light); font-size: 0.95rem; }
+
+    /* === FOOTER === */
+    .footer {
+      background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+      color: #f1f1f1; padding: 5rem 2rem 2.5rem; margin-top: 8rem; border-top: 6px solid var(--success-light);
+      position: relative; overflow: hidden;
+    }
+    .footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z" fill="rgba(165,214,167,0.1)"/></svg>') repeat-x; background-size: 200px; animation: wave 15s linear infinite; }
+    @keyframes wave { 0% { background-position: 0 0; } 100% { background-position: 200px 0; } }
+    .footer-contenido { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .footer-nav a { color: white; margin: 0 1.5rem; font-weight: 600; font-size: 1.1rem; transition: 0.3s; }
+    .footer-nav a:hover { color: var(--accent); }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 992px) {
+      .nav-menu { position: fixed; top: 80px; left: -100%; width: 320px; height: 100vh; background: white; flex-direction: column; padding: 2.5rem; box-shadow: 8px 0 30px rgba(0,0,0,0.25); transition: left 0.5s ease; border-radius: 0 0 2rem 0; }
+      .nav-menu.active { left: 0; }
+      .hamburger { display: block; }
+      .comprar-main { grid-template-columns: 1fr; }
+      .filtros { order: -1; position: static; }
+      .comprar-hero h1 { font-size: 2.8rem; }
+      .cta-buttons { gap: 1.2rem; }
+      .btn-cta { padding: 1rem 2rem; font-size: 1.1rem; }
+    }
+    @media (max-width: 600px) {
+      .comprar-hero h1 { font-size: 2.4rem; }
+      .productos-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-wrapper" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-seedling"></i> AgroConnect
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="quienesSOmos.html" class="nav-link">Quiénes Somos</a>
+        <a href="explorar.html" class="nav-link">Mercado Global</a>
+        <a href="vender.html" class="nav-link">Vender</a>
+        <a href="comprar.html" class="nav-link active">Comprar</a>
+      </nav>
+      <a href="inicioDeSeccion.html" class="btn-login">Iniciar Sesión</a>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="comprar-hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <h1>Compra Directo del Campo</h1>
+      <p>Accede a productores reales, negocia en tiempo real, recibe con trazabilidad total y paga seguro.</p>
+      <div class="cta-buttons">
+        <a href="#filtros" class="btn-cta"><i class="fas fa-filter"></i> Explorar Ofertas</a>
+        <a href="#mapa" class="btn-cta"><i class="fas fa-map-marked-alt"></i> Ver en Mapa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPA + FILTROS -->
+  <section class="container comprar-main" id="mapa">
+    <div class="mapa-container">
+      <img src="https://i.imgur.com/8z3i8iP.png" alt="Mapa mundial">
+      <div class="pin" style="top: 65%; left: 35%;"><div class="pin-label">Maíz Orgánico - MX</div><i class="fas fa-seedling"></i></div>
+      <div class="pin" style="top: 40%; left: 65%;"><div class="pin-label">Café Premium - CO</div><i class="fas fa-coffee"></i></div>
+      <div class="pin" style="top: 50%; left: 55%;"><div class="pin-label">Aguacate Hass - PE</div><i class="fas fa-apple-alt"></i></div>
+      <div class="pin" style="top: 30%; left: 48%;"><div class="pin-label">Arroz Ecológico - ES</div><i class="fas fa-seedling"></i></div>
+    </div>
+    <aside class="filtros" id="filtros">
+      <h3>Filtrar Ofertas</h3>
+      <div class="filtro-group">
+        <label>Producto</label>
+        <select id="filtroProducto">
+          <option value="">Todos</option>
+          <option value="maiz">Maíz</option>
+          <option value="cafe">Café</option>
+          <option value="aguacate">Aguacate</option>
+          <option value="arroz">Arroz</option>
+        </select>
+      </div>
+      <div class="filtro-group">
+        <label>País</label>
+        <select id="filtroPais">
+          <option value="">Todos</option>
+          <option value="MX">México</option>
+          <option value="CO">Colombia</option>
+          <option value="PE">Perú</option>
+          <option value="ES">España</option>
+        </select>
+      </div>
+      <div class="filtro-group">
+        <label>Precio máx.</label>
+        <input type="range" min="0" max="1000" value="1000" id="filtroPrecio">
+        <div class="precio-valor">$<span id="precioMax">1,000</span></div>
+      </div>
+      <div class="filtro-group">
+        <label>Certificado</label>
+        <select>
+          <option>Cualquier</option>
+          <option>Orgánico</option>
+          <option>GlobalG.A.P.</option>
+          <option>Rainforest</option>
+        </select>
+      </div>
+    </aside>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section class="container">
+    <div class="productos-grid" id="productosGrid"></div>
+  </section>
+
+  <!-- NOTIFICACIÓN -->
+  <div id="notificacion" class="notificacion" style="display:none;">
+    <i class="fas fa-bell"></i>
+    <div>
+      <strong id="notifTitulo">¡Oferta en vivo!</strong>
+      <small id="notifTexto">Juan Pérez bajó el precio del maíz a $305/ton</small>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-contenido">
+      <p>© 2025 <strong>AgroConnect Global</strong>. Todos los derechos reservados.</p>
+      <nav class="footer-nav">
+        <a href="#">Contacto</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Términos</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // NAV
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      hamburger.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // PRECIO RANGO
+    const precioInput = document.getElementById('filtroPrecio');
+    const precioSpan = document.getElementById('precioMax');
+    precioInput.addEventListener('input', () => {
+      precioSpan.textContent = precioInput.value;
+    });
+
+    // DATOS SIMULADOS
+    const productos = [
+      { nombre: "Maíz amarillo orgánico", precio: "$320", unidad: "/ton", cantidad: "50 toneladas", productor: "Juan Pérez", ubicacion: "Chiapas, México", certificado: "USDA Orgánico", foto: "https://i.pravatar.cc/600?img=1", badge: "nuevo", verified: true },
+      { nombre: "Café arábica especial", precio: "$850", unidad: "/qq", cantidad: "200 quintales", productor: "María Gómez", ubicacion: "Antioquia, Colombia", certificado: "Rainforest Alliance", foto: "https://i.pravatar.cc/600?img=5", badge: "premium", verified: true },
+      { nombre: "Aguacate Hass", precio: "$2.10", unidad: "/kg", cantidad: "10 toneladas", productor: "Carlos Ruiz", ubicacion: "Arequipa, Perú", certificado: "GlobalG.A.P.", foto: "https://i.pravatar.cc/600?img=12", badge: "exportacion", verified: false },
+      { nombre: "Arroz ecológico", precio: "$0.95", unidad: "/kg", cantidad: "30 toneladas", productor: "Ana López", ubicacion: "Sevilla, España", certificado: "EU Organic", foto: "https://i.pravatar.cc/600?img=15", badge: "local", verified: true }
+    ];
+
+    // RENDER PRODUCTOS
+    function renderProductos() {
+      const grid = document.getElementById('productosGrid');
+      grid.innerHTML = productos.map((p, i) => `
+        <div class="producto-card" style="animation-delay: ${0.1 + i * 0.1}s;">
+          <div class="producto-img">
+            <img src="${p.foto}" alt="${p.nombre}">
+            <div class="producto-badge">${p.badge}</div>
+          </div>
+          <div class="producto-info">
+            <h3>${p.nombre} ${p.verified ? '<i class="fas fa-check-circle" style="color:#1da1f2; font-size:0.9rem;" title="Verificado"></i>' : ''}</h3>
+            <div class="producto-meta">
+              <span><i class="fas fa-user"></i> ${p.productor}</span>
+              <span><i class="fas fa-map-marker-alt"></i> ${p.ubicacion}</span>
+            </div>
+            <div class="producto-precio">${p.precio}<small style="font-weight:500; color:var(--text-light);">${p.unidad}</small></div>
+            <div class="producto-trazabilidad"><i class="fas fa-shield-alt"></i> ${p.certificado}</div>
+            <a href="#" class="btn-oferta">Contactar Ahora</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // NOTIFICACIONES DINÁMICAS
+    const notifs = [
+      "¡Oferta en vivo! Juan Pérez bajó el precio del maíz a $305/ton",
+      "María Gómez aceptó tu muestra de café",
+      "Nuevo productor verificado en España: Arroz ecológico",
+      "¡Contrato cerrado! 20 toneladas de aguacate en camino"
+    ];
+    setInterval(() => {
+      const txt = notifs[Math.floor(Math.random() * notifs.length)];
+      document.getElementById('notifTitulo').textContent = "¡Actualización!";
+      document.getElementById('notifTexto').textContent = txt;
+      const notif = document.getElementById('notificacion');
+      notif.style.display = 'flex';
+      setTimeout(() => notif.style.display = 'none', 6000);
+    }, 9000);
+
+    // INICIAR
+    renderProductos();
+  </script>
+</body>
+</html>
