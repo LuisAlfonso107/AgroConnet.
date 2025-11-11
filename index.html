@@ -20,27 +20,18 @@
 </head>
 <body>
 
-  <!-- NAV REAL -->
-  <div class="nav-wrapper" id="navbar">
-    <div class="container nav-container">
-      <a href="index.html" class="logo">  
-        <i class="fas fa-seedling"></i> AgroConnect
-      </a>
-      <nav class="nav-menu" id="navMenu">
-        <a href="QuienesSomos/quienessomos.html" class="nav-link">Quiénes Somos</a> 
-        <a href="Mercado/MercadoGloba.html" class="nav-link">Mercado global</a>
-        <a href="explorar/explorar.html" class="nav-link"></a>
-        <a href="vender/vender.html" class="nav-link">Vender</a>
-        <a href="comprar/comprar.html" class="nav-link">Comprar</a>
-        <a href="crearcuenta/crearCuenta.html" class="nav-link">Crear Cuenta</a>
-        
-      </nav>
-      <a href="iniciarSeccion/inicioDeSeccion.html" class="btn-login">Iniciar Sesión</a>
-      <div class="hamburger" id="hamburger">
-        <i class="fas fa-bars"></i>
-      </div>
-    </div>
-  </div>
+  <div id="header-container"></div>
+<script>
+  fetch("../components/header.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("header-container").innerHTML = html;
+      const script = document.createElement("script");
+      script.src = "../components/header.js";
+      document.body.appendChild(script);
+    });
+</script>
+ 
 
   <!-- HERO + MAPA ANIMADO -->
   <header class="hero">
@@ -200,19 +191,38 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    // NAV SCROLL
+   
+    // SCROLL 
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // HAMBURGER
+    // HAMBURGUESA
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     hamburger.addEventListener('click', () => {
       navMenu.classList.toggle('active');
-      hamburger.innerHTML = navMenu.classList.contains('active') ? 
-        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      hamburger.innerHTML = navMenu.classList.contains('active') 
+        ? '<i class="fas fa-times"></i>' 
+        : '<i class="fas fa-bars"></i>';
     });
+
+    // ENLACE ACTIVO AL CLIC
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function() {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // MANTENER ACTIVO AL RECARGAR
+    const current = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.getAttribute('href') === current) {
+        link.classList.add('active');
+      }
+    });
+  
 
     // ANIMACIÓN DE GRANOS
     document.addEventListener('DOMContentLoaded', () => {

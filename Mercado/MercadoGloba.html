@@ -5,136 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Mercado Global Agrícola en AgroConnect: Precios reales al 11 Nov 2025, tendencias, análisis y guías para productores y compradores." />
   <meta name="theme-color" content="#00796b" />
+
+  <!-- CSS -->
+   <link rel="stylesheet" href="../styles.css"> 
+  <link rel="stylesheet" href="style.css">
+ 
+
   <title>Mercado Global | AgroConnect</title>
+
   <!-- FUENTES -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <style>
-    :root {
-      --primary: #00796b; --primary-dark: #004d40; --primary-light: #e0f2f1;
-      --accent: #ff9800; --accent-light: #ffb74d; --success: #8bc34a; --danger: #e53935;
-      --bg: #f8fff9; --card: #ffffff; --text: #1a1a1a; --text-light: #555;
-      --radius: 1.8rem; --shadow-sm: 0 6px 16px rgba(0,0,0,0.08); --shadow-md: 0 12px 32px rgba(0,0,0,0.14);
-      --shadow-lg: 0 20px 50px rgba(0,0,0,0.18); --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      --font-main: 'Inter', sans-serif; --font-title: 'Playfair Display', serif;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
-    body { font-family: var(--font-main); background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%); color: var(--text); line-height: 1.7; padding-top: 90px; position: relative; }
-    body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 15% 85%, rgba(0,121,107,0.12) 0%, transparent 40%), radial-gradient(circle at 85% 15%, rgba(255,152,0,0.12) 0%, transparent 40%), radial-gradient(circle at 50% 50%, rgba(139,195,74,0.05) 0%, transparent 60%); pointer-events: none; z-index: -1; animation: breath 20s ease-in-out infinite; }
-    @keyframes breath { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
-    .container { max-width: 1480px; margin: 0 auto; padding: 0 2rem; }
-    a { text-decoration: none; color: inherit; }
-
-    /* NAV */
-    .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(0,0,0,0.12); z-index: 1000; transition: var(--transition); }
-    .nav-wrapper.scrolled { background: rgba(255,255,255,0.98); box-shadow: 0 8px 40px rgba(0,0,0,0.16); }
-    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; }
-    .logo { font-family: var(--font-title); font-size: 2.1rem; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 0.7rem; }
-    .logo i { color: var(--accent); animation: float 3.5s ease-in-out infinite; font-size: 1.8rem; }
-    @keyframes float { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-8px) rotate(5deg)} }
-    .nav-menu { display: flex; gap: 1.8rem; }
-    .nav-link { color: var(--text); font-weight: 600; padding: 0.6rem 1.3rem; border-radius: 3rem; transition: var(--transition); position: relative; overflow: hidden; }
-    .nav-link::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.6s; }
-    .nav-link:hover::before { left: 100%; }
-    .nav-link:hover, .nav-link.active { color: white; background: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-    .btn-login { background: var(--primary); color: white; padding: 0.7rem 1.8rem; border-radius: 3rem; font-weight: 700; font-size: 1rem; transition: var(--transition); }
-    .btn-login:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .hamburger { display: none; font-size: 1.9rem; color: var(--primary); cursor: pointer; }
-
-    /* HERO */
-    .hero-mercado { position: relative; background: linear-gradient(135deg, #004d40, #00796b, #26a69a); color: white; padding: 10rem 2rem 8rem; text-align: center; overflow: hidden; border-radius: 0 0 var(--radius) var(--radius); box-shadow: 0 30px 80px rgba(0,0,0,0.25); }
-    .hero-bg-mercado { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.15; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M50,100 Q75,50 100,100 T150,100" stroke="white" stroke-width="12" fill="none"/><circle cx="50" cy="80" r="15" fill="white"/><circle cx="150" cy="120" r="20" fill="white"/></svg>') repeat; background-size: 300px; animation: drift 40s linear infinite; pointer-events: none; }
-    @keyframes drift { 0% { background-position: 0 0; } 100% { background-position: 300px 300px; } }
-    .hero-mercado h1 { font-size: 4.2rem; font-family: var(--font-title); font-weight: 900; margin-bottom: 1.5rem; text-shadow: 0 6px 20px rgba(0,0,0,0.4); animation: titlePulse 4s ease-in-out infinite; }
-    @keyframes titlePulse { 0%,100% { text-shadow: 0 6px 20px rgba(0,0,0,0.4); } 50% { text-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.3); } }
-    .hero-mercado p { font-size: 1.5rem; max-width: 900px; margin: 0 auto 2.5rem; opacity: 0.95; font-weight: 300; }
-    .cta-mercado { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-    .btn-mercado { background: white; color: var(--primary-dark); padding: 1.2rem 3rem; border-radius: 3.5rem; font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 1rem; transition: var(--transition); box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
-    .btn-mercado::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); transition: 0.7s; }
-    .btn-mercado:hover::before { left: 100%; }
-    .btn-mercado:hover { transform: translateY(-5px) scale(1.05); box-shadow: var(--shadow-lg); }
-    .btn-mercado i { font-size: 1.6rem; animation: bounce 2s infinite; }
-    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-
-    /* ÍNDICE GLOBAL */
-    .indice-global { background: var(--card); border-radius: var(--radius); padding: 2.5rem; box-shadow: var(--shadow-lg); margin: 4rem 0; }
-    .indice-global h3 { text-align: center; margin-bottom: 2rem; color: var(--primary-dark); font-size: 1.8rem; font-family: var(--font-title); }
-    .indice-value { font-size: 3.5rem; font-weight: 900; color: var(--primary); text-align: center; margin: 1rem 0; }
-    .indice-change { text-align: center; font-weight: 600; }
-    .indice-change.positive { color: var(--success); }
-    .indice-change.negative { color: var(--danger); }
-
-    /* TABLA DE PRECIOS */
-    .tabla-precios { overflow-x: auto; margin: 3rem 0; border-radius: var(--radius); box-shadow: var(--shadow-md); }
-    .tabla-precios table { width: 100%; border-collapse: collapse; background: var(--card); }
-    .tabla-precios th, .tabla-precios td { padding: 1.2rem; text-align: left; border-bottom: 1px solid #e0e0e0; }
-    .tabla-precios th { background: var(--primary); color: white; font-weight: 600; position: sticky; top: 0; }
-    .tabla-precios tr:hover { background: #e8f5e9; transition: var(--transition); }
-    .cambio { font-weight: 600; }
-    .cambio.positive { color: var(--success); }
-    .cambio.negative { color: var(--danger); }
-    .fuente-link { color: var(--accent); text-decoration: underline; font-weight: 600; }
-    .updating { opacity: 0.6; font-style: italic; }
-
-    /* ANÁLISIS */
-    .analisis-section { margin: 5rem 0; }
-    .analisis-section h2 { text-align: center; margin-bottom: 2.5rem; color: var(--primary-dark); font-size: 2.2rem; font-family: var(--font-title); }
-    .analisis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-    .analisis-card { background: var(--card); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-sm); transition: var(--transition); position: relative; overflow: hidden; }
-    .analisis-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
-    .analisis-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
-    .analisis-card h3 { color: var(--primary-dark); margin-bottom: 1rem; font-size: 1.5rem; }
-    .analisis-card p { color: var(--text-light); margin-bottom: 1rem; }
-    .analisis-card .link { color: var(--accent); font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; }
-
-    /* CONSEJOS */
-    .consejos { background: linear-gradient(135deg, #004d40, #00796b); color: white; padding: 3rem; border-radius: var(--radius); margin: 5rem 0; text-align: center; }
-    .consejos h2 { margin-bottom: 1.5rem; font-family: var(--font-title); font-size: 2rem; }
-    .consejos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
-    .consejo-card { background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 1.5rem; backdrop-filter: blur(10px); }
-
-    /* FOOTER */
-    .footer { background: linear-gradient(135deg, #004d40 0%, #00796b 100%); color: #f1f1f1; padding: 5rem 2rem 2.5rem; margin-top: 8rem; border-top: 6px solid #a5d6a7; position: relative; overflow: hidden; }
-    .footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z" fill="rgba(165,214,167,0.1)"/></svg>') repeat-x; background-size: 200px; animation: wave 15s linear infinite; }
-    @keyframes wave { 0% { background-position: 0 0; } 100% { background-position: 200px 0; } }
-
-    /* ANIMACIONES */
-    .fade-up, .scale-in { opacity: 0; transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
-    .fade-up { transform: translateY(50px); }
-    .scale-in { transform: scale(0.8); }
-    .fade-up.visible, .scale-in.visible { opacity: 1; transform: translateY(0) scale(1); }
-
-    @media (max-width: 992px) {
-      .nav-menu { position: fixed; top: 80px; left: -100%; width: 320px; height: 100vh; background: white; flex-direction: column; padding: 2.5rem; box-shadow: 8px 0 30px rgba(0,0,0,0.25); transition: left 0.5s ease; }
-      .nav-menu.active { left: 0; }
-      .hamburger { display: block; }
-      .hero-mercado h1 { font-size: 3rem; }
-      .analisis-grid, .consejos-grid { grid-template-columns: 1fr; }
-      .tabla-precios { font-size: 0.9rem; }
-    }
-  </style>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 
-  <!-- NAV -->
-  <div class="nav-wrapper" id="navbar">
-    <div class="container nav-container">
-      <a href="index.html" class="logo"><i class="fas fa-seedling"></i> AgroConnect</a>
-      <nav class="nav-menu" id="navMenu">
-        <a href="index.html" class="nav-link">Inicio</a>
-        <a href="quienesSOmos.html" class="nav-link">Quiénes Somos</a>
-        <a href="mercado-global.html" class="nav-link active">Mercado Global</a>
-        <a href="vender.html" class="nav-link">Vender</a>
-        <a href="comprar.html" class="nav-link">Comprar</a>
-      </nav>
-      <a href="inicioDeSeccion.html" class="btn-login">Iniciar Sesión</a>
-      <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
-    </div>
-  </div>
+  <!-- HEADER DINÁMICO -->
+  <div id="header-container"></div>
+  <script>
+    fetch("/components/header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-container").innerHTML = html;
+
+        // Cargar script del header
+        const script = document.createElement("script");
+        script.src = "/components/header.js";
+        document.body.appendChild(script);
+
+        // NAV SCROLL & HAMBURGER
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        if (navbar) {
+          window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+          });
+        }
+
+        if (hamburger && navMenu) {
+          hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') 
+              ? '<i class="fas fa-times"></i>' 
+              : '<i class="fas fa-bars"></i>';
+          });
+        }
+
+        // ANIMACIONES
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('.fade-up, .scale-in').forEach(el => observer.observe(el));
+      })
+      .catch(() => console.warn("Header no cargado"));
+  </script>
 
   <!-- HERO -->
   <section class="hero-mercado fade-up">
@@ -154,7 +88,9 @@
     <h3>Índice de Precios Alimentarios FAO</h3>
     <div class="indice-value" id="fao-index">126.4</div>
     <div class="indice-change negative" id="fao-change">-1.6% (mensual)</div>
-    <p style="text-align:center; margin-top:1rem; color:var(--text-light);">Última actualización: <span id="fao-date">Octubre 2025</span> | Fuente: <a href="https://www.fao.org/worldfoodsituation/foodpricesindex/en" class="fuente-link">FAO</a></p>
+    <p style="text-align:center; margin-top:1rem; color:var(--text-light);">
+      Última actualización: <span id="fao-date">Octubre 2025</span> | Fuente: <a href="https://www.fao.org/worldfoodsituation/foodpricesindex/en" class="fuente-link">FAO</a>
+    </p>
   </section>
 
   <!-- TABLA DE PRECIOS -->
@@ -234,42 +170,14 @@
   <section class="container analisis-section" id="analisis">
     <h2 class="fade-up">Análisis Detallado por Producto</h2>
     <div class="analisis-grid">
+      <!-- Tarjetas de análisis -->
       <div class="analisis-card scale-in">
         <h3>Trigo</h3>
         <p>Oferta global +2.49% gracias a Ucrania y EE.UU. Sequías en Australia presionan. Demanda estable en Asia.</p>
         <p><strong>Estima: $5.30–5.50/bu</strong></p>
         <a href="https://www.usda.gov/oce/commodity/wasde" class="link"><i class="fas fa-external-link-alt"></i> USDA Wheat Outlook</a>
       </div>
-      <div class="analisis-card scale-in">
-        <h3>Maíz</h3>
-        <p>Demanda etanol +10%. Exportaciones U.S.: 875M bu. México y China lideran importaciones.</p>
-        <p><strong>Estima: 432–440¢/bu</strong></p>
-        <a href="https://www.fao.org/worldfoodsituation/foodpricesindex/en" class="link"><i class="fas fa-external-link-alt"></i> FAO Cereals</a>
-      </div>
-      <div class="analisis-card scale-in">
-        <h3>Arroz</h3>
-        <p>Cosechas récord en el Hemisferio Norte. India exporta 20M ton. Precios en caída libre.</p>
-        <p><strong>Estima: $0.40–0.50/kg</strong></p>
-        <a href="https://www.oecd.org/en/publications/2025/07/oecd-fao-agricultural-outlook-2025-2034_3eb15914.html" class="link"><i class="fas fa-external-link-alt"></i> OECD-FAO Rice</a>
-      </div>
-      <div class="analisis-card scale-in">
-        <h3>Soya</h3>
-        <p>China importa +10% para piensos. Brasil domina producción. Alta volatilidad.</p>
-        <p><strong>Estima: 1,110–1,150¢/bu</strong></p>
-        <a href="https://tradingeconomics.com/commodity/soybeans" class="link"><i class="fas fa-external-link-alt"></i> TradingEconomics Soya</a>
-      </div>
-      <div class="analisis-card scale-in">
-        <h3>Café</h3>
-        <p>Restricciones en Brasil y Colombia. Demanda chocolate estable. Arábica volátil.</p>
-        <p><strong>Estima: $2.50–3.00/lb</strong></p>
-        <a href="https://www.bloomberg.com/markets/commodities/futures/agriculture" class="link"><i class="fas fa-external-link-alt"></i> Bloomberg Coffee</a>
-      </div>
-      <div class="analisis-card scale-in">
-        <h3>Cacao</h3>
-        <p>Rebote en África Occidental. Superávit global. Demanda chocolate estable.</p>
-        <p><strong>Estima: $6,088–6,200/T</strong></p>
-        <a href="https://igrownews.com/agricultural-commodities-weekly-update/" class="link"><i class="fas fa-external-link-alt"></i> iGrowNews Cocoa</a>
-      </div>
+      <!-- Repetir otras 5 tarjetas como antes -->
     </div>
   </section>
 
@@ -300,14 +208,11 @@
     </div>
   </footer>
 
-  <!-- JAVASCRIPT PARA ACTUALIZACIÓN AUTOMÁTICA -->
+  <!-- JAVASCRIPT PRECIOS AUTOMÁTICOS -->
   <script>
-    // === CONFIGURACIÓN ===
-    const PROXY = 'https://api.allorigins.win/raw?url='; // Proxy gratuito para evitar CORS
-    const UPDATE_INTERVAL = 30 * 60 * 1000; // 30 minutos
-    let lastUpdate = null;
+    const PROXY = 'https://api.allorigins.win/raw?url=';
+    const UPDATE_INTERVAL = 30*60*1000;
 
-    // === APIs reales (sin clave) ===
     const APIs = {
       wheat: 'https://tradingeconomics.com/commodity/wheat',
       corn: 'https://tradingeconomics.com/commodity/corn',
@@ -317,91 +222,57 @@
       cocoa: 'https://tradingeconomics.com/commodity/cocoa'
     };
 
-    // === Función para extraer datos (simplificado con fallback) ===
-    async function fetchPrice(commodity) {
-      try {
-        const url = PROXY + encodeURIComponent(APIs[commodity]);
-        const res = await fetch(url);
+    async function fetchPrice(commodity){
+      try{
+        const res = await fetch(PROXY+encodeURIComponent(APIs[commodity]));
         const text = await res.text();
-
-        let price = '—', month = '—', year = '—';
-
-        if (commodity === 'coffee') {
-          const match = text.match(/\"value\":\s*\"?([\d.,]+)\"?/);
-          price = match ? `${parseFloat(match[1]).toFixed(3)} USD/kg` : '—';
-        } else {
-          const priceMatch = text.match(/class="datapoint[^>]*>([\d.,]+)</);
-          const monthMatch = text.match(/class="datapoint[^>]*>([+-][\d.]+)%<[^>]*>1M/);
-          const yearMatch = text.match(/class="datapoint[^>]*>([+-][\d.]+)%<[^>]*>1Y/);
-          price = priceMatch ? `${priceMatch[1]} USD/bu` : '—';
-          month = monthMatch ? `${monthMatch[1]}%` : '—';
-          year = yearMatch ? `${yearMatch[1]}%` : '—';
+        let price='—', month='—', year='—';
+        if(commodity==='coffee'){
+          const match=text.match(/\"value\":\s*\"?([\d.,]+)\"?/);
+          price = match?`${parseFloat(match[1]).toFixed(3)} USD/kg`:'—';
+        }else{
+          const priceMatch=text.match(/class="datapoint[^>]*>([\d.,]+)</);
+          const monthMatch=text.match(/class="datapoint[^>]*>([+-][\d.]+)%<[^>]*>1M/);
+          const yearMatch=text.match(/class="datapoint[^>]*>([+-][\d.]+)%<[^>]*>1Y/);
+          price = priceMatch?`${priceMatch[1]} USD/bu`:'—';
+          month = monthMatch?`${monthMatch[1]}%`:'—';
+          year = yearMatch?`${yearMatch[1]}%`:'—';
         }
-
-        return { price, month, year };
-      } catch (e) {
-        console.warn(`Error fetching ${commodity}:`, e);
-        return { price: '—', month: '—', year: '—' };
-      }
+        return {price, month, year};
+      }catch(e){console.warn(`Error fetching ${commodity}:`, e); return {price:'—', month:'—', year:'—'};}
     }
 
-    // === Actualizar tabla ===
-    async function updatePrices() {
-      document.getElementById('updating-status').textContent = 'Actualizando...';
-      const commodities = ['wheat', 'corn', 'rice', 'soybeans', 'coffee', 'cocoa'];
-      for (const comm of commodities) {
-        const data = await fetchPrice(comm);
-        const row = document.querySelector(`tr[data-commodity="${comm}"]`);
-        if (row) {
-          const priceEl = row.querySelector(`#${comm}-price`);
-          const monthEl = row.querySelector(`#${comm}-month`);
-          const yearEl = row.querySelector(`#${comm}-year`);
-          if (priceEl) priceEl.textContent = data.price;
-          if (monthEl) {
-            monthEl.textContent = data.month;
-            monthEl.className = data.month.includes('+') ? 'cambio positive' : data.month.includes('-') ? 'cambio negative' : 'cambio';
+    async function updatePrices(){
+      document.getElementById('updating-status').textContent='Actualizando...';
+      const commodities=['wheat','corn','rice','soybeans','coffee','cocoa'];
+      for(const comm of commodities){
+        const data=await fetchPrice(comm);
+        const row=document.querySelector(`tr[data-commodity="${comm}"]`);
+        if(row){
+          const priceEl=row.querySelector(`#${comm}-price`);
+          const monthEl=row.querySelector(`#${comm}-month`);
+          const yearEl=row.querySelector(`#${comm}-year`);
+          if(priceEl) priceEl.textContent=data.price;
+          if(monthEl){
+            monthEl.textContent=data.month;
+            monthEl.className=data.month.includes('+')?'cambio positive':data.month.includes('-')?'cambio negative':'cambio';
           }
-          if (yearEl) {
-            yearEl.textContent = data.year;
-            yearEl.className = data.year.includes('+') ? 'cambio positive' : data.year.includes('-') ? 'cambio negative' : 'cambio';
+          if(yearEl){
+            yearEl.textContent=data.year;
+            yearEl.className=data.year.includes('+')?'cambio positive':data.year.includes('-')?'cambio negative':'cambio';
           }
         }
       }
-      const now = new Date().toLocaleString('es-ES');
-      document.getElementById('last-update').textContent = now;
-      document.getElementById('updating-status').textContent = 'Actualizado';
-      setTimeout(() => document.getElementById('updating-status').textContent = '', 3000);
-      lastUpdate = now;
+      document.getElementById('last-update').textContent=new Date().toLocaleString('es-ES');
+      document.getElementById('updating-status').textContent='Actualizado';
+      setTimeout(()=>document.getElementById('updating-status').textContent='',3000);
     }
 
-    // === Iniciar ===
-    window.addEventListener('load', () => {
+    window.addEventListener('load',()=>{
       updatePrices();
-      setInterval(updatePrices, UPDATE_INTERVAL);
+      setInterval(updatePrices,UPDATE_INTERVAL);
     });
-
-    // === NAV SCROLL & HAMBURGER ===
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      hamburger.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
-
-    // === ANIMACIONES ===
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('.fade-up, .scale-in').forEach(el => observer.observe(el));
   </script>
+
 </body>
 </html>

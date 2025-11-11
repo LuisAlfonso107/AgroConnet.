@@ -17,13 +17,19 @@
   --bg-card: #ffffff;
   --text: #1a1a1a;
   --text-light: #555;
-  --radius: 1.5rem;
-  --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-md: 0 8px 25px rgba(0,0,0,0.12);
+  --radius: 3rem;
+  --shadow-sm: 0 6px 16px rgba(0,0,0,0.08);
+  --shadow-md: 0 12px 32px rgba(0,0,0,0.14);
+  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --transition: all 0.4s ease;
+  --accent-hover: #e68900;
+  --success: #66bb6a;        /* NUEVO: Verde claro para "Crear Cuenta" */
+  --success-hover: #4caf50;
   --font-main: 'Inter', sans-serif;
   --font-title: 'Playfair Display', serif;
-}
+    }
+    
+
 
 /* === RESET GENERAL === */
 * {
@@ -84,98 +90,128 @@ button {
 }
 
 /* === NAV PREMIUM === */
-.nav-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-  z-index: 1000;
-  transition: var(--transition);
-}
+ /* === NAV === */
+    .nav-wrapper {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.12);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    .nav-wrapper.scrolled {
+      background: rgba(234, 241, 201, 0.98);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.16);
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem ;
+      max-width: 1480px;
+      margin-left: 9rem;
+    }
 
-.nav-wrapper.scrolled {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 6px 25px rgba(0,0,0,0.15);
-}
+    /* LOGO A LA IZQUIERDA */
+    .logo {
+      font-family: var(--font-title);
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-left: -8rem;
+    }
+    .logo i {
+      color: var(--accent);
+      animation: float 3.5s ease-in-out infinite;
+      font-size: 2rem;
+    }
+    @keyframes float {
+      10%,100% { transform: translateY(10) rotate(50); }
+      50% { transform: translateY(-18px) rotate(20deg); }
+    }
 
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-}
+    /* MENÚ */
+    .nav-menu {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      margin-right: -8rem;
+    }
+    .nav-link {
+      color: var(--text);
+      font-weight: 400; 
+      padding: 0.6rem 1.3rem;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      font-family: var(--font-main);
+    
+    }
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 1.5s;
+    }
+    .nav-link:hover::before { left: 100%; }
+    .nav-link:hover, .nav-link.active {
+      color: white;
+      background: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
 
-.logo {
-  font-family: var(--font-title);
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
+    /* BOTONES DE ACCIÓN */
+    .btn-login, .btn-signup {
+      padding: 0.7rem 1.8rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: var(--transition);
+      display: inline-block;
+      margin-left: rem;
+    }
 
-.logo i {
-  color: var(--accent);
-  animation: float 3s ease-in-out infinite;
-}
+    /* INICIAR SESIÓN = NARANJA */
+    .btn-login {
+      background: var(--accent);
+      color: white;
+      font-family: var(--font-main);
+      
+    }
+    .btn-login:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
+    /* CREAR CUENTA = VERDE CLARO (DISTINTO) */
+    .btn-signup {
+      background: var(--success);
+      color: white;
+      font-family: var(--font-main); 
+    }
+    .btn-signup:hover {
+      background: var(--success-hover);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
 
-.nav-menu {
-  display: flex;
-  gap: 1.8rem;
-  align-items: center;
-}
+    .hamburger {
+      display: none;
+      font-size: 1.9rem;
+      color: var(--primary);
+      cursor: pointer;
+    }
 
-.nav-link {
-  color: var(--text);
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  transition: var(--transition);
-  font-size: 0.95rem;
-}
-
-.nav-link:hover {
-  color: var(--primary);
-  background: rgba(0,121,107,0.1);
-}
-
-.nav-link.active {
-  color: white;
-  background: var(--primary);
-  box-shadow: 0 4px 12px rgba(0,121,107,0.3);
-}
-
-.btn-login {
-  background: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-  padding: 0.6rem 1.5rem;
-  border-radius: 3rem;
-  font-weight: 600;
-  transition: var(--transition);
-  font-size: 0.9rem;
-}
-
-.btn-login:hover {
-  background: var(--primary);
-  color: white;
-}
-
-.hamburger {
-  display: none;
-  font-size: 1.8rem;
-  color: var(--primary);
-  cursor: pointer;
-}
 
 /* === HERO + MAPA ANIMADO === */
 .hero {

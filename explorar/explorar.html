@@ -3,436 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Mercado global con productores y compradores reales. Conoce quién vende, qué necesita y cómo conectar." />
+  <meta name="description" content="Mercado global real. Publica tu oferta o necesidad. Conecta en tiempo real." />
   <meta name="theme-color" content="#00796b" />
   <title>Mercado Global | AgroConnect</title>
 
   <!-- FUENTES -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" />
+
+  <!-- CSS EXTERNO -->
+  <link rel="stylesheet" href="../styles.css">
+   <link rel="stylesheet" href="styles.css">
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-
-  <style>
-    /* ========================================
-       AGROCONNECT - MERCADO CON PERSONAS REALES
-       Vendedores y compradores con nombre, foto, necesidad
-       2025 | Responsive | PWA | Simulación JS
-    ======================================== */
-
-    :root {
-      --primary: #00796b;
-      --primary-dark: #004d40;
-      --accent: #ff9800;
-      --success: #8bc34a;
-      --warning: #ffb300;
-      --danger: #e53935;
-      --light: #e0f2f1;
-      --bg: #f8fff9;
-      --card: #ffffff;
-      --text: #1a1a1a;
-      --text-light: #555;
-      --radius: 1.5rem;
-      --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-md: 0 8px 25px rgba(0,0,0,0.12);
-      --transition: all 0.4s ease;
-      --font-main: 'Inter', sans-serif;
-      --font-title: 'Playfair Display', serif;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-main);
-      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
-      color: var(--text);
-      line-height: 1.7;
-      padding-top: 90px;
-    }
-    body::before {
-      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 20% 80%, rgba(0,121,107,0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(255,152,0,0.08) 0%, transparent 50%);
-      pointer-events: none; z-index: -1;
-    }
-
-    .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
-    a { text-decoration: none; color: inherit; }
-
-    /* === NAV === */
-    .nav-wrapper {
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.12); z-index: 1000;
-    }
-    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
-    .logo { font-family: var(--font-title); font-size: 1.9rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.6rem; }
-    .logo i { color: var(--accent); animation: float 3s ease-in-out infinite; }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-    .nav-menu { display: flex; gap: 1.5rem; }
-    .nav-link { color: var(--text); font-weight: 600; padding: 0.5rem 1rem; border-radius: 2rem; transition: var(--transition); }
-    .nav-link:hover, .nav-link.active { color: white; background: var(--primary); }
-    .btn-login { background: var(--primary); color: white; padding: 0.6rem 1.5rem; border-radius: 3rem; font-weight: 600; }
-    .hamburger { display: none; font-size: 1.8rem; color: var(--primary); cursor: pointer; }
-
-    /* === HERO === */
-    .mercado-hero {
-      background: linear-gradient(135deg, #013f35, #319c90);
-      color: white; padding: 5rem 2rem 4rem; text-align: center; border-radius: 0 0 var(--radius) var(--radius);
-    }
-    .mercado-hero h1 { font-size: 3rem; margin-bottom: 1rem; font-family: var(--font-title); }
-    .mercado-hero p { font-size: 1.3rem; max-width: 900px; margin: 0 auto 2.5rem; opacity: 0.95; }
-    .stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; margin-top: 2.5rem; }
-    .stat { background: rgba(255,255,255,0.15); padding: 1.5rem 2rem; border-radius: 1.5rem; min-width: 200px; text-align: center; }
-    .stat i { font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); }
-    .stat strong { display: block; font-size: 2.2rem; font-weight: 700; }
-    .stat small { font-size: 0.9rem; opacity: 0.8; }
-
-    /* === ÁREAS DE COMPRA Y VENTA - CON PERSONAS REALES === */
-    .mercado-areas {
-      margin: 4rem 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-
-    .area-card {
-      background: white;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      transition: var(--transition);
-      height: 100%;
-    }
-    .area-card:hover { transform: translateY(-5px); }
-
-    .area-header {
-      padding: 1.8rem 2rem;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-weight: 700;
-      font-size: 1.5rem;
-    }
-    .area-header i { font-size: 2rem; }
-
-    .area-venta .area-header {
-      background: linear-gradient(135deg, var(--success), #66bb6a);
-    }
-    .area-compra .area-header {
-      background: linear-gradient(135deg, var(--accent), #ffb74d);
-    }
-
-    .area-body {
-      padding: 0;
-      max-height: 500px;
-      overflow-y: auto;
-    }
-
-    .actividad-stream {
-      list-style: none;
-    }
-
-    .actividad-item {
-      padding: 1.4rem 2rem;
-      border-bottom: 1px solid #f0f0f0;
-      display: flex;
-      gap: 1rem;
-      transition: background 0.3s ease;
-      position: relative;
-    }
-    .actividad-item:hover {
-      background: #f8fff9;
-    }
-    .actividad-item:last-child { border-bottom: none; }
-
-    .usuario-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-      border: 3px solid white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .actividad-content {
-      flex: 1;
-    }
-    .usuario-nombre {
-      font-weight: 600;
-      color: var(--text);
-      font-size: 1.05rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .usuario-nombre .verificado {
-      color: #1da1f2;
-      font-size: 0.9rem;
-    }
-    .usuario-ubicacion {
-      color: var(--text-light);
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .actividad-texto {
-      font-size: 0.95rem;
-      color: var(--text);
-      margin: 0.5rem 0;
-      line-height: 1.5;
-    }
-
-    .actividad-detalles {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 0.8rem;
-      font-size: 0.85rem;
-    }
-    .actividad-tiempo {
-      color: var(--text-light);
-    }
-
-    .actividad-badges {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .badge {
-      background: rgba(0,0,0,0.1);
-      color: var(--text);
-      padding: 0.3rem 0.8rem;
-      border-radius: 2rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .badge.urgente { background: #ffebee; color: var(--danger); }
-    .badge.nuevo { background: #e8f5e9; color: var(--success); }
-
-    .actividad-nueva::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 5px;
-      background: var(--primary);
-      animation: blink 2s infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .btn-contactar {
-      background: var(--primary);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .btn-contactar:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-
-    /* === MAPA + FILTROS === */
-    .mercado-main { 
-      display: grid; 
-      grid-template-columns: 1fr 320px; 
-      gap: 2rem; 
-      margin: 4rem 0; 
-    }
-    .mapa-container { 
-      position: relative; 
-      height: 550px; 
-      border-radius: var(--radius); 
-      overflow: hidden; 
-      box-shadow: var(--shadow-md); 
-    }
-    .mapa-container img { width: 100%; height: 100%; object-fit: cover; }
-    .pin { 
-      position: absolute; 
-      width: 38px; height: 38px; 
-      background: var(--success); 
-      border: 4px solid white; 
-      border-radius: 50%; 
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-      cursor: pointer; 
-      animation: pulse 2s infinite; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      font-size: 0.9rem; 
-      color: white; 
-      font-weight: bold; 
-    }
-    .pin:hover { transform: scale(1.4); z-index: 10; }
-    .pin-label { 
-      position: absolute; 
-      bottom: 48px; 
-      left: 50%; 
-      transform: translateX(-50%); 
-      background: var(--primary-dark); 
-      color: white; 
-      padding: 0.6rem 1rem; 
-      border-radius: 1rem; 
-      font-size: 0.8rem; 
-      white-space: nowrap; 
-      opacity: 0; 
-      pointer-events: none; 
-      transition: opacity 0.3s; 
-    }
-    .pin:hover .pin-label { opacity: 1; }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(139,195,74,0.7); } 70% { box-shadow: 0 0 0 15px rgba(139,195,74,0); } 100% { box-shadow: 0 0 0 0 rgba(139,195,74,0); } }
-
-    .filtros { 
-      background: var(--card); 
-      padding: 2.5rem; 
-      border-radius: var(--radius); 
-      box-shadow: var(--shadow-sm); 
-      height: fit-content; 
-    }
-    .filtros h3 { 
-      margin-bottom: 1.5rem; 
-      color: var(--primary-dark); 
-      font-size: 1.5rem; 
-      text-align: center; 
-    }
-    .filtro-group { margin-bottom: 1.8rem; }
-    .filtro-group label { display: block; margin-bottom: 0.6rem; font-weight: 600; }
-    .filtro-group select, .filtro-group input { 
-      width: 100%; 
-      padding: 0.9rem; 
-      border: 2px solid #e0e0e0; 
-      border-radius: 1rem; 
-      font-size: 1rem; 
-    }
-
-    /* === PRODUCTOS === */
-    .productos-grid { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-      gap: 2rem; 
-      margin: 4rem 0; 
-    }
-    .producto-card { 
-      background: var(--card); 
-      border-radius: var(--radius); 
-      overflow: hidden; 
-      box-shadow: var(--shadow-sm); 
-      transition: var(--transition); 
-    }
-    .producto-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-md); }
-    .producto-img { 
-      height: 200px; 
-      overflow: hidden; 
-      position: relative; 
-    }
-    .producto-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .producto-card:hover .producto-img img { transform: scale(1.12); }
-    .producto-badge { 
-      position: absolute; 
-      top: 1rem; 
-      right: 1rem; 
-      background: var(--success); 
-      color: white; 
-      padding: 0.4rem 0.8rem; 
-      border-radius: 2rem; 
-      font-size: 0.8rem; 
-      font-weight: 600; 
-    }
-    .producto-info { padding: 1.8rem; }
-    .producto-info h3 { font-size: 1.3rem; margin-bottom: 0.6rem; color: var(--primary-dark); }
-    .producto-meta { display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-light); margin-bottom: 1rem; }
-    .producto-precio { font-size: 1.6rem; font-weight: 700; color: var(--success); margin: 0.5rem 0; }
-    .producto-trazabilidad { font-size: 0.9rem; color: var(--primary); margin: 0.8rem 0; display: flex; align-items: center; gap: 0.5rem; }
-    .btn-oferta { 
-      background: var(--primary); 
-      color: white; 
-      padding: 0.8rem 1.5rem; 
-      border-radius: 3rem; 
-      font-weight: 700; 
-      display: block; 
-      text-align: center; 
-      margin-top: 1rem; 
-      transition: var(--transition); 
-    }
-    .btn-oferta:hover { background: var(--primary-dark); transform: translateY(-2px); }
-
-    /* === NOTIFICACIONES === */
-    .notificacion {
-      position: fixed; bottom: 20px; right: 20px; background: var(--card); padding: 1.2rem 1.8rem;
-      border-radius: 1.5rem; box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 1rem;
-      animation: slideIn 0.5s ease; z-index: 1000; max-width: 380px; border-left: 5px solid var(--success);
-    }
-    @keyframes slideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    .notificacion i { color: var(--success); font-size: 1.8rem; }
-    .notificacion strong { display: block; font-size: 1.1rem; }
-    .notificacion small { color: var(--text-light); font-size: 0.9rem; }
-
-    /* === FOOTER === */
-    .footer { 
-      background: linear-gradient(90deg, #004d40, #00796b); 
-      color: #f1f1f1; 
-      padding: 4rem 2rem 2rem; 
-      margin-top: 6rem; 
-      border-top: 5px solid #a5d6a7; 
-    }
-    .footer-contenido { max-width: 1200px; margin: 0 auto; text-align: center; }
-    .footer-nav a { color: white; margin: 0 1.2rem; font-weight: 600; font-size: 1rem; }
-
-    /* === RESPONSIVE === */
-    @media (max-width: 992px) {
-      .nav-menu { position: fixed; top: 80px; left: -100%; width: 300px; height: 100vh; background: white; flex-direction: column; padding: 2rem; box-shadow: 5px 0 20px rgba(0,0,0,0.2); transition: left 0.4s ease; }
-      .nav-menu.active { left: 0; }
-      .hamburger { display: block; }
-      .mercado-areas { grid-template-columns: 1fr; }
-      .mercado-main { grid-template-columns: 1fr; }
-      .filtros { order: -1; }
-    }
-  </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <div class="nav-wrapper" id="navbar">
-    <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <i class="fas fa-seedling"></i> AgroConnect
-      </a>
-      <nav class="nav-menu" id="navMenu">
-        <a href="index.html" class="nav-link">Inicio</a>
-        <a href="quienesSOmos.html" class="nav-link">Quiénes Somos</a>
-        <a href="explorar.html" class="nav-link active">Mercado Global</a>
-        <a href="vender.html" class="nav-link">Vender</a>
-        <a href="comprar.html" class="nav-link">Comprar</a>
-      </nav>
-      <a href="inicioDeSeccion.html" class="btn-login">Iniciar Sesión</a>
-      <div class="hamburger" id="hamburger">
-        <i class="fas fa-bars"></i>
-      </div>
-    </div>
-  </div>
-
+  <!-- HEADER DINÁMICO -->
+  <div id="header-container"></div>
+<script>
+  fetch("../components/header.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("header-container").innerHTML = html;
+      const script = document.createElement("script");
+      script.src = "../components/header.js";
+      document.body.appendChild(script);
+    });
+</script>
+ 
   <!-- HERO -->
   <section class="mercado-hero">
     <div class="container">
-      <h1>Mercado Global con Personas Reales</h1>
-      <p>Conoce a los productores y compradores. Ve qué venden, qué necesitan y cómo conectar directamente.</p>
+      <h1>Mercado en Vivo</h1>
+      <p>Publica tu oferta o necesidad. Conecta con productores y compradores en tiempo real.</p>
       <div class="stats">
         <div class="stat">
           <i class="fas fa-users"></i>
@@ -453,25 +60,94 @@
     </div>
   </section>
 
-  <!-- ÁREAS DE COMPRA Y VENTA - CON PERSONAS -->
+  <!-- PUBLICAR OFERTA / DEMANDA -->
+  <section class="container publicar-section">
+    <h2>Publica tu Oferta o Necesidad</h2>
+    <div class="publicar-tabs">
+      <button class="tab-btn active" data-tab="oferta">Vender</button>
+      <button class="tab-btn" data-tab="demanda">Comprar</button>
+    </div>
+
+    <!-- FORMULARIO OFERTA (VENDEDOR) -->
+    <form id="formOferta" class="form-publicar active">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Producto</label>
+          <input type="text" placeholder="Ej: Maíz amarillo orgánico" required>
+        </div>
+        <div class="form-group">
+          <label>Cantidad</label>
+          <input type="text" placeholder="Ej: 50 toneladas" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="text" placeholder="Ej: $320/ton" required>
+        </div>
+        <div class="form-group">
+          <label>Certificación</label>
+          <input type="text" placeholder="Ej: USDA Orgánico">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Mensaje (opcional)</label>
+        <textarea placeholder="Describe tu producto..."></textarea>
+      </div>
+      <button type="submit" class="btn-publicar">Publicar Oferta</button>
+    </form>
+
+    <!-- FORMULARIO DEMANDA (COMPRADOR) -->
+    <form id="formDemanda" class="form-publicar">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Necesito</label>
+          <input type="text" placeholder="Ej: Maíz amarillo" required>
+        </div>
+        <div class="form-group">
+          <label>Cantidad</label>
+          <input type="text" placeholder="Ej: 100 toneladas" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Presupuesto</label>
+          <input type="text" placeholder="Ej: Hasta $350/ton" required>
+        </div>
+        <div class="form-group">
+          <label>Urgencia</label>
+          <select>
+            <option>Entrega en 30 días</option>
+            <option>Muestras esta semana</option>
+            <option>Inmediato</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Mensaje (opcional)</label>
+        <textarea placeholder="Detalles de tu necesidad..."></textarea>
+      </div>
+      <button type="submit" class="btn-publicar">Publicar Necesidad</button>
+    </form>
+  </section>
+
+  <!-- ÁREAS DE COMPRA Y VENTA -->
   <section class="container mercado-areas">
-    <!-- ÁREA DE VENTA -->
+    <!-- VENTA -->
     <div class="area-card area-venta">
       <div class="area-header">
         <i class="fas fa-tractor"></i>
         <div>
           <div>Productores Vendiendo</div>
-          <small>Ofertas activas ahora</small>
+          <small>Ofertas activas</small>
         </div>
       </div>
       <div class="area-body">
-        <ul class="actividad-stream" id="ventasStream">
-          <!-- Generado por JS -->
-        </ul>
+        <ul class="actividad-stream" id="ventasStream"></ul>
       </div>
     </div>
 
-    <!-- ÁREA DE COMPRA -->
+    <!-- COMPRA -->
     <div class="area-card area-compra">
       <div class="area-header">
         <i class="fas fa-shopping-cart"></i>
@@ -481,30 +157,14 @@
         </div>
       </div>
       <div class="area-body">
-        <ul class="actividad-stream" id="comprasStream">
-          <!-- Generado por JS -->
-        </ul>
+        <ul class="actividad-stream" id="comprasStream"></ul>
       </div>
     </div>
   </section>
 
   <!-- MAPA + FILTROS -->
   <section class="container mercado-main">
-    <div class="mapa-container">
-      <img src="https://i.imgur.com/8z3i8iP.png" alt="Mapa mundial">
-      <div class="pin" style="top: 65%; left: 35%;">
-        <div class="pin-label">Juan Pérez - México</div>
-        <i class="fas fa-seedling"></i>
-      </div>
-      <div class="pin" style="top: 40%; left: 65%;">
-        <div class="pin-label">María Gómez - Colombia</div>
-        <i class="fas fa-coffee"></i>
-      </div>
-      <div class="pin" style="top: 50%; left: 55%;">
-        <div class="pin-label">Carlos Ruiz - Perú</div>
-        <i class="fas fa-apple-alt"></i>
-      </div>
-    </div>
+    <div id="mapa"></div>
 
     <aside class="filtros">
       <h3>Filtrar Ofertas</h3>
@@ -541,10 +201,10 @@
 
   <!-- NOTIFICACIÓN -->
   <div id="notificacion" class="notificacion" style="display:none;">
-    <i class="fas fa-check-circle"></i>
+    <i class="fas fa-exclamation-triangle"></i>
     <div>
-      <strong id="notifTitulo">¡Conexión exitosa!</strong>
-      <small id="notifTexto">Juan Pérez y Distribuidora Europa están negociando</small>
+      <strong id="notifTitulo">¡Espera!</strong>
+      <small id="notifTexto">Debes crear una cuenta para publicar</small>
     </div>
   </div>
 
@@ -560,181 +220,189 @@
     </div>
   </footer>
 
+  <!-- LEAFLET JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <script>
-    // NAV
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-    });
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      hamburger.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    // === SIMULACIÓN DE USUARIO LOGUEADO ===
+    let usuarioLogueado = false;
+    let rolUsuario = null; // 'vendedor' o 'comprador'
+
+    // CARGAR HEADER
+    fetch("../components/header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-container").innerHTML = html;
+        const script = document.createElement("script");
+        script.src = "../components/header.js";
+        document.body.appendChild(script);
+      });
+
+    // TABS PUBLICAR
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.form-publicar').forEach(f => f.classList.remove('active'));
+        btn.classList.add('active');
+        const formId = `form${btn.dataset.tab.charAt(0).toUpperCase() + btn.dataset.tab.slice(1)}`;
+        document.getElementById(formId).classList.add('active');
+      });
     });
 
-    // DATOS SIMULADOS CON PERSONAS REALES
+    // CONTROL DE ENVÍO DE FORMULARIOS
+    document.querySelectorAll('.form-publicar').forEach(form => {
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        // Verificar si está logueado
+        if (!usuarioLogueado) {
+          mostrarNotificacion(
+            "¡Espera!",
+            "Debes <strong>crear una cuenta</strong> para publicar.",
+            "warning"
+          );
+          setTimeout(() => {
+            window.location.href = "../inicioDeSeccion.html";
+          }, 2500);
+          return;
+        }
+
+        // Verificar rol correcto
+        const esOferta = form.id === 'formOferta';
+        if ((esOferta && rolUsuario !== 'vendedor') || (!esOferta && rolUsuario !== 'comprador')) {
+          mostrarNotificacion(
+            "Rol incorrecto",
+            `Solo los <strong>${esOferta ? 'vendedores' : 'compradores'}</strong> pueden publicar aquí.`,
+            "error"
+          );
+          return;
+        }
+
+        // Procesar publicación
+        const datos = new FormData(form);
+        const entrada = {
+          nombre: "Tú",
+          ubicacion: "Tu ubicación",
+          foto: "https://i.pravatar.cc/150?u=" + Date.now(),
+          ...(esOferta ? {
+            producto: datos.getAll('input')[0].value,
+            cantidad: datos.getAll('input')[1].value,
+            precio: datos.getAll('input')[2].value,
+            certificado: datos.getAll('input')[3].value || "Sin certificar",
+            mensaje: datos.getAll('textarea')[0].value || "Sin mensaje",
+            badges: ["nuevo"],
+            verificado: false,
+            tiempo: "ahora"
+          } : {
+            necesita: datos.getAll('input')[0].value,
+            cantidad: datos.getAll('input')[1].value,
+            presupuesto: datos.getAll('input')[2].value,
+            urgencia: datos.getAll('select')[0].value,
+            mensaje: datos.getAll('textarea')[0].value || "Sin mensaje",
+            badges: ["urgente"],
+            verificado: false,
+            tiempo: "ahora"
+          })
+        };
+
+        const container = esOferta ? 'ventasStream' : 'comprasStream';
+        renderPersona(container, entrada, esOferta);
+        form.reset();
+
+        mostrarNotificacion(
+          esOferta ? "¡Oferta publicada!" : "¡Necesidad publicada!",
+          esOferta ? "Tu producto está en vivo" : "Tu necesidad está visible",
+          "success"
+        );
+      });
+    });
+
+    // NOTIFICACIÓN PERSONALIZADA
+    function mostrarNotificacion(titulo, texto, tipo = "info") {
+      const iconos = { success: "check-circle", warning: "exclamation-triangle", error: "times-circle" };
+      const colores = { success: "#8bc34a", warning: "#ffb300", error: "#e53935" };
+
+      document.getElementById('notifTitulo').textContent = titulo;
+      document.getElementById('notifTexto').innerHTML = texto;
+      const notif = document.getElementById('notificacion');
+      notif.style.display = 'flex';
+      notif.style.borderLeftColor = colores[tipo];
+      notif.querySelector('i').className = `fas fa-${iconos[tipo]}`;
+      setTimeout(() => notif.style.display = 'none', 4000);
+    }
+
+    // DATOS SIMULADOS
     const vendedores = [
-      {
-        nombre: "Juan Pérez",
-        ubicacion: "Chiapas, México",
-        foto: "https://i.pravatar.cc/150?img=1",
-        producto: "Maíz amarillo orgánico",
-        cantidad: "50 toneladas",
-        precio: "$320/ton",
-        certificado: "USDA Orgánico",
-        mensaje: "Cosecha lista para exportación. Calidad premium.",
-        badges: ["nuevo", "organico"],
-        verificado: true,
-        tiempo: "hace 2 min"
-      },
-      {
-        nombre: "María Gómez",
-        ubicacion: "Antioquia, Colombia",
-        foto: "https://i.pravatar.cc/150?img=5",
-        producto: "Café arábica especial",
-        cantidad: "200 quintales",
-        precio: "$850/qq",
-        certificado: "Rainforest Alliance",
-        mensaje: "Sabor intenso, tueste medio. Listo para envío.",
-        badges: ["premium"],
-        verificado: true,
-        tiempo: "hace 5 min"
-      },
-      {
-        nombre: "Carlos Ruiz",
-        ubicacion: "Arequipa, Perú",
-        foto: "https://i.pravatar.cc/150?img=12",
-        producto: "Aguacate Hass",
-        cantidad: "10 toneladas",
-        precio: "$2.10/kg",
-        certificado: "GlobalG.A.P.",
-        mensaje: "Calibre 18-22. Empacado para exportación.",
-        badges: ["exportacion"],
-        verificado: false,
-        tiempo: "hace 8 min"
-      }
+      { nombre: "Juan Pérez", ubicacion: "Chiapas, México", foto: "https://i.pravatar.cc/150?img=1", producto: "Maíz amarillo orgánico", cantidad: "50 toneladas", precio: "$320/ton", certificado: "USDA Orgánico", mensaje: "Cosecha lista para exportación.", badges: ["nuevo"], verificado: true, tiempo: "hace 2 min" },
+      { nombre: "María Gómez", ubicacion: "Antioquia, Colombia", foto: "https://i.pravatar.cc/150?img=5", producto: "Café arábica", cantidad: "200 qq", precio: "$850/qq", certificado: "Rainforest", mensaje: "Sabor intenso.", badges: ["premium"], verificado: true, tiempo: "hace 5 min" }
     ];
 
     const compradores = [
-      {
-        nombre: "Distribuidora Europa",
-        ubicacion: "Madrid, España",
-        foto: "https://i.pravatar.cc/150?img=32",
-        necesita: "Maíz amarillo",
-        cantidad: "100 toneladas",
-        presupuesto: "Hasta $350/ton",
-        urgencia: "Entrega en 30 días",
-        mensaje: "Buscamos proveedor confiable para contrato anual.",
-        badges: ["urgente", "contrato"],
-        verificado: true,
-        tiempo: "hace 1 min"
-      },
-      {
-        nombre: "Café & Co.",
-        ubicacion: "Berlín, Alemania",
-        foto: "https://i.pravatar.cc/150?img=28",
-        necesita: "Café especial",
-        cantidad: "50 quintales/mes",
-        presupuesto: "Hasta $900/qq",
-        urgencia: "Muestras esta semana",
-        mensaje: "Necesitamos 3 variedades para prueba de mercado.",
-        badges: ["muestras"],
-        verificado: true,
-        tiempo: "hace 4 min"
-      },
-      {
-        nombre: "Fresh Market Inc.",
-        ubicacion: "Miami, EE.UU.",
-        foto: "https://i.pravatar.cc/150?img=41",
-        necesita: "Aguacate Hass",
-        cantidad: "20 contenedores",
-        presupuesto: "Calidad premium",
-        urgencia: "Semanal",
-        mensaje: "Cadena de supermercados. Necesitamos suministro constante.",
-        badges: ["gran-volumen"],
-        verificado: true,
-        tiempo: "hace 7 min"
-      }
+      { nombre: "Distribuidora Europa", ubicacion: "Madrid, España", foto: "https://i.pravatar.cc/150?img=32", necesita: "Maíz amarillo", cantidad: "100 toneladas", presupuesto: "Hasta $350/ton", urgencia: "30 días", mensaje: "Contrato anual.", badges: ["urgente"], verificado: true, tiempo: "hace 1 min" },
+      { nombre: "Café & Co.", ubicacion: "Berlín, Alemania", foto: "https://i.pravatar.cc/150?img=28", necesita: "Café especial", cantidad: "50 qq/mes", presupuesto: "Hasta $900/qq", urgencia: "Muestras", mensaje: "3 variedades.", badges: ["muestras"], verificado: true, tiempo: "hace 4 min" }
     ];
 
-    // RENDER PERSONAS
-    function renderPersona(containerId, persona, esVendedor) {
+    // RENDER PERSONA
+    function renderPersona(containerId, p, esVendedor) {
       const container = document.getElementById(containerId);
       const item = document.createElement('li');
-      item.className = `actividad-item ${persona.badges.includes('urgente') || persona.badges.includes('nuevo') ? 'actividad-nueva' : ''}`;
-      
-      const badgesHTML = persona.badges.map(b => {
-        const clases = b === 'urgente' ? 'badge urgente' : b === 'nuevo' ? 'badge nuevo' : 'badge';
-        const textos = { urgente: 'URGENTE', nuevo: 'NUEVO', organico: 'ORGÁNICO', premium: 'PREMIUM', exportacion: 'EXPORTACIÓN', contrato: 'CONTRATO', muestras: 'MUESTRAS', 'gran-volumen': 'GRAN VOLUMEN' };
-        return `<span class="${clases}">${textos[b]}</span>`;
+      item.className = `actividad-item ${p.badges.includes('urgente') || p.badges.includes('nuevo') ? 'actividad-nueva' : ''}`;
+
+      const badges = p.badges.map(b => {
+        const txt = { urgente: 'URGENTE', nuevo: 'NUEVO', organico: 'ORGÁNICO', premium: 'PREMIUM', muestras: 'MUESTRAS' };
+        const cls = b === 'urgente' ? 'badge urgente' : b === 'nuevo' ? 'badge nuevo' : 'badge';
+        return `<span class="${cls}">${txt[b] || b.toUpperCase()}</span>`;
       }).join('');
 
       item.innerHTML = `
-        <img src="${persona.foto}" alt="${persona.nombre}" class="usuario-avatar">
+        <img src="${p.foto}" alt="${p.nombre}" class="usuario-avatar">
         <div class="actividad-content">
-          <div class="usuario-nombre">
-            ${persona.nombre}
-            ${persona.verificado ? '<i class="fas fa-check-circle verificado" title="Verificado"></i>' : ''}
-          </div>
-          <div class="usuario-ubicacion">
-            <i class="fas fa-map-marker-alt"></i> ${persona.ubicacion}
-          </div>
+          <div class="usuario-nombre">${p.nombre} ${p.verificado ? '<i class="fas fa-check-circle verificado"></i>' : ''}</div>
+          <div class="usuario-ubicacion"><i class="fas fa-map-marker-alt"></i> ${p.ubicacion}</div>
           <div class="actividad-texto">
-            <strong>${esVendedor ? persona.producto : persona.necesita}</strong><br>
-            ${esVendedor ? `${persona.cantidad} · ${persona.precio}` : `${persona.cantidad} · ${persona.presupuesto}`}<br>
-            <em>"${persona.mensaje}"</em>
+            <strong>${esVendedor ? p.producto : p.necesita}</strong><br>
+            ${esVendedor ? `${p.cantidad} · ${p.precio}` : `${p.cantidad} · ${p.presupuesto}`}<br>
+            <em>"${p.mensaje}"</em>
           </div>
           <div class="actividad-detalles">
-            <div class="actividad-tiempo">${persona.tiempo}</div>
-            <div class="actividad-badges">${badgesHTML}</div>
+            <div class="actividad-tiempo">${p.tiempo}</div>
+            <div class="actividad-badges">${badges}</div>
           </div>
         </div>
         <button class="btn-contactar">${esVendedor ? 'Contactar' : 'Ofertar'}</button>
       `;
-      container.appendChild(item);
+      container.prepend(item);
     }
 
-    function renderPersonas() {
-      const ventasStream = document.getElementById('ventasStream');
-      const comprasStream = document.getElementById('comprasStream');
-      ventasStream.innerHTML = '';
-      comprasStream.innerHTML = '';
-
-      // Mezclar y mostrar 3-4 por sección
-      const ventasShuffle = [...vendedores].sort(() => 0.5 - Math.random());
-      const comprasShuffle = [...compradores].sort(() => 0.5 - Math.random());
-
-      ventasShuffle.forEach(v => renderPersona('ventasStream', v, true));
-      comprasShuffle.forEach(c => renderPersona('comprasStream', c, false));
+    // INICIALIZAR
+    function init() {
+      vendedores.forEach(v => renderPersona('ventasStream', v, true));
+      compradores.forEach(c => renderPersona('comprasStream', c, false));
     }
 
-    // PRODUCTOS
-    function renderProductos() {
-      const grid = document.getElementById('productosGrid');
-      grid.innerHTML = vendedores.map(v => `
-        <div class="producto-card">
-          <div class="producto-img">
-            <img src="${v.foto}" alt="${v.nombre}">
-            <div class="producto-badge">ACTIVO</div>
-          </div>
-          <div class="producto-info">
-            <h3>${v.producto}</h3>
-            <div class="producto-meta">
-              <span><i class="fas fa-user"></i> ${v.nombre}</span>
-              <span><i class="fas fa-map-marker-alt"></i> ${v.ubicacion}</span>
-            </div>
-            <div class="producto-precio">${v.precio}</div>
-            <div class="producto-trazabilidad"><i class="fas fa-shield-alt"></i> ${v.certificado}</div>
-            <a href="#" class="btn-oferta">Contactar Productor</a>
-          </div>
-        </div>
-      `).join('');
-    }
+    // === MAPA LEAFLET CON ZOOM LIMITADO ===
+    const mapa = L.map('mapa', {
+      minZoom: 2,
+      maxZoom: 10,
+      maxBounds: [[-85, -180], [85, 180]],
+      maxBoundsViscosity: 1.0
+    }).setView([20, 0], 2);
 
-    // ACTUALIZAR CADA 6 SEGUNDOS
-    setInterval(() => {
-      renderPersonas();
-    }, 6000);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(mapa);
+
+    const marcadores = [
+      { lat: 16.75, lng: -93.12, label: "Juan Pérez - Maíz", icon: 'seedling' },
+      { lat: 6.25, lng: -75.56, label: "María Gómez - Café", icon: 'coffee' },
+      { lat: -13.16, lng: -74.22, label: "Carlos Ruiz - Aguacate", icon: 'apple-alt' }
+    ];
+
+    marcadores.forEach(m => {
+      const icon = L.divIcon({ className: 'custom-pin', html: `<i class="fas fa-${m.icon}"></i>`, iconSize: [30, 30] });
+      L.marker([m.lat, m.lng], { icon }).addTo(mapa)
+        .bindPopup(`<b>${m.label}</b>`);
+    });
 
     // ESTADÍSTICAS
     setInterval(() => {
@@ -743,25 +411,8 @@
       document.getElementById('paisesActivos').textContent = 35 + Math.floor(Math.random() * 25);
     }, 3000);
 
-    // NOTIFICACIONES
-    const notifs = [
-      "¡Juan Pérez y Distribuidora Europa están negociando!",
-      "María Gómez envió muestras a Alemania",
-      "Fresh Market Inc. cerró contrato con Carlos Ruiz",
-      "Nuevo productor verificado en Brasil"
-    ];
-    setInterval(() => {
-      const txt = notifs[Math.floor(Math.random() * notifs.length)];
-      document.getElementById('notifTitulo').textContent = "¡Conexión exitosa!";
-      document.getElementById('notifTexto').textContent = txt;
-      const notif = document.getElementById('notificacion');
-      notif.style.display = 'flex';
-      setTimeout(() => notif.style.display = 'none', 5000);
-    }, 8000);
-
     // INICIAR
-    renderPersonas();
-    renderProductos();
+    init();
   </script>
 </body>
 </html>
